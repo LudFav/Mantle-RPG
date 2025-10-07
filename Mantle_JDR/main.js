@@ -1,6 +1,4 @@
-import { SCENES_DATA } from './data/scenes_index.js'; // Correction du chemin
-// Import des constantes des modèles pour l'initialisation (bien que les classes ne soient pas utilisées directement ici)
-import { PILOT_BASE_MIN, POOL_TOTAL, MANTE_TYPES } from './models.js';
+import { SCENES_DATA } from './data/scenes_index.js'; // Chemin correct, assuming data/ is a subdirectory
 
 // Variables globales (fournies par l'environnement Canvas)
 const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
@@ -10,22 +8,54 @@ let authReady = false;
 // --- DÉFINITIONS DU JEU ---
 
 // Statistiques de base minimales du Pilote (7 stats, base 1)
+const PILOT_BASE_MIN = 1;
+// CORRECTION: Changement de 'QI de Combat' à 'QI_de_Combat' pour éviter les erreurs de clé d'objet
 const PILOT_BASE_STATS = { Force: PILOT_BASE_MIN, Agilité: PILOT_BASE_MIN, Vitesse: PILOT_BASE_MIN, Intelligence: PILOT_BASE_MIN, Lucidité: PILOT_BASE_MIN, QI_de_Combat: PILOT_BASE_MIN, Synchronisation: PILOT_BASE_MIN };
-const BASE_STATS_TOTAL = Object.keys(PILOT_BASE_STATS).length * PILOT_BASE_MIN;
-const DISTRIBUTION_POOL = POOL_TOTAL - BASE_STATS_TOTAL;
+
+// Total de points à distribuer
+const POOL_TOTAL = 35; // Augmenté à 35
+const BASE_STATS_TOTAL = Object.keys(PILOT_BASE_STATS).length * PILOT_BASE_MIN; // 7 * 1 = 7
+const DISTRIBUTION_POOL = POOL_TOTAL - BASE_STATS_TOTAL; // 35 - 7 = 28 points à répartir
+
+// MANTES : Distribution recommandée des 35 points (F, A, V, I, L, QC, S)
+const MANTES = {
+    Phalange: {
+        // La somme de ces valeurs fait 35
+        pilotDistribution: { Force: 9, Agilité: 3, Vitesse: 3, Intelligence: 6, Lucidité: 6, QI_de_Combat: 5, Synchronisation: 3 }, 
+        description: "Assaut Lourd. Haute résistance. Mante optimisée pour l'impact et la tactique."
+    },
+    Aiguille: {
+        pilotDistribution: { Force: 4, Agilité: 9, Vitesse: 5, Intelligence: 7, Lucidité: 7, QI_de_Combat: 2, Synchronisation: 1 }, 
+        description: "Reconnaissance et CQC. Maîtrise du mouvement et analyse. Mante agile."
+    },
+    Éclair: {
+        pilotDistribution: { Force: 4, Agilité: 4, Vitesse: 9, Intelligence: 6, Lucidité: 4, QI_de_Combat: 4, Synchronisation: 4 }, 
+        description: "Interception Rapide. Évitement extrême. Mante optimisée pour la vitesse."
+    },
+    Omni: {
+        pilotDistribution: { Force: 5, Agilité: 5, Vitesse: 5, Intelligence: 6, Lucidité: 5, QI_de_Combat: 5, Synchronisation: 4 }, 
+        description: "Soutien et Commandement. Profil équilibré, excellente adaptabilité. Mante Polyvalente."
+    }
+};
+
 
 let gameState = {
     name: "",
     manteType: "",
-    pilotStats: {}, // F, A, V, I, L, QC, S (valeurs de 1 à 10+)
-    effectiveStats: {}, // F, A, V (*10), I, L, QC, S (directe) - utilisé pour l'affichage
-    manteHP: { max: 0, current: 0 },
-    pilotHP: { max: 0, current: 0 },
+    pilotStats: {}, // F, A, V, I, L, QC, S (valeurs de 1 à 18)
+    effectiveStats: {}, // F, A, V (*10), I, L, QC, S (directe) - utilisé pour les checks et l'affichage
     reputation: { CEL: 5, FEU: 5, Aetheria: 0 },
     currentScene: "CREATION",
     log: [],
     progress: 0,
-    gameStatus: "PLAYING"
+    gameStatus: "PLAYING",
+    // Ajout des PV pour le Pilote et l'Armure
+    pilotHP: 50,
+    pilotMaxHP: 50,
+    manteHP: 0, // Initialisé dans newGame
+    manteMaxHP: 0,
+    // Pour gérer les conséquences de succès/échec de la vague 1
+    lastCheckSuccess: false,
 };
 
 // --- Initialisation et Construction des Scènes ---
@@ -36,36 +66,44 @@ function applyConsequenceFromData(cons) {
     if (cons.reputation) {
         for (const k of Object.keys(cons.reputation)) {
             const delta = cons.reputation[k];
-            gameState.reputation[k] = (gameState.reputation[k] || 0) + delta;
+            gameState.reputation[k] = Math.max(0, Math.min(10, (gameState.reputation[k] || 0) + delta)); // Limite de 0 à 10
         }
     }
     if (cons.stats) {
+        // Applique la conséquence sur les 7 stats du pilote
         for (const k of Object.keys(cons.stats)) {
             const delta = cons.stats[k];
             if (gameState.pilotStats[k] !== undefined) {
-                gameState.pilotStats[k] = Math.max(PILOT_BASE_MIN, gameState.pilotStats[k] + delta);
+                // Application de la modification, limitée par le max et le min
+                gameState.pilotStats[k] = Math.max(PILOT_BASE_MIN, Math.min(18, gameState.pilotStats[k] + delta)); 
             }
         }
     }
+    
+    // Gestion des PV (ManteHP et PilotHP)
+    if (cons.ManteHP !== undefined) {
+        gameState.manteHP = Math.min(gameState.manteMaxHP, gameState.manteHP + cons.ManteHP);
+        gameState.manteHP = Math.max(0, gameState.manteHP);
+    }
+    if (cons.PilotHP !== undefined) {
+        gameState.pilotHP = Math.min(gameState.pilotMaxHP, gameState.pilotHP + cons.PilotHP);
+        gameState.pilotHP = Math.max(0, gameState.pilotHP);
+        if (gameState.pilotHP <= 0) {
+            renderScene('GAME_OVER'); // Fin du jeu si le Pilote meurt
+            return;
+        }
+    }
+
+    // Gestion du statut de succès de la dernière action (pour les choix dynamiques)
+    if (cons.successStatus !== undefined) {
+        gameState.lastCheckSuccess = cons.successStatus;
+    }
+    
     if (typeof cons.progress === 'number') {
         gameState.progress = cons.progress;
     }
     if (typeof cons.gameStatus === 'string') {
         gameState.gameStatus = cons.gameStatus;
-    }
-    if (typeof cons.damage === 'number') { // Dégâts à la Mante
-        takeDamage(cons.damage, 0);
-    }
-    if (typeof cons.pilotDamage === 'number') { // Dégâts au Pilote
-        takeDamage(0, cons.pilotDamage);
-    }
-    if (typeof cons.healMante === 'number') {
-        gameState.manteHP.current = Math.min(gameState.manteHP.max, gameState.manteHP.current + cons.healMante);
-        updateLog(`[Soin Mante] Armure réparée de ${cons.healMante} PV.`);
-    }
-    if (typeof cons.healPilot === 'number') {
-        gameState.pilotHP.current = Math.min(gameState.pilotHP.max, gameState.pilotHP.current + cons.healPilot);
-        updateLog(`[Soin Pilote] Pilote soigné de ${cons.healPilot} PV.`);
     }
 }
 
@@ -75,19 +113,19 @@ function buildScenes(data) {
     for (const [key, value] of Object.entries(data)) {
         scenes[key] = {
             text: value.text || '',
-            choices: value.choices || [],
+            choices: value.choices || [], 
             choices_Phalange: value.choices_Phalange,
             choices_Aiguille: value.choices_Aiguille,
             choices_Éclair: value.choices_Éclair,
             choices_Omni: value.choices_Omni,
             check: value.check,
-            combatCheck: value.combatCheck, // Ajout pour le combatCheck
             renderFn: value.renderFn,
-            consequence: value.consequence
+            consequence: value.consequence 
                 ? () => applyConsequenceFromData(value.consequence)
                 : undefined
         };
     }
+    // Injection des fonctions de rendu spéciales
     if (scenes.CREATION) scenes.CREATION.renderFn = renderCreationScreen;
     if (scenes.GAME_OVER) scenes.GAME_OVER.renderFn = renderGameOver;
     return scenes;
@@ -121,8 +159,10 @@ function loadGameLocal() {
         }
         const loaded = JSON.parse(raw);
         Object.assign(gameState, loaded);
-
-        calculateEffectiveStats();
+        
+        // Recalcul des stats effectives après chargement et des max PV
+        calculateEffectiveStats(); 
+        calculateMaxHP();
 
         updateLog(`[Système] Partie locale chargée. Bienvenue, ${gameState.name} (${gameState.manteType}).`);
         renderScene(gameState.currentScene);
@@ -141,67 +181,46 @@ function resetToCreation() {
     gameState.manteType = '';
     gameState.pilotStats = {};
     gameState.effectiveStats = {};
-    gameState.manteHP = { max: 0, current: 0 };
-    gameState.pilotHP = { max: 0, current: 0 };
     gameState.reputation = { CEL: 5, FEU: 5, Aetheria: 0 };
     gameState.log = [];
     gameState.progress = 0;
     gameState.gameStatus = 'PLAYING';
+    gameState.pilotHP = 50;
+    gameState.pilotMaxHP = 50;
+    gameState.manteHP = 0;
+    gameState.manteMaxHP = 0;
+    gameState.lastCheckSuccess = false;
+
     renderScene('CREATION');
 }
 
-// --- Logique du Jeu ---
+// Calcule les PV Max de la Mante (basé sur la Force du Pilote * 20)
+function calculateMaxHP() {
+    // La Force est la stat principale de l'armure
+    const pilotForce = gameState.pilotStats.Force || PILOT_BASE_MIN;
+    gameState.manteMaxHP = pilotForce * 20;
 
-// Applique les dégâts à la Mante (priorité) puis au Pilote (si l'armure cède)
-function takeDamage(manteDamage, pilotDamage) {
-    let damageTaken = false;
-
-    if (manteDamage > 0) {
-        // La Mante absorbe les dégâts. Si les PV descendent sous zéro, le reste est transféré au Pilote.
-        const remainingDamage = Math.max(0, manteDamage - gameState.manteHP.current);
-        gameState.manteHP.current = Math.max(0, gameState.manteHP.current - manteDamage);
-        damageTaken = true;
-
-        if (remainingDamage > 0) {
-            pilotDamage += remainingDamage;
-            updateLog(`[Dégâts Mante] Armure brisée! ${remainingDamage} PV transférés au Pilote.`);
-        } else {
-            updateLog(`[Dégâts Mante] Armure frappée pour ${manteDamage} PV. PV restants: ${gameState.manteHP.current}.`);
-        }
-    }
-
-    if (pilotDamage > 0) {
-        gameState.pilotHP.current = Math.max(0, gameState.pilotHP.current - pilotDamage);
-        damageTaken = true;
-        updateLog(`[Dégâts Pilote] Pilote frappé pour ${pilotDamage} PV. PV restants: ${gameState.pilotHP.current}.`);
-    }
-
-    if (gameState.pilotHP.current <= 0) {
-        renderScene("ENDING_DEFEAT_PILOT");
-        return true;
-    }
-    if (gameState.manteHP.current <= 0 && gameState.pilotHP.current > 0) {
-        renderScene("ENDING_DEFEAT_MANTE");
-        return true;
-    }
-    return false;
+    // Si on charge ou initialise, s'assurer que HP ne dépasse pas MaxHP
+    gameState.manteHP = Math.min(gameState.manteMaxHP, gameState.manteHP);
+    gameState.pilotHP = Math.min(gameState.pilotMaxHP, gameState.pilotHP);
 }
 
 // Calcule les 7 stats effectives (Physiques x10, Mentales x1)
 function calculateEffectiveStats() {
     if (!gameState.manteType || Object.keys(gameState.pilotStats).length === 0) return;
 
-    // Remplacement de "QI de Combat" par "QI_de_Combat"
+    // Stats mentales (I, L, QC, S)
     gameState.effectiveStats.Intelligence = gameState.pilotStats.Intelligence;
     gameState.effectiveStats.Lucidité = gameState.pilotStats.Lucidité;
     gameState.effectiveStats.QI_de_Combat = gameState.pilotStats.QI_de_Combat;
     gameState.effectiveStats.Synchronisation = gameState.pilotStats.Synchronisation;
-
+    
     // Stats physiques (F, A, V) multipliées par 10
     gameState.effectiveStats.Force = gameState.pilotStats.Force * 10;
     gameState.effectiveStats.Agilité = gameState.pilotStats.Agilité * 10;
     gameState.effectiveStats.Vitesse = gameState.pilotStats.Vitesse * 10;
 }
+
 
 function newGame(manteType, name) {
     const inputs = document.querySelectorAll('#stat_distribution input[data-stat]');
@@ -222,35 +241,28 @@ function newGame(manteType, name) {
 
     gameState.name = name;
     gameState.manteType = manteType;
-
     gameState.pilotStats = stats;
-
-    // Initialisation des PV basé sur la Force du Pilote (modèle: Force x 100)
-    const pilotForce = stats.Force;
-    gameState.manteHP = {
-        max: pilotForce * 100,
-        current: pilotForce * 100
-    };
-    gameState.pilotHP = {
-        max: 150,
-        current: 150
-    };
-
+    
+    // Calcul des stats effectives et PV Max
     calculateEffectiveStats();
+    calculateMaxHP();
+    
+    // Initialiser les PV au Max
+    gameState.pilotHP = gameState.pilotMaxHP;
+    gameState.manteHP = gameState.manteMaxHP;
 
-    const effStats = gameState.effectiveStats;
-
+    const effStats = gameState.effectiveStats; // Pour le log
+    
     gameState.reputation = { CEL: 5, FEU: 5, Aetheria: 0 };
-
-    // Remplacement de "QI de Combat" par "QI_de_Combat" dans le log
     gameState.log = [
         `[Départ] ${name} a choisi l'ECA Mante ${manteType}.`,
         `[Pilote Base] F:${stats.Force}, A:${stats.Agilité}, V:${stats.Vitesse}, I:${stats.Intelligence}, L:${stats.Lucidité}, QC:${stats.QI_de_Combat}, S:${stats.Synchronisation}.`,
-        `[Mante Effective] F:${effStats.Force}, A:${effStats.Agilité}, V:${effStats.Vitesse}. PV Mante: ${gameState.manteHP.max}.`
+        `[Mante Effective] F:${effStats.Force}, A:${effStats.Agilité}, V:${effStats.Vitesse}.`
     ];
     gameState.currentScene = "ACT_1_KAIROK_INTRO";
     gameState.progress = 0;
     gameState.gameStatus = "PLAYING";
+    gameState.lastCheckSuccess = false; // Réinitialiser le statut
 
     saveGame();
     renderScene("ACT_1_KAIROK_INTRO");
@@ -258,164 +270,163 @@ function newGame(manteType, name) {
 
 function updateLog(message) {
     gameState.log.push(message);
-    if (gameState.log.length > 10) {
+    // Limiter le log aux 50 derniers messages pour garder la taille raisonnable
+    if (gameState.log.length > 50) {
         gameState.log.shift();
     }
     renderGameUI();
 }
 
 function checkSkill(stat, difficulty) {
-    // Utilise la stat non-amplifiée du pilote pour le D20 check
-    const statValue = gameState.pilotStats[stat];
+    // Utilise la stat du Pilote (valeur non multipliée)
+    const checkValue = gameState.pilotStats[stat];
+    
+    if (checkValue === undefined) {
+        console.error(`Statistique '${stat}' non trouvée dans pilotStats.`);
+        return false;
+    }
 
     const roll = Math.floor(Math.random() * 20) + 1;
-    const total = roll + statValue;
+    const total = roll + checkValue;
 
-    const message = `[CHECK] ${stat} (Valeur: ${statValue} + D20 Jet: ${roll}) vs Diff: ${difficulty}. Total: ${total}.`;
+    const message = `[CHECK] ${stat} (Valeur: ${checkValue} + D20 Jet: ${roll}) vs Diff: ${difficulty}. Total: ${total}.`;
     updateLog(message);
 
     return total >= difficulty;
 }
 
-// Résout une action de combat (décisive dans le cadre de ce JDR textuel)
-function resolveCombatCheck(sceneCheck, successScene, failureScene) {
-    const enemyName = sceneCheck.enemyName || "Mante Ennemie";
-    const stat = sceneCheck.stat;
-    const difficulty = sceneCheck.difficulty;
-    const playerDamageOnSuccess = sceneCheck.playerDamageOnSuccess || 100;
-    const enemyDamageOnFailure = sceneCheck.enemyDamageOnFailure || 150;
-
-    const statValue = gameState.pilotStats[stat];
-    const roll = Math.floor(Math.random() * 20) + 1;
-    const total = roll + statValue;
-
-    updateLog(`[COMBAT CHECK] Attaque tactique contre ${enemyName}. Jet de ${stat} (${statValue} + D20 Jet: ${roll}) vs Diff: ${difficulty}. Total: ${total}.`);
-
-    if (total >= difficulty) {
-        // SUCCÈS
-        updateLog(`[Victoire Tactique] Succès! Votre manœuvre déchire l'armure de l'ennemi. (Dégâts infligés théoriques: ${playerDamageOnSuccess} PV). L'ennemi est neutralisé.`);
-        renderScene(successScene);
-    } else {
-        // ÉCHEC - L'ennemi riposte
-        updateLog(`[RIPOSTE ENNEMIE] Échec. ${enemyName} exécute une riposte violente. L'armure Mante subit ${enemyDamageOnFailure} dégâts.`);
-        if (takeDamage(enemyDamageOnFailure, 0)) {
-            return; // Game Over
-        }
-        renderScene(failureScene);
+// Logique pour filtrer les choix basés sur les exigences de statistiques et les statuts
+function filterChoicesByRequirements(scene, pilotStats, lastCheckSuccess) {
+    let choices = scene.choices || [];
+    
+    // Ajout des choix spécifiques au type de Mante
+    const manteChoices = scene[`choices_${gameState.manteType}`];
+    if (manteChoices) {
+        choices = manteChoices;
     }
+
+    // Filtrer les choix selon les exigences minimales (requirements)
+    choices = choices.filter(choice => {
+        if (!choice.requirements) return true;
+        
+        for (const [stat, requiredValue] of Object.entries(choice.requirements)) {
+            if (pilotStats[stat] < requiredValue) {
+                // Stocker la raison du verrouillage pour l'affichage
+                choice.lockedReason = `Req: ${stat.replace('_', ' ')} ${requiredValue} (Actuel: ${pilotStats[stat]})`;
+                return false;
+            }
+        }
+        return true;
+    });
+
+    // Ajouter les choix avantageux ou critiques basés sur le statut du check précédent
+    if (scene.requirements_success && lastCheckSuccess) {
+        choices = choices.concat(scene.requirements_success.map(c => ({...c, isDeterminant: true})));
+    }
+    if (scene.requirements_failure && !lastCheckSuccess && sceneKey !== "ACT_1_KAIROK_INTRO" && sceneKey !== "CREATION") {
+        // Ne pas appliquer si l'échec est dans l'écran de création ou la première intro
+        choices = choices.concat(scene.requirements_failure.map(c => ({...c, isCritique: true})));
+    }
+
+    return choices;
 }
 
 function handleChoice(sceneKey, choiceIndex) {
     const currentScene = SCENES[sceneKey];
-
-    let sceneChoices = currentScene.choices;
-    if (gameState.manteType) {
-        // Utilise la version spécifique à la Mante si elle existe
-        sceneChoices = currentScene[`choices_${gameState.manteType}`] || currentScene.choices;
-    }
-
-    // Filtrer les choix verrouillés avant de prendre la décision
-    const filteredChoices = sceneChoices.map(choice => {
-        if (choice.requirements) {
-            for (const [stat, reqValue] of Object.entries(choice.requirements)) {
-                if ((gameState.pilotStats[stat] || 0) < reqValue) {
-                    return { locked: true };
-                }
-            }
-        }
-        return choice;
-    }).filter(choice => !choice.locked);
-
-    // Ajustement de l'index pour le choix réel (si l'UI a envoyé l'index dans le tableau non filtré)
-    // Ici on suppose que l'index reçu correspond au tableau filtré (l'UI ne doit pas afficher les boutons verrouillés comme cliquables)
-    // Nous allons utiliser l'index dans le tableau affiché (filtré)
-
-    const choice = filteredChoices[choiceIndex]; // Note: ceci est une simplification
-
-    if (!choice || choice.locked) {
-        updateLog('[Erreur Système] Tentative d\'accéder à une option verrouillée ou invalide.');
+    
+    // On utilise la fonction de filtrage pour obtenir les choix réellement disponibles
+    const availableChoices = filterChoicesByRequirements(currentScene, gameState.pilotStats, gameState.lastCheckSuccess);
+    
+    const choice = availableChoices[choiceIndex];
+    if (!choice) {
+        updateLog(`[Erreur] Choix invalide à la scène ${sceneKey}.`);
         return;
     }
-
+    
     const nextSceneKey = choice.next;
+    
+    // Réinitialiser le statut de succès pour le check suivant (sauf si on est sur la scène de check elle-même)
+    gameState.lastCheckSuccess = false;
 
-    // Handle Consequence from the CHOICE itself (before moving)
+    // Appliquer les conséquences du choix immédiatement
     if (choice.consequence) {
         applyConsequenceFromData(choice.consequence);
         calculateEffectiveStats();
     }
-
-    // Nouveau: Gestion du COMBAT_CHECK
-    if (choice.combatCheck) {
-        resolveCombatCheck(
-            choice.combatCheck,
-            choice.combatCheck.success,
-            choice.combatCheck.failure
-        );
-        saveGame();
-        return;
-    }
-
+    
     const scene = SCENES[nextSceneKey];
 
-    // Gérer les vérifications de compétences simples
     if (scene.check) {
-        const success = checkSkill(scene.check.stat, scene.check.difficulty);
-
-        if (success) {
-            updateLog(`[Résultat] Succès du jet de ${scene.check.stat}! L'action est fluide.`);
-            renderScene(scene.check.success);
-        } else {
-            // J'ajoute des dégâts légers en cas d'échec de check simple pour plus d'impact
-            updateLog(`[Résultat] Échec du jet de ${scene.check.stat}. Manœuvre avortée, légère répercussion (Dégâts Mante: 50).`);
-            if (!takeDamage(50, 0)) {
+        // Si c'est un COMBAT_CHECK, on utilise une logique de dégâts simplifiée
+        if (scene.check.type === "COMBAT_CHECK") {
+            // Le COMBAT_CHECK est ici utilisé comme un jet de dés pour déterminer le succès
+            const success = checkSkill(scene.check.stat, scene.check.difficulty);
+            
+            if (success) {
+                updateLog(`[Résultat] Succès du jet de ${scene.check.stat} ! Combat terminé.`);
+                // Appliquer les dégâts 'réussite' avant de passer à la scène succès
+                applyConsequenceFromData({ ManteHP: -scene.check.damageManteSuccess, PilotHP: -scene.check.damagePilotSuccess });
+                renderScene(scene.check.success);
+            } else {
+                updateLog(`[Résultat] Échec du jet de ${scene.check.stat}. Combat perdu.`);
+                // Appliquer les dégâts 'échec' avant de passer à la scène échec
+                applyConsequenceFromData({ ManteHP: -scene.check.damageManteFailure, PilotHP: -scene.check.damagePilotFailure });
                 renderScene(scene.check.failure);
             }
+            return;
         }
-        saveGame();
+
+        // Logique pour les checks de compétences normales (non COMBAT_CHECK)
+        const success = checkSkill(scene.check.stat, scene.check.difficulty);
+        
+        if (success) {
+            updateLog(`[Résultat] Succès du jet de ${scene.check.stat} !`);
+            
+            // Appliquer les conséquences de succès
+            if (SCENES[scene.check.success].consequence) {
+                 SCENES[scene.check.success].consequence();
+            }
+            
+            // Définir le statut de succès pour les choix futurs dans le gameState
+            gameState.lastCheckSuccess = true;
+
+            renderScene(scene.check.success);
+        } else {
+            updateLog(`[Résultat] Échec du jet de ${scene.check.stat}.`);
+            
+            // Appliquer les conséquences d'échec
+            if (SCENES[scene.check.failure].consequence) {
+                SCENES[scene.check.failure].consequence();
+            }
+
+            // Définir le statut d'échec pour les choix futurs dans le gameState
+            gameState.lastCheckSuccess = false;
+
+            renderScene(scene.check.failure);
+        }
         return;
     }
 
-    // Gérer les conséquences de la scène simple (si la scène en a)
+    // Gérer les conséquences de la scène simple
     if (scene.consequence) {
         scene.consequence();
         calculateEffectiveStats();
     }
 
-    // Si la scène suivante n'est pas une fin de partie par dégât
-    if (gameState.gameStatus === "PLAYING") {
-        renderScene(nextSceneKey);
-        saveGame();
-    }
+    renderScene(nextSceneKey);
+    saveGame();
 }
+
 
 // --- Fonctions de Rendu (UI) ---
 
 const gameView = document.getElementById('game-view');
 
-function renderHPBar(label, current, max, colorClass) {
-    const percentage = max > 0 ? Math.min(current, max) / max * 100 : 0;
-    const textColor = current <= (max * 0.25) ? 'text-red-400' : 'text-white';
-    return `
-        <div class="mb-2">
-            <div class="flex justify-between text-sm font-semibold">
-                <span>${label}</span>
-                <span class="${textColor}">${current} / ${max} PV</span>
-            </div>
-            <div class="stat-bar-bg h-2 rounded-full mt-1">
-                <div class="${colorClass} h-2 rounded-full transition-all duration-300" style="width: ${percentage}%;"></div>
-            </div>
-        </div>
-    `;
-}
-
 function renderStatBar(stat, value) {
-    // Utilise la valeur non multipliée (pour le D20 check)
-    const checkValue = gameState.pilotStats[stat];
-    const effectiveValue = value; // Valeur affichée (x10 pour F,A,V)
-    const max = 10; // Maximum visuel pour le Pilote
+    const checkValue = value; // Valeur du pilote
+    const max = 10; 
     const percentage = Math.min(checkValue, max) / max * 100;
-
+    
     let color;
     switch (stat) {
         case 'Force': color = 'bg-red-500'; break;
@@ -427,10 +438,13 @@ function renderStatBar(stat, value) {
         case 'Synchronisation': color = 'bg-orange-500'; break;
         default: color = 'bg-gray-500';
     }
+    
+    // Affichage des stats physiques (Force, Agilité, Vitesse) avec le bonus x10
+    const effValue = gameState.effectiveStats[stat];
+    const displayValue = ['Force', 'Agilité', 'Vitesse'].includes(stat) 
+        ? `${checkValue} <span class="text-gray-400">(${effValue})</span>` 
+        : `${checkValue}`;
 
-    const displayValue = ['Force', 'Agilité', 'Vitesse'].includes(stat)
-        ? `${checkValue} <span class="text-gray-400">(${effectiveValue})</span>`
-        : checkValue;
 
     return `
         <div class="mb-2">
@@ -445,54 +459,55 @@ function renderStatBar(stat, value) {
     `;
 }
 
+function renderHPBar(label, currentHP, maxHP) {
+    const percentage = maxHP > 0 ? (currentHP / maxHP) * 100 : 0;
+    const color = label === 'Mante' ? 'bg-indigo-500' : (currentHP < maxHP / 3) ? 'bg-red-500' : 'bg-green-500';
+
+    return `
+        <div class="mb-2">
+            <div class="flex justify-between text-sm font-semibold text-white">
+                <span>${label} PV</span>
+                <span>${currentHP} / ${maxHP}</span>
+            </div>
+            <div class="stat-bar-bg h-3 rounded-full mt-1">
+                <div class="${color} h-3 rounded-full" style="width: ${percentage}%;"></div>
+            </div>
+        </div>
+    `;
+}
+
 function renderGameUI() {
-    const statsHTML = Object.entries(gameState.effectiveStats).map(([stat, value]) => renderStatBar(stat, value)).join('');
+    // Affichage des stats du Pilote (valeurs de 1 à 18)
+    const statsHTML = Object.entries(gameState.pilotStats).map(([stat, value]) => renderStatBar(stat, value)).join('');
     const logHTML = gameState.log.map(msg => `<p class="text-xs text-gray-400">${msg}</p>`).reverse().join('');
-
+    
     const currentScene = SCENES[gameState.currentScene];
+    
+    // Filtrage dynamique des choix
+    const availableChoices = filterChoicesByRequirements(currentScene, gameState.pilotStats, gameState.lastCheckSuccess);
+    
+    const choicesHTML = availableChoices.map((choice, index) => {
+        let btnClass = "btn-choice";
+        let text = choice.text;
 
-    let sceneChoices = currentScene.choices;
-    if (gameState.manteType) {
-        sceneChoices = currentScene[`choices_${gameState.manteType}`] || currentScene.choices;
-    }
-
-    // Fonction de filtrage pour les options verrouillées (affichage et logique)
-    const filterChoicesForUI = (choices) => {
-        return choices.map(choice => {
-            if (choice.requirements) {
-                for (const [stat, reqValue] of Object.entries(choice.requirements)) {
-                    if ((gameState.pilotStats[stat] || 0) < reqValue) {
-                        return {
-                            text: `${choice.text} [VERROUILLÉ] (Req: ${stat.replace('_', ' ')} ${reqValue} / Actuel: ${gameState.pilotStats[stat] || 0})`,
-                            locked: true,
-                            next: ''
-                        };
-                    }
-                }
-            }
-            return choice;
-        });
-    };
-
-    const choicesForUI = filterChoicesForUI(sceneChoices || []);
-
-    // L'index dans choicesForUI est l'index dans le tableau généré par map, qui est celui que l'onclick utilise.
-    const choicesHTML = choicesForUI.map((choice, index) => {
-        if (choice.locked) {
-            return `<button class="btn-locked w-full text-left p-3 rounded-lg mt-3 text-sm bg-gray-700 text-gray-500 cursor-not-allowed">${choice.text}</button>`;
+        if (choice.lockedReason) {
+            btnClass += " opacity-50 cursor-not-allowed text-gray-500 border-gray-700";
+            text = `[VERROUILLÉ] ${choice.text} (${choice.lockedReason})`;
+        } else if (choice.isDeterminant) {
+            // Correspond à la couleur bleue/verte de l'avantage
+            btnClass += " choice-determinant border-blue-500 text-blue-300 hover:bg-blue-900";
+        } else if (choice.isCritique) {
+            // Correspond à la couleur rouge du risque
+            btnClass += " choice-critique border-red-500 text-red-300 hover:bg-red-900";
         }
+
         return `
-            <button onclick="handleChoiceWrapper('${gameState.currentScene}', ${index})"
-                    class="btn-choice w-full text-left p-3 rounded-lg mt-3 text-sm hover:ring-2 ring-green-500/50">
-                ${choice.text}
+            <button onclick="${choice.lockedReason ? '' : `handleChoiceWrapper('${gameState.currentScene}', ${index})`}"
+                    class="${btnClass} w-full text-left p-3 rounded-lg mt-3 text-sm hover:ring-2 ring-green-500/50">
+                ${text}
             </button>
         `;
     }).join('');
-
-    const hpMante = gameState.manteHP || { current: 0, max: 0 };
-    const hpPilot = gameState.pilotHP || { current: 0, max: 0 };
-    const hpHTML = renderHPBar('Armure Mante (PV)', hpMante.current, hpMante.max, 'bg-red-600') +
-        renderHPBar('Pilote (PV)', hpPilot.current, hpPilot.max, 'bg-cyan-500');
 
     gameView.innerHTML = `
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -500,14 +515,12 @@ function renderGameUI() {
             <aside class="lg:col-span-1 bg-gray-800 p-4 rounded-lg">
                 <h2 class="text-xl font-bold mb-3 text-white">${gameState.name} | Mante ${gameState.manteType}</h2>
                 
-                <h3 class="text-md font-semibold mb-2 text-red-400">Statut (PV)</h3>
-                <div class="border-b border-gray-700 pb-3 mb-3">
-                    ${hpHTML}
-                </div>
+                <h3 class="text-md font-semibold mb-2 text-yellow-400">Points de Vie</h3>
+                ${renderHPBar('Mante', gameState.manteHP, gameState.manteMaxHP)}
+                ${renderHPBar('Pilote', gameState.pilotHP, gameState.pilotMaxHP)}
                 
-                <h3 class="text-md font-semibold mb-2 text-yellow-400">Statistiques de Jet (D20 + Stat)</h3>
-                <p class="text-xs text-gray-400 mb-2">Physique: Valeur de jet / (Valeur amplifiée x10)</p>
-                <div class="border-b border-gray-700 pb-3 mb-3">
+                <div class="border-y border-gray-700 py-3 my-3">
+                    <h3 class="text-md font-semibold mb-2 text-yellow-400">Statistiques du Pilote (Check Value/Armure x10)</h3>
                     ${statsHTML}
                 </div>
                 
@@ -515,7 +528,7 @@ function renderGameUI() {
                 <p class="text-sm">CEL: ${gameState.reputation.CEL} / FEU: ${gameState.reputation.FEU} / Aetheria: ${gameState.reputation.Aetheria}</p>
                 
                 <h3 class="text-lg font-semibold mt-4 mb-2 text-white">Journal des Opérations</h3>
-                <div class="h-40 overflow-y-auto space-y-1 p-2 bg-gray-900 rounded text-xs">
+                <div id="log-display" class="h-40 overflow-y-auto space-y-1 p-2 bg-gray-900 rounded text-xs">
                     ${logHTML}
                 </div>
                 <div class="grid grid-cols-2 gap-2 mt-4">
@@ -546,7 +559,7 @@ function renderCreationScreen() {
     let optionsHTML = '';
     const statKeys = Object.keys(PILOT_BASE_STATS);
 
-    for (const [key, mante] of Object.entries(MANTE_TYPES)) {
+    for (const [key, mante] of Object.entries(MANTES)) {
         optionsHTML += `
             <div class="p-4 bg-gray-800 rounded-lg border border-gray-700 hover:border-green-500 transition cursor-pointer" 
                  onclick="applyRecommendedDistribution('${key}')">
@@ -555,16 +568,19 @@ function renderCreationScreen() {
             </div>
         `;
     }
-
-    // Remplacement de "QI de Combat" par "QI_de_Combat" dans l'UI
-    let distributionHTML = statKeys.map(stat => `
-        <div class="flex items-center justify-between p-2 border-b border-gray-700 last:border-b-0">
-            <label class="text-sm font-semibold text-white">${stat.replace('_', ' ')}</label>
-            <input type="number" data-stat="${stat}" min="1" max="18" value="1"
-                   oninput="updatePoolDisplay()"
-                   class="w-16 p-1 rounded bg-gray-700 text-center border-none focus:ring-green-500 focus:border-green-500" />
-        </div>
-    `).join('');
+    
+    // HTML pour la distribution des points
+    let distributionHTML = statKeys.map(stat => {
+        const displayName = stat.replace('_', ' '); // Affichage avec espace
+        return `
+            <div class="flex items-center justify-between p-2 border-b border-gray-700 last:border-b-0">
+                <label class="text-sm font-semibold text-white">${displayName}</label>
+                <input type="number" data-stat="${stat}" min="1" max="18" value="1"
+                       oninput="updatePoolDisplay()"
+                       class="w-16 p-1 rounded bg-gray-700 text-center border-none focus:ring-green-500 focus:border-green-500" />
+            </div>
+        `;
+    }).join('');
 
 
     gameView.innerHTML = `
@@ -601,10 +617,10 @@ function renderCreationScreen() {
             </div>
         </div>
     `;
-
-    // Logic for distribution update (uses MANTE_TYPES)
+    
+    // Logique de distribution des points
     window.applyRecommendedDistribution = (type) => {
-        const distribution = MANTE_TYPES[type].pilotDistribution;
+        const distribution = MANTES[type].pilotDistribution;
         document.getElementById('mante_type').value = type;
 
         Object.keys(distribution).forEach(stat => {
@@ -619,31 +635,33 @@ function renderCreationScreen() {
     window.updatePoolDisplay = () => {
         let currentSum = 0;
         const inputs = document.querySelectorAll('#stat_distribution input[data-stat]');
-
+        
         inputs.forEach(input => {
-            currentSum += parseInt(input.value) || PILOT_BASE_MIN;
-            input.value = Math.max(PILOT_BASE_MIN, parseInt(input.value) || PILOT_BASE_MIN);
+            const val = parseInt(input.value) || PILOT_BASE_MIN;
+            // Assurer que la valeur reste dans les bornes [1, 18]
+            input.value = Math.max(PILOT_BASE_MIN, Math.min(18, val));
+            currentSum += parseInt(input.value);
         });
 
         const remaining = POOL_TOTAL - currentSum;
         const remainingEl = document.getElementById('pool_remaining');
-
+        
         remainingEl.textContent = remaining;
-
+        
         if (currentSum > POOL_TOTAL) {
             remainingEl.classList.remove('text-green-400', 'text-yellow-500');
             remainingEl.classList.add('text-red-500');
         } else if (currentSum < POOL_TOTAL) {
-            remainingEl.classList.remove('text-green-400', 'text-red-500');
+            remainingEl.classList.remove('text-red-500', 'text-green-400');
             remainingEl.classList.add('text-yellow-500');
         } else {
             remainingEl.classList.remove('text-red-500', 'text-yellow-500');
             remainingEl.classList.add('text-green-400');
         }
     };
-
-    const initialManteType = 'Phalange';
-    window.applyRecommendedDistribution(initialManteType);
+    
+    // Appliquer la distribution par défaut (Phalange) au chargement
+    window.applyRecommendedDistribution('Phalange');
     window.updatePoolDisplay();
 }
 
@@ -658,7 +676,7 @@ function renderGameOver() {
         color = "text-yellow-500";
     }
 
-    const finalQC = gameState.effectiveStats.QI_de_Combat || 'N/A';
+    const finalQC = gameState.pilotStats.QI_de_Combat || 'N/A';
 
     gameView.innerHTML = `
         <div class="max-w-xl mx-auto text-center space-y-6 p-8 bg-gray-800 rounded-xl">
@@ -682,7 +700,7 @@ function renderScene(sceneKey) {
 
     if (sceneKey === "CREATION") {
         renderCreationScreen();
-    } else if (sceneKey.startsWith("ENDING")) {
+    } else if (sceneKey.startsWith("ENDING") || SCENES[sceneKey]?.gameStatus) {
         renderGameOver();
         saveGame();
     } else {
@@ -695,13 +713,12 @@ function buildRunSummary() {
     const lines = [];
     lines.push(`Joueur: ${gameState.name}`);
     lines.push(`Mante: ${gameState.manteType}`);
-    lines.push('--- Statistiques de Base du Pilote ---');
+    lines.push('--- Points de Vie ---');
+    lines.push(`Mante PV: ${gameState.manteHP} / ${gameState.manteMaxHP}`);
+    lines.push(`Pilote PV: ${gameState.pilotHP} / ${gameState.pilotMaxHP}`);
+    lines.push('--- Statistiques du Pilote ---');
     lines.push(`Force: ${gameState.pilotStats.Force}, Agilité: ${gameState.pilotStats.Agilité}, Vitesse: ${gameState.pilotStats.Vitesse}`);
     lines.push(`Intelligence: ${gameState.pilotStats.Intelligence}, Lucidité: ${gameState.pilotStats.Lucidité}, QI de Combat: ${gameState.pilotStats.QI_de_Combat}, Synchronisation: ${gameState.pilotStats.Synchronisation}`);
-    lines.push('--- Statistiques Effectives ---');
-    lines.push(`Force: ${gameState.effectiveStats.Force}, Agilité: ${gameState.effectiveStats.Agilité}, Vitesse: ${gameState.effectiveStats.Vitesse} (x10)`);
-    lines.push(`Intelligence: ${gameState.effectiveStats.Intelligence}, Lucidité: ${gameState.effectiveStats.Lucidité}, QI de Combat: ${gameState.effectiveStats.QI_de_Combat}, Synchronisation: ${gameState.effectiveStats.Synchronisation}`);
-    lines.push(`PV Mante: ${gameState.manteHP.current}/${gameState.manteHP.max} | PV Pilote: ${gameState.pilotHP.current}/${gameState.pilotHP.max}`);
     lines.push(`Réputation: CEL ${gameState.reputation.CEL}, FEU ${gameState.reputation.FEU}, Aetheria ${gameState.reputation.Aetheria}`);
     lines.push(`Progression: ${gameState.progress}%`);
     lines.push(`Scène Courante: ${gameState.currentScene}`);
@@ -749,9 +766,7 @@ async function exportRunAsPDF() {
 
 // --- Initialisation ---
 
-window.handleChoiceWrapper = (sceneKey, choiceIndex) => {
-    handleChoice(sceneKey, choiceIndex);
-};
+window.handleChoiceWrapper = handleChoice;
 window.newGame = newGame;
 window.loadGame = loadGame;
 window.saveGameLocal = saveGameLocal;
