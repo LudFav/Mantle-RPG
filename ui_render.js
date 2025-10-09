@@ -1,5 +1,5 @@
 import { gameState, SCENES, checkSkill, filterChoicesByRequirements, resetToCreation, saveGameLocal, loadGameLocal, startGame, handleCombatChoice, takeDamage } from './game_logic.js';
-import { MANTES, PILOT_BASE_STATS, POOL_TOTAL, DISTRIBUTION_POOL, ENEMY_TYPES } from './models.js';
+import { MANTES, PILOT_BASE_STATS, POOL_TOTAL, DISTRIBUTION_POOL, ENEMY_TYPES, PILOT_BASE_MIN } from './models.js';
 
 const gameView = document.getElementById('game-view');
 const MANTE_SPECIAL_ATTACKS = {
@@ -554,3 +554,4 @@ export async function exportRunAsPDF() {
         }
     }
 }
+
