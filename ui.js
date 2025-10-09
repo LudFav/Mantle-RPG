@@ -2,7 +2,7 @@ import { render, h } from 'https://esm.sh/preact@10.19.2';
 import { useState, useEffect } from 'https://esm.sh/preact@10.19.2/hooks';
 import htm from 'https://esm.sh/htm@3.1.1';
 
-import { SCENES } from './data/scenes_index.js';
+import { SCENES_DATA } from './data/scenes_index.js';
 import { MANTES, ENEMY_TYPES, MANTE_SPECIAL_ATTACKS, POOL_TOTAL, PILOT_BASE_MIN } from './models.js';
 import { filterChoicesByRequirements } from './game_logic.js';
 import { markdownTableToHtml } from './utils.js';
@@ -89,7 +89,7 @@ const LogPanel = ({ log }) => {
 // --- Ecrans de jeu (Screens) ---
 
 const LoreIntroScreen = () => {
-    const loreScene = SCENES['LORE_INTRO'];
+    const loreScene = SCENES_DATA['LORE_INTRO'];
     const [narrative, tableMarkdown] = (loreScene.text || '').split("TABLE_ECA_START");
     const tableHTML = { __html: markdownTableToHtml(tableMarkdown) };
 
@@ -136,7 +136,7 @@ const CreationScreen = () => {
         <div class="max-w-3xl mx-auto space-y-6">
             <h2 class="text-2xl font-bold text-center">Création de Personnage</h2>
             <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
-                <p class="text-sm leading-relaxed whitespace-pre-line">${SCENES.CREATION.text}</p>
+                <p class="text-sm leading-relaxed whitespace-pre-line">${SCENES_DATA.CREATION.text}</p>
             </div>
             
             <input type="text" value=${name} onInput=${(e) => setName(e.target.value)} placeholder="Nom de Code"
@@ -183,7 +183,7 @@ const CreationScreen = () => {
 };
 
 const GameScreen = ({ gameState }) => {
-    const currentScene = SCENES[gameState.currentScene];
+    const currentScene = SCENES_DATA[gameState.currentScene];
     if (!currentScene) return html`<p>Chargement...</p>`;
 
     let sceneChoices = currentScene[`choices_${gameState.manteType}`] || currentScene.choices;
@@ -250,7 +250,7 @@ const CombatScreen = ({ gameState }) => {
 };
 
 const GameOverScreen = ({ gameState }) => {
-    const finalScene = SCENES[gameState.currentScene];
+    const finalScene = SCENES_DATA[gameState.currentScene];
     let endingText = finalScene ? finalScene.text : "La mission est terminée.";
     const isSuccess = gameState.gameStatus === "ENDED_SUCCESS";
 
@@ -307,4 +307,3 @@ export function renderUI(gameState) {
     const appRoot = document.getElementById('app');
     render(html`<${App} gameState=${gameState} />`, appRoot);
 }
-
