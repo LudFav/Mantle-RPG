@@ -460,11 +460,11 @@ Composition des Escouades ECA (Mantes)
     ACT_3_LEVIATHAN_OUTRO_CHOICE: {
         text: "La station Léviathan est sur le point d'être détruite. Aetheria vous offre une extraction et de l'argent en échange de toutes les données du Monolithe. La CEL vous ordonne d'utiliser l'autodestruction pour purifier la zone.",
         choices: [
-            { text: "Accepter l'offre d'Aetheria. La survie avant l'idéologie. (Augmente Réputation Aetheria)", next: "ENDING_SUCCESS_CORPO", consequence: () => applyConsequenceFromData({ reputation: { CEL: -5, Aetheria: 5 } }) },
-            { text: "Obéir à la CEL : Détruire toutes les preuves et fuir. (Augmente Réputation CEL)", next: "ACT_3_LEVIATHAN_ESCAPE_VITESSE", consequence: () => applyConsequenceFromData({ reputation: { CEL: 5, Aetheria: -2 } }) },
-            { text: "Obéir partiellement à la CEL : Détruire l'épave mais envoyer les données recueillies au haut commandement CEL. (Augmente Réputation CEL)", next: "ENDING_SUCCESS_CEL", consequence: () => applyConsequenceFromData({ reputation: { CEL: 4, Aetheria: -2 } }) },
-            { text: "Détruire l'épave et envoyer les données à une faction de la FEU, contre extraction et protection. (Diminue Réputation CEL/Aetheria)", next: "ENDING_SUCCESS_FEU", consequence: () => applyConsequenceFromData({ reputation: { CEL: -5, Aetheria: -2, FEU: 5 } }) },
-            { text: "Détruire l'épave et envoyer les données aux 2 camps. (Diminue Réputation CEL/Aetheria)", next: "ENDING_SUCCESS_REBEL", consequence: () => applyConsequenceFromData({ reputation: { CEL: -2, Aetheria: -2, FEU: 2 } }) }
+            { text: "Accepter l'offre d'Aetheria. La survie avant l'idéologie. (Augmente Réputation Aetheria)", next: "ENDING_SUCCESS_CORPO", consequence: { reputation: { CEL: -5, Aetheria: 5 } } },
+            { text: "Obéir à la CEL : Détruire toutes les preuves et fuir. (Augmente Réputation CEL)", next: "ACT_3_LEVIATHAN_ESCAPE_VITESSE", consequence: { reputation: { CEL: 5, Aetheria: -2 } } },
+            { text: "Obéir partiellement à la CEL : Détruire l'épave mais envoyer les données recueillies au haut commandement CEL. (Augmente Réputation CEL)", next: "ENDING_SUCCESS_CEL", consequence: { reputation: { CEL: 4, Aetheria: -2 } } },
+            { text: "Détruire l'épave et envoyer les données à une faction de la FEU, contre extraction et protection. (Diminue Réputation CEL/Aetheria)", next: "ENDING_SUCCESS_FEU", consequence: { reputation: { CEL: -5, Aetheria: -2, FEU: 5 } } },
+            { text: "Détruire l'épave et envoyer les données aux 2 camps. (Diminue Réputation CEL/Aetheria)", next: "ENDING_SUCCESS_REBEL", consequence: { reputation: { CEL: -2, Aetheria: -2, FEU: 2 } } }
         ],
     },
 
