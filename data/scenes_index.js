@@ -29,7 +29,7 @@ Composition des Escouades ECA (Mantes)
 | ** Aiguille ** | Reconnaissance / CQC(Corps - à - Corps) | Agilité extrême($\times 10$), Finesse de Mouvement. | Blindage minimal, faible Force de frappe directe. | Lames énergétiques, Fusil de précision, Grappins. |
 | ** Éclair ** | Flanc / Interception Rapide | Vitesse de pointe($\times 10$), manœuvres d'évitement. | Consommation d'énergie massive, signature thermique élevée. | SMG lourds, Lance - flammes tactiques(pour forcer le mouvement). |
 | ** Omni ** | Soutien / Commandement | Équilibre, capacités C³ (commandement, contrôle, communication). | N'excelle dans aucun domaine, dépend de l'escouade. | Fusil d'assaut modulable, Drones de support, Kit de réparation rapide. |`
-            `,
+        ,
         choices: [
             { text: "Commencer la Création de Personnage", next: "CREATION" }
         ],
