@@ -1,83 +1,71 @@
-// --- CONSTANTES STATISTIQUES ---
+export const PILOT_BASE_MIN = 1;
 
-// Statistiques de base du Pilote (utilisées pour les checks D20)
-export const BASE_STATS = ['Force', 'Agilité', 'Vitesse', 'Intelligence', 'Lucidité', 'QI_de_Combat', 'Synchronisation'];
-export const PILOT_BASE_MIN = 1; // Minimum pour chaque stat
-export const POOL_TOTAL = 35;    // Total des points à distribuer (Augmenté de 25 à 35)
+export const PILOT_BASE_STATS = {
+    Force: PILOT_BASE_MIN,
+    Agilité: PILOT_BASE_MIN,
+    Vitesse: PILOT_BASE_MIN,
+    Intelligence: PILOT_BASE_MIN,
+    Lucidité: PILOT_BASE_MIN,
+    QI_de_Combat: PILOT_BASE_MIN,
+    Synchronisation: PILOT_BASE_MIN
+};
 
-// --- DÉFINITIONS DES MANTES (Types et Distributions Recommandées) ---
-// La somme de chaque distribution doit être égale à POOL_TOTAL (35)
-export const MANTE_TYPES = {
+export const POOL_TOTAL = 35;
+const BASE_STATS_TOTAL = Object.keys(PILOT_BASE_STATS).length * PILOT_BASE_MIN; // 7 * 1 = 7
+export const DISTRIBUTION_POOL = POOL_TOTAL - BASE_STATS_TOTAL; // 35 - 7 = 28 points à répartir
+export const MANTES = {
     Phalange: {
-        // Nouvelle somme: 35. Fort en Force et QI_de_Combat.
-        pilotDistribution: { Force: 10, Agilité: 2, Vitesse: 2, Intelligence: 6, Lucidité: 3, QI_de_Combat: 7, Synchronisation: 5 },
-        description: "Assaut Lourd. Haute résistance. Optimisée pour l'impact et la tactique."
+        baseStats: { Force: 10, Agilité: 3, Vitesse: 3, Intelligence: 5, Lucidité: 5, QI_de_Combat: 5, Synchronisation: 4 },
+        description: "Assaut Lourd. Capacité de résistance et de destruction maximale."
     },
     Aiguille: {
-        // Nouvelle somme: 35. Fort en Agilité et Intelligence.
-        pilotDistribution: { Force: 2, Agilité: 10, Vitesse: 5, Intelligence: 8, Lucidité: 6, QI_de_Combat: 3, Synchronisation: 1 },
-        description: "Reconnaissance et CQC. Maîtrise du mouvement et analyse chirurgicale."
+        baseStats: { Force: 4, Agilité: 10, Vitesse: 5, Intelligence: 4, Lucidité: 6, QI_de_Combat: 3, Synchronisation: 3 },
+        description: "Reconnaissance et CQC. Maîtrise du mouvement et frappes chirurgicales."
     },
     Éclair: {
-        // Nouvelle somme: 35. Fort en Vitesse et Synchronisation.
-        pilotDistribution: { Force: 2, Agilité: 5, Vitesse: 10, Intelligence: 6, Lucidité: 3, QI_de_Combat: 3, Synchronisation: 6 },
-        description: "Interception Rapide. Évitement extrême. Optimisée pour les manœuvres à grande vitesse."
+        baseStats: { Force: 3, Agilité: 5, Vitesse: 10, Intelligence: 3, Lucidité: 6, QI_de_Combat: 5, Synchronisation: 3 },
+        description: "Interception Rapide. Idéal pour le flanc et les manœuvres d'évitement extrêmes."
     },
     Omni: {
-        // Nouvelle somme: 35. Profil équilibré avec de bonnes stats mentales.
-        pilotDistribution: { Force: 5, Agilité: 5, Vitesse: 4, Intelligence: 8, Lucidité: 5, QI_de_Combat: 5, Synchronisation: 3 },
-        description: "Soutien et Commandement. Profil équilibré, excellente adaptabilité et polyvalence."
+        baseStats: { Force: 5, Agilité: 5, Vitesse: 5, Intelligence: 6, Lucidité: 5, QI_de_Combat: 5, Synchronisation: 4 },
+        description: "Soutien et Commandement. Un équilibre parfait entre toutes les capacités."
     }
 };
 
+export const ENEMY_TYPES = {
+    PHALANGE_LOURDE: {
+        name: "Phalange Lourde FEU (Vague 2)",
+        maxHP: 180,
+        damageBase: 35,
+        description: "Lourdement blindée, lente mais dévastatrice. Viser les articulations."
+    },
+    SYNTHESE_VOLKOV: {
+        name: "Synthèse PXF-Volkov (Laboratoire Léviathan)",
+        maxHP: 250,
+        damageBase: 50,
+        description: "Rapide, bio-mécanique et cherche à se synchroniser avec le pilote. Très dangereux au contact."
+    }
+};
 
-// --- CLASSE PILOT (Gère les stats du Pilote et ses PV) ---
+// --- CLASSES DE DONNÉES (Pilot & Mante) ---
+// Note: Les classes Pilot et Mante ne sont plus strictement nécessaires car l'état est géré dans gameState/game_logic.
+// Elles sont ici pour la clarté des types si nécessaire, mais l'état est stocké dans gameState.
+/*
 export class Pilot {
-    constructor(name, manteType, initialStats) {
+    constructor(name, pilotStats) {
         this.name = name;
-        this.manteType = manteType;
-        this.stats = initialStats; // Valeurs de 1 à 18
-
-        // PV du Pilote (PV Humains sont bas, la Mante absorbe le plus gros)
-        this.maxHP = 150;
-        this.currentHP = this.maxHP;
-    }
-
-    applyStatChange(stat, delta) {
-        if (this.stats[stat] !== undefined) {
-            this.stats[stat] = Math.max(PILOT_BASE_MIN, this.stats[stat] + delta);
-        }
+        this.stats = pilotStats;
+        this.HP = 100; 
     }
 }
 
-// --- CLASSE MANTE (Gère l'armure et l'amplification) ---
 export class Mante {
-    constructor(pilot) {
-        this.pilot = pilot;
-
-        // PV de la Mante sont initialisés dans Game.initPilotAndMante (basé sur Force x 100)
-        this.maxHP = 0;
-        this.currentHP = 0;
-    }
-
-    // Retourne l'ensemble des stats effectives (Pilote x 10 pour le physique, direct pour le mental)
-    getEffectiveStats() {
-        const stats = {};
-        BASE_STATS.forEach(stat => {
-            const pilotValue = this.pilot.stats[stat];
-            if (['Force', 'Agilité', 'Vitesse'].includes(stat)) {
-                // Stats physiques multipliées par 10 par l'armure
-                stats[stat] = pilotValue * 10;
-            } else {
-                // Stats mentales (Check Value = Effective Value)
-                stats[stat] = pilotValue;
-            }
-        });
-        return stats;
-    }
-
-    // Retourne la valeur de base du Pilote pour le jet de D20 (non multipliée)
-    getCheckValue(stat) {
-        return this.pilot.stats[stat] || PILOT_BASE_MIN;
+    constructor(type, pilotStats) {
+        this.type = type;
+        this.maxHP = pilotStats.Force * 10;
+        this.HP = this.maxHP;
+        this.effectiveStats = {};
+        calculateEffectiveStats(pilotStats, this.effectiveStats);
     }
 }
+*/
