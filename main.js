@@ -11,10 +11,11 @@ window.loadGameLocal = loadGameLocal;
 window.resetToCreation = resetToCreation;
 window.renderScene = renderScene;
 window.handleChoiceWrapper = handleChoice;
-window.handleCombatChoice = handleCombatChoice; n
+window.handleCombatChoice = handleCombatChoice;
 window.exportRunAsJSON = exportRunAsJSON;
 window.exportRunAsPDF = exportRunAsPDF;
 
 document.addEventListener('DOMContentLoaded', () => {
     loadGameLocal();
 });
+
