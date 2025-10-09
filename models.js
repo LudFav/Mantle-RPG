@@ -1,3 +1,5 @@
+// --- CONSTANTES DE BASE DU PILOTE ---
+
 export const PILOT_BASE_MIN = 1;
 
 export const PILOT_BASE_STATS = {
@@ -11,8 +13,10 @@ export const PILOT_BASE_STATS = {
 };
 
 export const POOL_TOTAL = 35;
-const BASE_STATS_TOTAL = Object.keys(PILOT_BASE_STATS).length * PILOT_BASE_MIN; // 7 * 1 = 7
-export const DISTRIBUTION_POOL = POOL_TOTAL - BASE_STATS_TOTAL; // 35 - 7 = 28 points à répartir
+const BASE_STATS_TOTAL = Object.keys(PILOT_BASE_STATS).length * PILOT_BASE_MIN; 
+export const DISTRIBUTION_POOL = POOL_TOTAL - BASE_STATS_TOTAL;
+
+
 export const MANTES = {
     Phalange: {
         baseStats: { Force: 10, Agilité: 3, Vitesse: 3, Intelligence: 5, Lucidité: 5, QI_de_Combat: 5, Synchronisation: 4 },
@@ -32,6 +36,33 @@ export const MANTES = {
     }
 };
 
+export const MANTE_SPECIAL_ATTACKS = {
+    Phalange: {
+        name: "Écrasement d'Assaut",
+        stat: "Force",
+        damageMult: 2,
+        desc: "Dégâts doublés, difficile à éviter, utilise la Force pure de l'armure."
+    },
+    Aiguille: {
+        name: "Frappe Chirurgicale",
+        stat: "Agilité",
+        damageMult: 1.5,
+        desc: "Dégâts modérés, chance d'ignorer la défense ennemie."
+    },
+    Éclair: {
+        name: "Surcharge de Vitesse",
+        stat: "Vitesse",
+        damageMult: 1.5,
+        desc: "Dégâts modérés, chance d'obtenir un second tour."
+    },
+    Omni: {
+        name: "Défaillance Systémique",
+        stat: "Synchronisation",
+        damageMult: 1.2,
+        desc: "Dégâts légers, chance de réduire l'attaque de l'ennemi au prochain tour."
+    }
+};
+
 export const ENEMY_TYPES = {
     PHALANGE_LOURDE: {
         name: "Phalange Lourde FEU (Vague 2)",
@@ -46,26 +77,3 @@ export const ENEMY_TYPES = {
         description: "Rapide, bio-mécanique et cherche à se synchroniser avec le pilote. Très dangereux au contact."
     }
 };
-
-// --- CLASSES DE DONNÉES (Pilot & Mante) ---
-// Note: Les classes Pilot et Mante ne sont plus strictement nécessaires car l'état est géré dans gameState/game_logic.
-// Elles sont ici pour la clarté des types si nécessaire, mais l'état est stocké dans gameState.
-/*
-export class Pilot {
-    constructor(name, pilotStats) {
-        this.name = name;
-        this.stats = pilotStats;
-        this.HP = 100; 
-    }
-}
-
-export class Mante {
-    constructor(type, pilotStats) {
-        this.type = type;
-        this.maxHP = pilotStats.Force * 10;
-        this.HP = this.maxHP;
-        this.effectiveStats = {};
-        calculateEffectiveStats(pilotStats, this.effectiveStats);
-    }
-}
-*/
