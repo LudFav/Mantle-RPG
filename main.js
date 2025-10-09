@@ -14,10 +14,11 @@ window.game = {
 };
 
 export function update(gameState) {
-    renderUI(gameState);
+    renderApp(gameState);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     loadGameLocal();
 });
+
 
