@@ -72,9 +72,17 @@ function applyConsequenceFromData(cons) {
             gameState.reputation[k] = Math.max(0, Math.min(10, (gameState.reputation[k] || 0) + cons.reputation[k]));
         });
     }
-    if (cons.ManteHP) gameState.manteHP = Math.max(0, gameState.manteHP + cons.ManteHP);
-    if (cons.PilotHP) gameState.pilotHP = Math.max(0, gameState.pilotHP + cons.PilotHP);
+    if (cons.ManteHP) gameState.manteHP = Math.max(0, Math.min(gameState.manteMaxHP, gameState.manteHP + cons.ManteHP));
+    if (cons.PilotHP) gameState.pilotHP = Math.max(0, Math.min(100, gameState.pilotHP + cons.PilotHP));
     if (cons.setStatus) gameState.statusFlags = { ...gameState.statusFlags, ...cons.setStatus };
+    if (cons.stats) {
+        Object.keys(cons.stats).forEach(k => {
+            if (gameState.pilotStats[k] !== undefined) {
+                gameState.pilotStats[k] += cons.stats[k];
+            }
+        });
+        calculateEffectiveStats();
+    }
 }
 
 export function filterChoicesByRequirements(sceneChoices) {
@@ -112,12 +120,13 @@ function restoreForNewAct(act) {
 
 export function handleChoice(sceneKey, choiceIndex) {
     const currentScene = SCENES[sceneKey];
-    const choices = currentScene[`choices_${gameState.manteType}`] || currentScene.choices;
+    let choices = currentScene[`choices_${gameState.manteType}`] || currentScene.choices;
+    const availableChoices = filterChoicesByRequirements(choices);
     const choice = choices[choiceIndex];
     if (!choice) return;
-
-    if (choice.consequence) choice.consequence();
-
+    if (choice.consequence) {
+        applyConsequenceFromData(choice.consequence);
+    }
     const nextSceneKey = choice.next;
     if (nextSceneKey.startsWith('ACT_2_') && gameState.currentScene.startsWith('ACT_1_')) restoreForNewAct("II");
     if (nextSceneKey.startsWith('ACT_3_') && gameState.currentScene.startsWith('ACT_2_')) restoreForNewAct("III");
@@ -134,12 +143,16 @@ export function handleChoice(sceneKey, choiceIndex) {
             const success = checkSkill(nextScene.check.stat, nextScene.check.difficulty);
             gameState.currentScene = success ? nextScene.check.success : nextScene.check.failure;
             const resultScene = SCENES[gameState.currentScene];
-            if (resultScene.consequence) resultScene.consequence();
+            if (resultScene.consequence) {
+                applyConsequenceFromData(resultScene.consequence);
+            }
         }
     } else {
-        if (nextScene.consequence) nextScene.consequence();
+        if (nextScene.consequence) {
+            applyConsequenceFromData(nextScene.consequence);
+        }
     }
-
+    
     checkPilotStatus();
     saveGameLocal();
     render();
