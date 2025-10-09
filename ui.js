@@ -265,45 +265,25 @@ const GameOverScreen = ({ gameState }) => {
     `;
 };
 
-
 // --- Composant Principal de l'Application ---
 
 const App = ({ gameState }) => {
-    let content;
-    const scene = gameState.currentScene;
-
-    if (scene === 'LORE_INTRO') {
-        content = html`<${LoreIntroScreen} />`;
-    } else if (scene === 'CREATION') {
-        content = html`<${CreationScreen} />`;
-    } else if (scene.startsWith('ENDING') || scene === 'GAME_OVER') {
-        content = html`<${GameOverScreen} gameState=${gameState} />`;
-    } else if (scene === 'COMBAT') {
-        content = html`<${CombatScreen} gameState=${gameState} />`;
-    } else if (gameState.manteType) { // Assure que le jeu a commencé
-        content = html`<${GameScreen} gameState=${gameState} />`;
-    } else {
-        // Fallback si l'état est invalide, renvoie à la création
-        content = html`<${LoreIntroScreen} />`;
+    switch (gameState.currentScene) {
+        case 'LORE_INTRO':
+            return html`<${LoreScreen} />`; // Assumant que LoreScreen existe
+        case 'CREATION':
+            return html`<${CreationScreen} />`;
+        case 'COMBAT':
+            return html`<${CombatScreen} gameState=${gameState} />`;
+        default:
+            if (gameState.gameStatus !== 'PLAYING') {
+                return html`<${GameOverScreen} gameState=${gameState} />`; // Assumant que GameOverScreen existe
+            }
+            return html`<${GameScreen} gameState=${gameState} />`;
     }
-
-    return html`
-        <div class="p-4 sm:p-8 flex justify-center items-start min-h-screen">
-            <div class="w-full max-w-4xl container-bg rounded-xl p-6 sm:p-8">
-                <header class="text-center mb-6 border-b border-gray-700 pb-4">
-                    <h1 class="text-3xl font-bold text-green-400">MANTLE : LE CYCLE DE PROMÉTHÉE</h1>
-                </header>
-                <div id="game-view">
-                    ${content}
-                </div>
-            </div>
-        </div>
-    `;
 };
 
-// --- Fonction de Rendu ---
-
-export function renderUI(gameState) {
-    const appRoot = document.getElementById('app');
-    render(html`<${App} gameState=${gameState} />`, appRoot);
+// Rendu initial
+export function renderApp(state) {
+    render(html`<${App} gameState=${state} />`, document.getElementById('game-view'));
 }
