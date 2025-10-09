@@ -1,5 +1,5 @@
-import { startGame, loadGameLocal, resetToCreation, handleChoice, handleCombatChoice } from './game_logic.js';
-import { renderScene, exportRunAsJSON, exportRunAsPDF, saveGameLocal } from './ui_render.js';
+import { startGame, loadGameLocal, resetToCreation, handleChoice, handleCombatChoice, saveGameLocal } from './game_logic.js';
+import { renderScene, exportRunAsJSON, exportRunAsPDF } from './ui_render.js';
 import { MANTES, PILOT_BASE_STATS, POOL_TOTAL, DISTRIBUTION_POOL } from './models.js';
 
 // Données du jeu pour l'écran de création
@@ -26,3 +26,4 @@ window.exportRunAsPDF = exportRunAsPDF;
 document.addEventListener('DOMContentLoaded', () => {
     loadGameLocal();
 });
+
