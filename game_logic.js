@@ -12,7 +12,8 @@ export let gameState = {
     pilotStats: {},
     effectiveStats: {},
     pilotHP: 100,
-    manteHP: 100,
+    manteHP: null,
+    manteMaxHP: null,
     reputation: { CEL: 5, FEU: 5, Aetheria: 0 },
     currentScene: "LORE_INTRO",
     log: [],
@@ -25,14 +26,11 @@ export let gameState = {
 
 // --- Initialisation des Scènes ---
 
-// Construit l'objet SCENES à partir des données brutes pour plus de flexibilité.
 function buildScenes(data) {
     const scenes = {};
     for (const [key, value] of Object.entries(data)) {
         scenes[key] = {
-            ...value, // Copie toutes les propriétés
-            // Transforme l'objet 'consequence' en une fonction exécutable
-            // Cela permet de garder les données pures dans scenes_index.js
+            ...value,
             consequence: value.consequence
                 ? () => applyConsequenceFromData(value.consequence)
                 : undefined
@@ -49,22 +47,17 @@ export const SCENES = buildScenes(SCENES_DATA);
 // Calcule les stats effectives de la Mante en se basant sur celles du pilote.
 export function calculateEffectiveStats() {
     if (!gameState.manteType || Object.keys(gameState.pilotStats).length === 0) return;
-    
+
     // Les stats mentales sont directes
     gameState.effectiveStats.Intelligence = gameState.pilotStats.Intelligence;
     gameState.effectiveStats.Lucidité = gameState.pilotStats.Lucidité;
     gameState.effectiveStats.QI_de_Combat = gameState.pilotStats.QI_de_Combat;
     gameState.effectiveStats.Synchronisation = gameState.pilotStats.Synchronisation;
-    
+
     // Les stats physiques sont multipliées
     gameState.effectiveStats.Force = gameState.pilotStats.Force * 10;
     gameState.effectiveStats.Agilité = gameState.pilotStats.Agilité * 10;
     gameState.effectiveStats.Vitesse = gameState.pilotStats.Vitesse * 10;
-
-    // Initialise les PV de la Mante si c'est la première fois
-    if (gameState.manteHP === 100 && gameState.pilotStats.Force) {
-        gameState.manteHP = gameState.pilotStats.Force * 10;
-    }
 }
 
 // Applique les conséquences d'un choix ou d'une scène.
@@ -74,7 +67,6 @@ function applyConsequenceFromData(cons) {
     if (cons.reputation) {
         for (const k of Object.keys(cons.reputation)) {
             const delta = cons.reputation[k];
-            // Assure que la réputation reste entre 0 et 10
             gameState.reputation[k] = Math.max(0, Math.min(10, (gameState.reputation[k] || 0) + delta));
         }
     }
@@ -105,8 +97,6 @@ function applyConsequenceFromData(cons) {
     }
     if (typeof cons.progress === 'number') gameState.progress = cons.progress;
     if (typeof cons.gameStatus === 'string') gameState.gameStatus = cons.gameStatus;
-    
-    // CORRECTION : Gère les marqueurs de succès/échec pour les choix conditionnels
     if (cons.setStatus) {
         if (cons.setStatus.success) gameState.statusFlags.success = true;
         if (cons.setStatus.failure) gameState.statusFlags.failure = true;
@@ -125,16 +115,13 @@ export function filterChoicesByRequirements(sceneChoices) {
         if (choice.requirements) {
             for (const stat in choice.requirements) {
                 const requiredValue = choice.requirements[stat];
-                
-                // CORRECTION : Vérifie les marqueurs de statut dans gameState.statusFlags
                 if (stat === 'success' || stat === 'failure') {
                     if (gameState.statusFlags[stat] !== requiredValue) {
                         disabled = true;
                         reason = `(Statut Événement non rempli)`;
                         break;
                     }
-                } 
-                // Vérifie les stats du pilote
+                }
                 else if (gameState.pilotStats[stat] < requiredValue) {
                     disabled = true;
                     reason = `(Req: ${stat} ${requiredValue} requis, ${gameState.pilotStats[stat]} actuel)`;
@@ -157,26 +144,38 @@ export function checkSkill(stat, difficulty) {
     return total >= difficulty;
 }
 
+// NOUVELLE FONCTION : Restaure les PV du joueur au début d'un nouvel acte.
+function restoreForNewAct(actNumber) {
+    updateLog(`[SYSTÈME] Début de l'Acte ${actNumber}. Mante et Pilote entièrement réparés.`);
+    gameState.pilotHP = 100;
+    const maxManteHP = MANTES[gameState.manteType].maxHP;
+    gameState.manteHP = maxManteHP;
+    updateLog(`[RÉPARATION] PV du Pilote restaurés à 100.`);
+    updateLog(`[RÉPARATION] PV de la Mante restaurés à ${maxManteHP}.`);
+}
+
 // Gère la sélection d'un choix par le joueur.
 export function handleChoice(sceneKey, choiceIndex) {
     if (gameState.gameStatus !== "PLAYING") return;
 
     const currentScene = SCENES[sceneKey];
-    // Gère les choix spécifiques au type de Mante
     let sceneChoices = currentScene[`choices_${gameState.manteType}`] || currentScene.choices;
-    
-    const choice = sceneChoices[choiceIndex];
-    if (!choice) return; // Sécurité
 
-    // Applique une conséquence directe liée au choix
+    const choice = sceneChoices[choiceIndex];
+    if (!choice) return;
     if (choice.consequence) {
         choice.consequence();
     }
-    
-    const nextSceneKey = choice.next;
-    const nextScene = SCENES[nextSceneKey];
 
-    // CORRECTION : Réinitialise les marqueurs si la scène le demande
+    const nextSceneKey = choice.next;
+
+    if (nextSceneKey.startsWith('ACT_2_') && gameState.currentScene.startsWith('ACT_1_')) {
+        restoreForNewAct("II");
+    } else if (nextSceneKey.startsWith('ACT_3_') && gameState.currentScene.startsWith('ACT_2_')) {
+        restoreForNewAct("III");
+    }
+
+    const nextScene = SCENES[nextSceneKey];
     if (nextScene.clearStatusFlags) {
         gameState.statusFlags = {};
     }
@@ -207,7 +206,7 @@ export function handleChoice(sceneKey, choiceIndex) {
         }
         renderScene(nextSceneKey);
     }
-    
+
     checkPilotStatus();
     saveGameLocal(); // Sauvegarde après chaque action
 }
@@ -229,50 +228,71 @@ function initCombat(checkData) {
         enemyType: enemyType,
         enemyHP: enemy.maxHP,
         enemyMaxHP: enemy.maxHP,
-        damageBase: enemy.damageBase,
         nextSceneSuccess: checkData.success,
         nextSceneFailure: checkData.failure,
-        buffs: []
+        playerBuffs: [] // Pour les bonus temporaires comme la défense
     };
-    updateLog(`[COMBAT ENGAGÉ] Contre : ${enemy.name}. PV : ${enemy.maxHP}.`);
+    updateLog(`[COMBAT ENGAGÉ] Contre : ${enemy.name}.`);
     renderCombatScreen();
+}
+
+// NOUVELLE FONCTION : Lance un nombre défini de dés avec un bonus.
+function rollDice(num, sides, bonus) {
+    let total = 0;
+    for (let i = 0; i < num; i++) {
+        total += Math.floor(Math.random() * sides) + 1;
+    }
+    return total + bonus;
 }
 
 export function handleCombatChoice(action) {
     if (gameState.gameStatus !== "PLAYING" || !gameState.combatState) return;
+
     const combat = gameState.combatState;
     const enemy = ENEMY_TYPES[combat.enemyType];
-    const manteAttack = MANTE_SPECIAL_ATTACKS[gameState.manteType];
-    let playerDamage = 0;
-    let enemyDamage = combat.damageBase;
-    updateLog(`--- Tour de combat ---`);
+    const manteInfo = MANTES[gameState.manteType];
+    let playerTurnOver = false;
 
+    updateLog(`--- Tour du Joueur ---`);
+
+    // --- Action du Joueur ---
     switch (action) {
         case 'ATTACK_BASE':
-            playerDamage = checkSkill('QI_de_Combat', 6)
-                ? gameState.pilotStats.QI_de_Combat * 5
-                : gameState.pilotStats.QI_de_Combat * 2;
-            updateLog(`[Attaque Standard] Dégâts infligés : ${playerDamage} PV.`);
-            break;
-        case 'ATTACK_SPECIAL':
-            playerDamage = checkSkill(manteAttack.stat, 8)
-                ? Math.round((gameState.pilotStats[manteAttack.stat] * 5) * manteAttack.damageMult)
-                : 0;
-            updateLog(`[Attaque Spéciale - ${manteAttack.name}] Dégâts infligés : ${playerDamage} PV.`);
-            break;
-        case 'DEFEND':
-            updateLog(`[Défense] Position défensive adoptée. Dégâts ennemis réduits.`);
-            enemyDamage = Math.max(0, enemyDamage - 15);
-            break;
-        case 'SCAN':
-            updateLog(`[Scan] Informations: ${enemy.name} a ${combat.enemyHP} PV restants. Dégâts de base: ${enemy.damageBase}.`);
-            renderCombatScreen();
-            return;
-    }
-    
-    combat.enemyHP = Math.max(0, combat.enemyHP - playerDamage);
-    updateLog(`[Ennemi] PV restants: ${combat.enemyHP}/${combat.enemyMaxHP}.`);
+        case 'ATTACK_SPECIAL': {
+            const isSpecial = action === 'ATTACK_SPECIAL';
+            const attackInfo = isSpecial ? MANTE_SPECIAL_ATTACKS[gameState.manteType] : { stat: 'QI_de_Combat', damageMult: 1.0 };
+            const attackStatName = attackInfo.stat;
+            const attackStatValue = gameState.pilotStats[attackStatName];
 
+            const roll = Math.floor(Math.random() * 20) + 1;
+            const totalAttack = roll + attackStatValue;
+
+            updateLog(`[JET D'ATTAQUE] (${attackStatName}) D20(${roll}) + ${attackStatValue} = ${totalAttack} vs Défense Ennemie ${enemy.defenseValue}.`);
+
+            if (totalAttack >= enemy.defenseValue) {
+                const damageRoll = rollDice(1, 10, attackStatValue);
+                const finalDamage = Math.round(damageRoll * attackInfo.damageMult);
+                combat.enemyHP = Math.max(0, combat.enemyHP - finalDamage);
+                updateLog(`[SUCCÈS] L'attaque touche ! Dégâts infligés : ${finalDamage} PV.`);
+            } else {
+                updateLog(`[ÉCHEC] L'attaque rate sa cible.`);
+            }
+            playerTurnOver = true;
+            break;
+        }
+        case 'DEFEND': {
+            updateLog(`[DÉFENSE] Vous vous préparez à encaisser l'attaque ennemie.`);
+            combat.playerBuffs.push({ type: 'defense', value: 5, turns: 1 });
+            playerTurnOver = true;
+            break;
+        }
+        case 'SCAN': {
+            updateLog(`[SCAN] ${enemy.name} | PV: ${combat.enemyHP}/${enemy.maxHP} | Défense: ${enemy.defenseValue} | Dégâts: ~${enemy.damageDice.num * enemy.damageDice.sides + enemy.damageDice.bonus}`);
+            break;
+        }
+    }
+
+    // --- Vérification de Victoire du Joueur ---
     if (combat.enemyHP <= 0) {
         updateLog(`[VICTOIRE] ${enemy.name} a été détruit !`);
         const nextScene = combat.nextSceneSuccess;
@@ -282,29 +302,50 @@ export function handleCombatChoice(action) {
         return;
     }
 
-    updateLog(`[Ennemi] Riposte et inflige ${enemyDamage} PV.`);
-    takeDamage(enemyDamage);
+    // --- Tour de l'Ennemi ---
+    if (playerTurnOver) {
+        updateLog(`--- Tour de l'Ennemi ---`);
 
-    if (gameState.manteHP <= 0 && gameState.pilotHP <= 0) {
-        updateLog(`[DÉFAITE] La Mante et le Pilote sont neutralisés.`);
-        const nextScene = combat.nextSceneFailure;
-        gameState.combatState = null;
-        renderScene(nextScene);
-        saveGameLocal();
-        return;
-    } else if (gameState.manteHP <= 0) {
-        updateLog(`[CRITIQUE] L'armure Mante est hors service ! Le Pilote est exposé.`);
+        // Calcul de la défense du joueur
+        const playerDefenseStat = gameState.pilotStats[manteInfo.defenseStat];
+        let playerDefenseValue = 10 + playerDefenseStat;
+
+        // Appliquer les bonus de défense
+        const defenseBuff = combat.playerBuffs.find(b => b.type === 'defense');
+        if (defenseBuff) {
+            playerDefenseValue += defenseBuff.value;
+            updateLog(`[BONUS DÉFENSE] Votre défense est augmentée à ${playerDefenseValue} pour ce tour.`);
+            defenseBuff.turns--;
+        }
+        combat.playerBuffs = combat.playerBuffs.filter(b => b.turns > 0);
+
+        const enemyRoll = Math.floor(Math.random() * 20) + 1;
+        const enemyTotalAttack = enemyRoll + enemy.attackBonus;
+
+        updateLog(`[JET ENNEMI] D20(${enemyRoll}) + ${enemy.attackBonus} = ${enemyTotalAttack} vs Votre Défense ${playerDefenseValue}.`);
+
+        if (enemyTotalAttack >= playerDefenseValue) {
+            const enemyDamage = rollDice(enemy.damageDice.num, enemy.damageDice.sides, enemy.damageDice.bonus);
+            updateLog(`[SUCCÈS ENNEMI] L'ennemi vous touche et inflige ${enemyDamage} PV.`);
+            takeDamage(enemyDamage);
+        } else {
+            updateLog(`[ÉCHEC ENNEMI] L'attaque ennemie vous manque !`);
+        }
     }
 
+    // --- Vérification de Défaite du Joueur ---
+    if (gameState.pilotHP <= 0) {
+        saveGameLocal();
+        return;
+    }
     renderCombatScreen();
-    saveGameLocal();
 }
 
 export function takeDamage(amount) {
     if (amount <= 0) return;
     const remainingAfterMante = amount - gameState.manteHP;
     gameState.manteHP = Math.max(0, gameState.manteHP - amount);
-    
+
     if (remainingAfterMante > 0) {
         gameState.pilotHP = Math.max(0, gameState.pilotHP - remainingAfterMante);
         updateLog(`[Dégâts] L'armure est brisée. Pilote subit ${remainingAfterMante} PV !`);
@@ -316,7 +357,13 @@ function checkPilotStatus() {
     if (gameState.pilotHP <= 0) {
         updateLog(`[CRITIQUE] Le Pilote a succombé. Fin de la Campagne.`);
         gameState.gameStatus = "ENDED_FAILURE";
-        renderScene('GAME_OVER');
+        if (gameState.combatState) {
+            const nextScene = gameState.combatState.nextSceneFailure;
+            gameState.combatState = null;
+            renderScene(nextScene);
+        } else {
+            renderScene('GAME_OVER');
+        }
     }
 }
 
@@ -338,15 +385,13 @@ export function startGame(manteType, name) {
         alert(`La somme des stats doit être de ${POOL_TOTAL}. Actuellement : ${currentSum}.`);
         return;
     }
-
-    // Réinitialisation de l'état du jeu
     gameState.name = name;
     gameState.manteType = manteType;
     gameState.pilotStats = stats;
     gameState.pilotHP = 100;
-    gameState.manteHP = stats.Force * 10;
+    gameState.manteHP = MANTES[manteType].maxHP;
     calculateEffectiveStats();
-    
+
     gameState.reputation = { CEL: 5, FEU: 5, Aetheria: 0 };
     gameState.log = [
         `[Départ] ${name} a choisi l'ECA Mante ${manteType}.`,
@@ -358,30 +403,28 @@ export function startGame(manteType, name) {
     gameState.gameStatus = "PLAYING";
     gameState.combatState = null;
     gameState.statusFlags = {};
-    
+
     saveGameLocal();
     renderScene("ACT_1_KAIROK_INTRO");
 }
 
 export function resetToCreation() {
-    // Réinitialise l'état du jeu à ses valeurs par défaut
     gameState = {
-        ...gameState, // conserve certaines clés si nécessaire
+        ...gameState,
         name: "", manteType: "", pilotStats: {}, effectiveStats: {},
         pilotHP: 100, manteHP: 100, reputation: { CEL: 5, FEU: 5, Aetheria: 0 },
         log: [], progress: 0, gameStatus: "PLAYING", combatState: null,
         statusFlags: {}, sceneHistory: []
     };
-    try { 
-        localStorage.removeItem(getLocalStorageKey()); 
-    } catch (_) {}
+    try {
+        localStorage.removeItem(getLocalStorageKey());
+    } catch (_) { }
     renderScene("LORE_INTRO");
 }
 
 
 // --- Sauvegarde et Chargement ---
 
-// CORRECTION : Utilise une clé de sauvegarde constante pour pouvoir la retrouver.
 function getLocalStorageKey() {
     return `mantle_save_${appId}`;
 }
@@ -389,9 +432,8 @@ function getLocalStorageKey() {
 export function saveGameLocal() {
     try {
         const stateToSave = { ...gameState };
-        stateToSave.log = stateToSave.log.slice(-50); // Limite la taille du log
+        stateToSave.log = stateToSave.log.slice(-50);
         localStorage.setItem(getLocalStorageKey(), JSON.stringify(stateToSave));
-        updateLog(`[Système] Partie sauvegardée à ${new Date().toLocaleTimeString()}.`);
     } catch (error) {
         console.error('Erreur de sauvegarde locale:', error);
         updateLog('[Erreur] Échec de la sauvegarde.');
@@ -408,7 +450,7 @@ export function loadGameLocal() {
         }
         const loaded = JSON.parse(raw);
         Object.assign(gameState, loaded);
-        calculateEffectiveStats(); // Recalcule les stats au cas où la logique aurait changé
+        calculateEffectiveStats();
 
         updateLog(`[Système] Partie chargée. Bienvenue, ${gameState.name}.`);
 
