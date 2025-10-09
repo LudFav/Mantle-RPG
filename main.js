@@ -1,5 +1,5 @@
 import { loadGameLocal, resetToCreation, handleChoice, handleCombatChoice, startGame, saveGameLocal } from './game_logic.js';
-import { renderUI } from './ui.js';
+import { renderApp } from './ui.js';
 import { exportRunAsJSON, exportRunAsPDF } from './utils.js';
 
 window.game = {
@@ -20,3 +20,4 @@ export function update(gameState) {
 document.addEventListener('DOMContentLoaded', () => {
     loadGameLocal();
 });
+
