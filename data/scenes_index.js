@@ -1,4 +1,40 @@
 export const SCENES_DATA = {
+    LORE_INTRO: {
+        text: `**DOSSIER MANTLE : LE CYCLE DE PROMÉTHÉE (Confidentiel, Accès Opérateur)**
+Le XXIIᵉ siècle a vu l'humanité atteindre de nouveaux sommets technologiques, notamment dans le domaine de la motricité et de la protection individuelle. L'invention de l'Exosquelette de Combat Amélioré (ECA), surnommé la Mante, a révolutionné la guerre. Ces armures de taille humaine ne sont pas de simples véhicules ; elles sont des extensions nerveuses et musculaires de l'opérateur, capables de décupler la force, l'agilité et la vitesse de l'hôte.
+
+La Mante est une symbiose : l'armure amplifie les capacités de l'opérateur, mais elle amplifie aussi les différences infimes entre humains. Un soldat doté d'une Aptitude naturelle de 7/10 verra son score effectif multiplié à 70, tandis qu'un autre à 6/10 atteindra 60. L'écart est considérable en combat, transformant les secondes en abîmes.
+
+L'entraînement intensif, connu sous le nom de Conditionnement Synchronique, est devenu l'unique critère de survie. Ce processus brutal pousse le corps et l'esprit à la limite, enseignant à l'opérateur la Maîtrise de la Mante, c'est-à-dire la capacité à maintenir la connexion neuromusculaire à pleine puissance sans subir de dégâts neurologiques internes. Seule une élite de combattants surhumains, capable de soutenir cette symbiose, est acceptée au sein des escouades spécialisées.
+
+Les Factions en Guerre
+La géopolitique est fracturée, rappelant la Guerre Froide, mais avec une dimension économique démesurée :
+
+La Confédération des États Libres (CEL) : Regroupant les anciennes puissances occidentales et nord-américaines. La CEL est une structure républicaine et démocratique en apparence, mais elle est minée par la dette systémique et une bureaucratie paralysante. Ses États membres sont de plus en plus sous l'influence financière des méga-corporations qui financent son armée et ses infrastructures. On parle de Ministères Fantômes : des départements entiers du gouvernement de la CEL sont gérés de fait par des cadres d'Aetheria Dynamics, qui en dictent les politiques de défense et d'approvisionnement. La CEL se bat officiellement pour préserver un idéal libéral qu'elle ne parvient plus à incarner, servant de façade aux intérêts privés.
+
+La Fédération Eurasiatique Unifiée (FEU) : Un bloc autoritaire et nationaliste, regroupant l'Est de l'Europe et la majeure partie de l'Asie. La FEU est jeune, agressive et militairement cohésive, soutenue par une idéologie de supériorité territoriale. Elle cherche à remplacer la CEL comme puissance hégémonique mondiale, exploitant l'épuisement des démocraties. Ses ECA de conception, bien que moins agiles que ceux de la CEL (qui bénéficie des prototypes Aetheria), sont plus robustes, axés sur la puissance brute et la résilience, reflétant la doctrine militaire de la FEU : l'écrasement par la masse.
+
+Les Mégacorporations : Aetheria Dynamics
+Au-dessus du conflit des États, plane l'ombre des corporations. La plus influente, et la plus dangereuse, est Aetheria Dynamics. Leur siège social, la "Tour Nébuleuse", flotte discrètement au-delà de l'orbite lunaire, symbolisant leur détachement des affaires terrestres. Spécialisée initialement dans l'ingénierie spatiale et la bio-technologie, Aetheria est le principal fournisseur d'ECA et de matériel de pointe pour les deux belligérants.
+
+Leur objectif n'est ni la démocratie, ni l'autoritarisme, mais le contrôle total des flux technologiques et des découvertes extraterrestres. La guerre CEL-FEU, baptisée en interne par Aetheria comme le "Projet R.E.A.C.T." (Rapid ECA Assessment & Combat Trials), n'est qu'un terrain d'essai grandeur nature. Les tensions frontalières sont non seulement tolérées, mais activement attisées par des livraisons de prototypes déguisés et la diffusion de renseignements stratégiques truqués. Aetheria gagne en vendant la guerre, mais elle gagne plus encore en perfectionnant l'Arme Mantle-X qu'elle cherche à développer.
+
+Acte I : Les Guerres de l'Archipel (Front Mission)
+Le conflit s'est cristallisé autour de l'Archipel des Cendres, un chapelet d'îles volcaniques riches en minerais rares (notamment l'isotope Xénon-140) et en bases de lancement orbitales. La possession de l'Archipel garantit la domination des routes spatiales basses.
+
+Composition des Escouades ECA (Mantes)
+| Type d'ECA | Rôle Principal | Avantages | Inconvénients | Armement Type |
+| :-- - | :-- - | :--- | : --- | : --- |
+| ** Phalange ** | Assaut Lourd / Anti - Blindage | Force brute($\times 10$), Résistance Maximale. | Lenteur au déploiement, faible Agilité. | Lance - roquettes, Gatling lourd, Bouclier balistique. |
+| ** Aiguille ** | Reconnaissance / CQC(Corps - à - Corps) | Agilité extrême($\times 10$), Finesse de Mouvement. | Blindage minimal, faible Force de frappe directe. | Lames énergétiques, Fusil de précision, Grappins. |
+| ** Éclair ** | Flanc / Interception Rapide | Vitesse de pointe($\times 10$), manœuvres d'évitement. | Consommation d'énergie massive, signature thermique élevée. | SMG lourds, Lance - flammes tactiques(pour forcer le mouvement). |
+| ** Omni ** | Soutien / Commandement | Équilibre, capacités C³ (commandement, contrôle, communication). | N'excelle dans aucun domaine, dépend de l'escouade. | Fusil d'assaut modulable, Drones de support, Kit de réparation rapide. |`
+            `,
+        choices: [
+            { text: "Commencer la Création de Personnage", next: "CREATION" }
+        ],
+    },
+
     CREATION: {
         text: "Bienvenue, Opérateur. Vous êtes sur le point de vous synchroniser avec votre Mante. Vos choix définiront non seulement les capacités de votre armure, mais aussi vos limites en tant que pilote. Distribuez les 35 points de base entre vos 7 statistiques humaines (min 1, max 18). Ce sont vos aptitudes réelles : l'armure Mante ne fait que décupler les physiques (Force, Agilité, Vitesse). Choisissez sagement votre profil : l'Archipel ne pardonne pas les erreurs.",
     },
@@ -6,222 +42,253 @@ export const SCENES_DATA = {
     // --- ACTE I : GUERRE DES ARCHIPELS (KAIROK) ---
 
     ACT_1_KAIROK_INTRO: {
-        text: "ACTE I : L'ARCHIPEL DES CENDRES. ALERTE ROUGE, ALERTE ROUGE : Nos rapports signalent que des armures FEU d'un nouveau type sont en approche pour attaquer nos positions. Nous essuyons déjà des tirs d'artillerie ennemie. Votre escouade est la plus proche du goulot d'étranglement qui mène à nos dépôts de munitions. Vous devez tenir cette ligne coûte que coûte, en attendant les renforts qui n'arriveront que dans 10 minutes. Vous atteignez la zone : l'acier fond autour de vous, l'air est saturé de poudre et d'ozone.",
+        text: "ACTE I : L'ARCHIPEL DES CENDRES. Les docks de Kairok sont un brasier chaotique, un point de non-retour dans cette guerre de position contre la FEU. Les rapports indiquent que des Phalanges ennemies, soutenues par un corps de mercenaires non identifié (peut-être Aetheria), attaquent nos positions. Votre escouade est la plus proche du goulot d'étranglement qui mène à nos dépôts d'Osselets. Vous devez tenir cette ligne coûte que coûte, en attendant les renforts qui n'arriveront que dans 10 minutes. L'acier fond autour de vous, l'air est saturé de poudre et d'ozone.",
+        // Scènes spécifiques au type de Mante
         choices_Phalange: [
             { text: "Option A (Assaut Brutal) : Vous placez en tête de pont pour absorber la première salve. Votre seule présence dicte l'engagement. (Jet de Force Pilote)", next: "ACT_1_KAIROK_ASSAULT_FORCE" },
             { text: "Option B (Ordre Stratégique) : Vous coordonez vos unités pour flanquer, utilisant les ruines comme couverture et piège. (Jet de QI_de_Combat)", next: "ACT_1_KAIROK_STRAT_QC" }
         ],
         choices_Aiguille: [
             { text: "Option A (Infiltration Active) : Vous utilisez la fumée et les débris pour glisser derrière la ligne ennemie et saboter leurs systèmes. (Jet d'Agilité Pilote)", next: "ACT_1_KAIROK_FLANK_AGI" },
-            { text: "Option B (Analyse des menaces) : Vous ignorez la ligne de front et vous concentrez sur l'identification des nouvelles armures inconnus et de leur point faible. (Jet d'Intelligence)", next: "ACT_1_KAIROK_ANALYSE_INTEL" }
+            { text: "Option B (Analyse des menaces) : Vous ignorez la ligne de front et vous concentrez sur l'identification des mercenaires inconnus et de leur point faible. (Jet d'Intelligence)", next: "ACT_1_KAIROK_ANALYSE_INTEL" }
         ],
         choices_Éclair: [
             { text: "Option A (Poussée de Vitesse) : Vous foncez dans le goulot d'étranglement, utilisant une vitesse extrême pour créer la confusion et disperser l'assaut. (Jet de Vitesse Pilote)", next: "ACT_1_KAIROK_RUSH_VITESSE" },
             { text: "Option B (Manœuvre d'Évasion) : Vous vous positionnez sur un flanc éloigné, prêt à intercepter les renforts ennemis ou à contourner la zone. (Jet de Lucidité)", next: "ACT_1_KAIROK_COUNTER_PIVOT" }
         ],
         choices_Omni: [
-            { text: "Option A (Soutien Coordonné) : Vous utilisez vos capacités équilibrées pour créer une zone de feu suppressif, couvrant la retraite du personnel de base. (Jet de QI_de_Combat)", next: "ACT_1_KAIROK_STRAT_QC" },
-            { text: "Option B (Contre-Cyber) : Vous vous synchronisez avec le réseau tactique pour tenter de surcharger les communications ennemies. (Jet de Synchronisation)", next: "ACT_1_KAIROK_ANALYSE_INTEL" }
+            { text: "Option A (Soutien Coordonné) : Vous utilisez vos capacités équilibrées pour créer une zone de feu suppressif, couvrant la retraite de vos Osselets. (Jet de QI_de_Combat)", next: "ACT_1_KAIROK_STRAT_QC" },
+            { text: "Option B (Contre-Cyber) : Vous vous synchronisez avec le réseau tactique pour tenter de surcharger les communications ennemies. (Jet de Synchronisation)", next: "ACT_1_KAIROK_SYNCHRO_ATTACK" }
         ],
     },
 
-    // --- RÉSULTATS KAIROK : BRANCHES TACTIQUES (Chaque succès/échec applique des conséquences et mène au préparatif) ---
+    // --- BRANCHES TACTIQUES ---
 
     ACT_1_KAIROK_ASSAULT_FORCE: {
-        text: "Charger la ligne de front est un pari sur la puissance brute de votre Mante. L'onde de choc de l'impact est violente. Tentez-vous d'écraser la ligne ennemie ou est-ce une feinte pour donner le temps à vos coéquipiers de se repositionner?",
+        text: "Charger la ligne de front est un pari sur la puissance brute de votre Mante. L'onde de choc de l'impact est violente. Tentez-vous d'écraser la ligne ennemie ou est-ce une feinte pour donner le temps à vos coéquipiers de se repositionner? L'exécution doit être parfaite.",
         check: { stat: "Force", difficulty: 8, success: "ACT_1_KAIROK_ASSAULT_FORCE_SUCCESS", failure: "ACT_1_KAIROK_ASSAULT_FORCE_FAILURE" }
     },
 
     ACT_1_KAIROK_ASSAULT_FORCE_SUCCESS: {
-        text: "SUCCÈS DE L'IMPACT. La force brute de votre Mante est inégalée. Vous écrasez deux unités ennemies sous vos pieds, brisant leur élan. Leurs tirs de suppression lourds vous atteignent, mais l'armure encaisse le coup. Vous avez sécurisé la ligne pour l'instant. (Dégâts Mante légers subis, avantage tactique acquis)",
-        consequence: { ManteHP: -200, successStatus: true },
+        text: "SUCCÈS DE L'IMPACT. La force brute de votre Mante est inégalée. Vous écrasez deux unités ennemies sous vos pieds, brisant leur élan. Les tirs de suppression lourds vous atteignent, mais l'armure encaisse. Vous avez sécurisé la ligne pour l'instant. (Dégâts Mante légers subis, statut AVANTAGE acquis)",
+        consequence: { ManteHP: -20, successStatus: true },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_ASSAULT_FORCE_FAILURE: {
-        text: "ÉCHEC DE L'IMPACT. La manœuvre est interceptée par un tir de plasma. Votre charge est stoppée net. L'armure de votre jambe gauche est percée, le feedback est brutal. Vous reculez, blessé, mais vous tenez toujours la ligne. (Dégâts Mante lourds subis, dégâts Pilote, désavantage tactique)",
-        consequence: { ManteHP: -400, PilotHP: -50, failureStatus: true },
+        text: "ÉCHEC DE L'IMPACT. La manœuvre est interceptée par un tir de plasma lourd. Votre charge est stoppée net. L'armure de votre jambe gauche est percée, le feedback est brutal. Vous reculez, blessé, mais vous tenez toujours la ligne. (Dégâts Mante lourds subis, dégâts Pilote, statut CRITIQUE acquis)",
+        consequence: { ManteHP: -40, PilotHP: -5, failureStatus: true },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_STRAT_QC: {
-        text: "Votre **QI_de_Combat** vous permet de voir l'échiquier. Vous ordonnez à votre escouade de se positionner de manière optimale, transformant les ruines en forteresse. Les tirs ennemis sont canalisés. Cela requiert une exécution parfaite de votre commandement.",
+        text: "Votre **QI_de_Combat** vous permet de voir l'échiquier. Vous ordonnez à votre escouade de se positionner de manière optimale, transformant les ruines en forteresse. Cela requiert une exécution parfaite de votre commandement pour déjouer l'ennemi.",
         check: { stat: "QI_de_Combat", difficulty: 9, success: "ACT_1_KAIROK_STRAT_QC_SUCCESS", failure: "ACT_1_KAIROK_STRAT_QC_FAILURE" }
     },
 
     ACT_1_KAIROK_STRAT_QC_SUCCESS: {
-        text: "SUCCÈS TACTIQUE. Vos ordres sont exécutés à la perfection. Les Phalanges ennemies tombent dans votre piège. Vous infligez des dégâts ciblés et précis qui forcent leur repli immédiat. Vous avez gagné du temps. (Avantage tactique acquis)",
-        consequence: { ManteHP: -100, successStatus: true },
+        text: "SUCCÈS TACTIQUE. Vos ordres sont exécutés à la perfection. Les Phalanges ennemies tombent dans votre piège. Vous infligez des dégâts ciblés qui forcent leur repli immédiat. Vous avez gagné du temps. (Dégâts Mante minimes subis, statut AVANTAGE acquis)",
+        consequence: { ManteHP: -10, successStatus: true },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_STRAT_QC_FAILURE: {
-        text: "ÉCHEC TACTIQUE. Les armures enemies ont anticipé votre manœuvre de flanc. Votre escouade est prise sous le feu croisé. Votre Mante subit des tirs de riposte violents alors que vous tentez de rétablir la position. (Dégâts Mante lourds subis, désavantage tactique)",
-        consequence: { ManteHP: -300, failureStatus: true },
+        text: "ÉCHEC TACTIQUE. Les mercenaires d'Aetheria ont anticipé votre manœuvre de flanc. Votre escouade est prise sous le feu croisé. Votre Mante subit des tirs de riposte violents. (Dégâts Mante lourds subis, statut CRITIQUE acquis)",
+        consequence: { ManteHP: -30, failureStatus: true },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_FLANK_AGI: {
-        text: "Vous utilisez l'Agilité de votre Mante pour vous déplacer là où l'armure ennemie n'attend personne. Un virage serré, un saut sur un mur effondré. Si vous réussissez à vous faufiler, vous frappez directement leur alimentation énergétique. Si vous échouez, vous êtes exposé.",
+        text: "Vous utilisez l'Agilité de votre Mante pour glisser derrière la ligne ennemie. Un tir bien placé sur un nexus énergétique ennemi pourrait paralyser leur assaut. Si vous échouez, vous êtes exposé.",
         check: { stat: "Agilité", difficulty: 10, success: "ACT_1_KAIROK_FLANK_AGI_SUCCESS", failure: "ACT_1_KAIROK_FLANK_AGI_FAILURE" }
     },
 
     ACT_1_KAIROK_FLANK_AGI_SUCCESS: {
-        text: "SUCCÈS D'AGILITÉ. Vous avez l'élégance d'un chat dans la fumée. Un tir bien placé sur un nexus énergétique ennemi provoque une réaction en chaîne. L'assaut s'arrête, forçant le retrait. (Avantage stratégique acquis)",
-        consequence: { ManteHP: -50, successStatus: true },
+        text: "SUCCÈS D'AGILITÉ. Vous avez l'élégance d'un chat dans la fumée. Un tir bien placé provoque une réaction en chaîne. L'assaut s'arrête. (Dégâts Mante minimes subis, statut AVANTAGE acquis)",
+        consequence: { ManteHP: -5, successStatus: true },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_FLANK_AGI_FAILURE: {
-        text: "ÉCHEC D'AGILITÉ. Votre Mante est ralentie par des débris dissimulés. Un capteur vous trahit. Un sniper ennemi vous vise et vous touche au bras. La douleur est vive. Vous devez battre en retraite immédiatement. (Dégâts Mante et Pilote subis, désavantage stratégique)",
-        consequence: { ManteHP: -350, PilotHP: -80, failureStatus: true },
+        text: "ÉCHEC D'AGILITÉ. Vous êtes ralenti par des débris dissimulés et un capteur vous trahit. Un sniper vous vise et vous touche. La douleur est vive. (Dégâts Mante et Pilote subis, statut CRITIQUE acquis)",
+        consequence: { ManteHP: -35, PilotHP: -8, failureStatus: true },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_RUSH_VITESSE: {
-        text: "La **Vitesse** est votre bouclier. Vous vous transformez en un flou d'acier, brisant la formation ennemie avant qu'elle ne puisse verrouiller votre position. C'est le chaos pur. Maintenir cette vitesse dans un environnement encombré est un défi pour votre Pilote.",
+        text: "Vous vous transformez en un blur d'acier, brisant la formation ennemie avant qu'elle ne puisse verrouiller votre position. C'est le chaos pur. Maintenir cette vitesse dans un environnement encombré est un défi pour votre Pilote.",
         check: { stat: "Vitesse", difficulty: 9, success: "ACT_1_KAIROK_RUSH_VITESSE_SUCCESS", failure: "ACT_1_KAIROK_RUSH_VITESSE_FAILURE" }
     },
 
     ACT_1_KAIROK_RUSH_VITESSE_SUCCESS: {
-        text: "SUCCÈS DE VITESSE. Votre Mante est un missile. Vous franchissez la ligne de front et créez un point de rupture dans leurs défenses. La désorientation ennemie est totale. La voie est libre pour vos renforts. (Avantage tactique acquis)",
-        consequence: { ManteHP: -75, successStatus: true },
+        text: "SUCCÈS DE VITESSE. Votre Mante est un missile. Vous franchissez la ligne et créez un point de rupture dans leurs défenses. La désorientation ennemie est totale. (Dégâts Mante minimes subis, statut AVANTAGE acquis)",
+        consequence: { ManteHP: -15, successStatus: true },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_RUSH_VITESSE_FAILURE: {
-        text: "ÉCHEC DE VITESSE. La surcharge d'énergie est trop forte. Votre Mante subit un flash de désynchronisation. Vous perdez le contrôle et vous heurtez une ruine. L'ennemi concentre son feu. (Dégâts Mante lourds subis, dégâts Pilote, désavantage tactique)",
-        consequence: { ManteHP: -300, PilotHP: -100, failureStatus: true },
+        text: "ÉCHEC DE VITESSE. La surcharge est trop forte. Votre Mante subit un flash de désynchronisation, heurtant une ruine. L'ennemi concentre son feu. (Dégâts Mante lourds subis, dégâts Pilote, statut CRITIQUE acquis)",
+        consequence: { ManteHP: -45, PilotHP: -10, failureStatus: true },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_ANALYSE_INTEL: {
-        text: "Ignorer le chaos pour chercher le motif. Votre **Intelligence** est mise à l'épreuve et vous analysez tout les mouvements d'attaque de défense de ces armures inconnues afin d'y trouver une faille. Si vous réussissez, vous obtenez un avantage tactique majeur et une information cruciale.",
+        text: "Votre **Intelligence** est mise à l'épreuve pour décrypter les fréquences de mercenaires d'Aetheria. Réussir pourrait affaiblir l'ennemi et vous révéler une information cruciale sur la trahison corporative.",
         check: { stat: "Intelligence", difficulty: 8, success: "ACT_1_KAIROK_ANALYSE_INTEL_SUCCESS", failure: "ACT_1_KAIROK_ANALYSE_INTEL_FAILURE" }
     },
 
     ACT_1_KAIROK_ANALYSE_INTEL_SUCCESS: {
-        text: "SUCCÈS D'ANALYSE. Vous êtes frappé par la surprise : ces nouvelles armures sont quasi identiques à la vôtre, à l'exception de quelques différences esthétiques mineures. Cependant, comme vous connaissez votre propre armure sur le bout des doigts, vous en maîtrisez aussi ses failles principales. Vous allez pouvoir exploiter cette information. (Avantage tactique acquis)",
-        consequence: { reputation: { Aetheria: -2 }, ManteHP: -100, successStatus: true },
+        text: "SUCCÈS D'ANALYSE. Vous percez le cryptage : ce sont des agents d'Aetheria ! Vous utilisez cette faille. Leur réputation sera entachée et l'assaut affaibli. (Dégâts Mante minimes subis, statut AVANTAGE acquis, Réputation Aetheria réduite)",
+        consequence: { reputation: { Aetheria: -2 }, ManteHP: -10, successStatus: true },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_ANALYSE_INTEL_FAILURE: {
-        text: "ÉCHEC D'ANALYSE. Le champs de bataille est trop chaotique. Vous perdez un temps précieux à l'analyser, tandis que l'ennemi gagne du terrain. Trop statique, vous manquez de vous faire exploser par un tir d'artillerie. Vous devez vous concentrer sur la survie. (Dégâts Mante subis, désavantage tactique)",
-        consequence: { ManteHP: -300, failureStatus: true },
+        text: "ÉCHEC D'ANALYSE. Le cryptage est trop complexe. Vous perdez un temps précieux. Vous subissez des tirs de riposte alors que vous tentez de vous reconcentrer. (Dégâts Mante subis, statut CRITIQUE acquis)",
+        consequence: { ManteHP: -30, failureStatus: true },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_COUNTER_PIVOT: {
-        text: "Votre **Lucidité** vous a alerté sur un piège de flanc camouflé. Vous n'attaquez pas la ligne de front, mais vous contre-attaquez la menace cachée. C'est une manœuvre risquée, mais qui pourrait garantir la survie des renforts.",
+        text: "Votre **Lucidité** vous alerte sur un piège de flanc camouflé. Vous contre-attaquez la menace cachée. Une manœuvre risquée, mais qui pourrait garantir la survie des renforts en approche.",
         check: { stat: "Lucidité", difficulty: 7, success: "ACT_1_KAIROK_COUNTER_PIVOT_SUCCESS", failure: "ACT_1_KAIROK_COUNTER_PIVOT_FAILURE" }
     },
 
     ACT_1_KAIROK_COUNTER_PIVOT_SUCCESS: {
-        text: "SUCCÈS DE LUCIDITÉ. Vous neutralisez la menace cachée en un éclair. L'ennemi est déconcerté, forcé de se réorganiser. Vous avez gagné l'initiative. (Avantage stratégique acquis)",
+        text: "SUCCÈS DE LUCIDITÉ. Vous neutralisez la menace cachée en un éclair. L'ennemi est déconcerté, forcé de se réorganiser. Vous avez gagné l'initiative. (Dégâts Mante minimes subis, statut AVANTAGE acquis)",
         consequence: { ManteHP: -10, successStatus: true },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_COUNTER_PIVOT_FAILURE: {
-        text: "ÉCHEC DE LUCIDITÉ. Le piège était une diversion. Vous vous exposez inutilement à la ligne de front et subissez des tirs de suppression. (Dégâts Mante subis, désavantage stratégique)",
+        text: "ÉCHEC DE LUCIDITÉ. Le piège était une diversion. Vous vous exposez inutilement à la ligne de front et subissez des tirs de suppression. (Dégâts Mante subis, statut CRITIQUE acquis)",
         consequence: { ManteHP: -35, failureStatus: true },
+        choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
+    },
+
+    ACT_1_KAIROK_SYNCHRO_ATTACK: {
+        text: "Vous vous synchronisez avec le réseau tactique pour tenter de surcharger les communications ennemies. Votre **Synchronisation** est poussée au maximum. Un succès désorganise l'ennemi. Un échec expose votre propre réseau.",
+        check: { stat: "Synchronisation", difficulty: 9, success: "ACT_1_KAIROK_SYNCHRO_ATTACK_SUCCESS", failure: "ACT_1_KAIROK_SYNCHRO_ATTACK_FAILURE" }
+    },
+
+    ACT_1_KAIROK_SYNCHRO_ATTACK_SUCCESS: {
+        text: "SUCCÈS DE SYNCHRONISATION. Vous inondez les canaux ennemis de bruit blanc, désorganisant leur coordination. L'assaut ralentit. (Dégâts Mante minimes subis, statut AVANTAGE acquis)",
+        consequence: { ManteHP: -5, successStatus: true },
+        choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
+    },
+
+    ACT_1_KAIROK_SYNCHRO_ATTACK_FAILURE: {
+        text: "ÉCHEC DE SYNCHRONISATION. La tentative est repoussée. Un puissant feedback de l'ennemi submerge vos propres systèmes. Vous subissez une désorientation temporaire. (Dégâts Mante subis, statut CRITIQUE acquis)",
+        consequence: { ManteHP: -30, failureStatus: true },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     // --- PRÉPARATION VAGUE 2 ---
 
     ACT_1_KAIROK_WAVE2_PREP: {
-        text: "Le champ de bataille est jonché d'épaves. Les renforts sont encore à 5 minutes. Votre Mante est endommagée. Vous avez le temps de tenter une réparation ou une manœuvre de reconnaissance. La survie de l'escouade dépend de cette décision. (Les options en bleu/rouge dépendent de votre performance initiale.)",
+        text: "Le champ de bataille est jonché d'épaves. Les renforts sont encore à 5 minutes. Votre Mante est endommagée. Vous avez le temps de tenter une réparation ou une manœuvre de reconnaissance. La survie de l'escouade dépend de cette décision.",
         choices: [
+            // Choix basique disponibles pour tout le monde
             { text: "Tenter une réparation d'urgence sur le blindage pour récupérer 20 PV (Jet de QI_de_Combat - Diff 8)", next: "ACT_1_KAIROK_REPAIR_QC" },
             { text: "Utiliser le temps pour scanner l'horizon à la recherche d'une position d'embuscade (Jet de Lucidité - Diff 7)", next: "ACT_1_KAIROK_AMBUSH_LUCIDITE" },
-        ],
 
-        // Choix DETERMINANTS (succès initial nécessaire)
-        requirements_success: [
+            // Choix Déterminant (Avantage) - Disponible uniquement après un succès initial
             {
-                text: "[AVANTAGE/DETERMINANT] **Prendre l'Ascendant :** Utiliser votre succès pour sécuriser une position de tir dominante pour la seconde vague (+1 QI_de_Combat temporaire).",
-                consequence: { stats: { "QI_de_Combat": 1 } }, next: "ACT_1_KAIROK_WAVE2_ADVANTAGE"
+                text: "[AVANTAGE/DÉTERMINANT] **Position Dominante :** Utiliser votre élan pour prendre la position la plus élevée et forcer la seconde vague à combattre en terrain découvert. (Augmente la Réputation CEL)",
+                next: "ACT_1_KAIROK_ADVANTAGE_CHOICE",
+                requirements: { successStatus: true }
+            },
+
+            // Choix Critique (Risqué) - Disponible uniquement après un échec initial
+            {
+                text: "[DIFFICILE/CRITIQUE] **Sacrifice de Puissance :** Désactiver temporairement les systèmes de support pour surcharger les armes principales avant la seconde vague. (Risque dégâts Pilote/Échec critique, Augmente la Force pour le combat)",
+                next: "ACT_1_KAIROK_CRITIQUE_CHOICE",
+                requirements: { failureStatus: true }
             }
         ],
-        // Choix CRITIQUES (échec initial nécessaire)
-        requirements_failure: [
-            {
-                text: "[DIFFICILE/CRITIQUE] **Sacrifice de Puissance :** Désactiver le système d'amplification de la Mante pour un boost de Synchronisation. (-20 ManteHP, +1 Synchronisation temporaire)",
-                consequence: { ManteHP: -20, stats: { Synchronisation: 1 } }, next: "ACT_1_KAIROK_WAVE2_CRITIQUE"
-            }
-        ]
     },
 
-    // --- RÉSULTATS DES CHOIX DE PRÉPARATION ---
-
-    ACT_1_KAIROK_WAVE2_ADVANTAGE: {
-        text: "Vous avez utilisé votre avantage pour sécuriser le réservoir cryogénique B comme bastion. La seconde vague de la FEU aura un champ de tir très restreint. Votre équipe est en position, bénéficiant d'un avantage de ciblage et de tir. Préparez-vous au combat final.",
-        next: "ACT_1_KAIROK_WAVE2_FIGHT"
-    },
-    ACT_1_KAIROK_WAVE2_CRITIQUE: {
-        text: "L'amplification est coupée, vous êtes plus vulnérable, mais la Mante est stable et votre neuro-lien est au maximum. Vous combattez avec votre Mante affaiblie mais avec un esprit plus vif. Préparez-vous au combat final.",
-        next: "ACT_1_KAIROK_WAVE2_FIGHT"
+    ACT_1_KAIROK_ADVANTAGE_CHOICE: {
+        text: "**AVANTAGE TACTIQUE PRIS.** Vous utilisez l'élan de votre succès pour prendre une position tactique clé. Cela remonte le moral de la CEL et vous donne un avantage majeur pour la prochaine bataille.",
+        consequence: { reputation: { CEL: 2 } },
+        choices: [{ text: "Continuer vers la Vague 2 (Combat Facilité)", next: "ACT_1_KAIROK_WAVE2_FIGHT_EASY" }]
     },
 
-    // Checks de préparation
+    ACT_1_KAIROK_CRITIQUE_CHOICE: {
+        text: "**CHOIX CRITIQUE ACCEPTÉ.** Vous forcez l'armure à surcharger ses armes. La Mante fume, le risque est là, mais la puissance de feu est doublée pour le moment critique. Cependant, le feedback blesse votre pilote.",
+        consequence: { PilotHP: -10, Force: 1 }, // Simule l'avantage du pilote (Force+1)
+        choices: [{ text: "Continuer vers la Vague 2 (Combat Risqué)", next: "ACT_1_KAIROK_WAVE2_FIGHT_HARD" }]
+    },
+
     ACT_1_KAIROK_REPAIR_QC: {
-        text: "Vous accédez aux diagnostics de votre Mante. La rapidité et la précision de la réparation dépendent de votre **QI_de_Combat**. Réussir vous donnera un avantage vital pour la prochaine vague.",
+        text: "La rapidité et la précision de la réparation dépendent de votre **QI_de_Combat**. Réussir vous donnera un avantage vital pour la prochaine vague.",
         check: { stat: "QI_de_Combat", difficulty: 8, success: "ACT_1_KAIROK_WAVE2_QC_SUCCESS", failure: "ACT_1_KAIROK_WAVE2_QC_FAILURE" }
     },
 
     ACT_1_KAIROK_WAVE2_QC_SUCCESS: {
-        text: "RÉPARATION RÉUSSIE. Votre Mante regagne **20 PV**. L'interface est stabilisée, les systèmes secondaires sont rétablis. La seconde vague arrive. Le combat reprend, mais vous êtes prêt.",
+        text: "RÉPARATION RÉUSSIE. Votre Mante regagne **20 PV**. L'interface est stabilisée, les systèmes secondaires sont rétablis. La seconde vague arrive.",
         consequence: { ManteHP: 20 },
-        choices: [{ text: "Avancer vers la Faille Géothermique (Vague 2)", next: "ACT_1_KAIROK_WAVE2_FIGHT" }]
+        choices: [{ text: "Continuer vers le Combat", next: "ACT_1_KAIROK_WAVE2_FIGHT" }]
     },
 
     ACT_1_KAIROK_WAVE2_QC_FAILURE: {
-        text: "RÉPARATION ÉCHOUÉE. La tentative rapide a endommagé un système secondaire, sans réparer les dégâts principaux. La seconde vague arrive, et votre Mante est à la limite. Vous subissez des dégâts mineurs supplémentaires dû à la surcharge. (-5 PV Mante)",
+        text: "RÉPARATION ÉCHOUÉE. La tentative rapide a échoué. Votre Mante subit des dégâts mineurs supplémentaires dû à la surcharge.",
         consequence: { ManteHP: -5 },
-        choices: [{ text: "Avancer vers la Faille Géothermique (Vague 2)", next: "ACT_1_KAIROK_WAVE2_FIGHT" }]
+        choices: [{ text: "Continuer vers le Combat", next: "ACT_1_KAIROK_WAVE2_FIGHT" }]
     },
 
     ACT_1_KAIROK_AMBUSH_LUCIDITE: {
-        text: "Votre **Lucidité** est mise à contribution pour anticiper la trajectoire de la seconde vague. Un succès révèle un point faible dans la couverture ennemie. Vous positionnez un tir d'artillerie préventif.",
+        text: "Votre **Lucidité** est mise à contribution pour anticiper la trajectoire de la seconde vague. Un succès révèle un point faible dans la couverture ennemie.",
         check: { stat: "Lucidité", difficulty: 7, success: "ACT_1_KAIROK_AMBUSH_SUCCESS", failure: "ACT_1_KAIROK_AMBUSH_FAILURE" }
     },
 
     ACT_1_KAIROK_AMBUSH_SUCCESS: {
-        text: "EMBUSCADE RÉUSSIE. Votre tir d'artillerie préventif frappe la colonne ennemie. La seconde vague est désorganisée et affaiblie. Vous avancez avec un avantage majeur.",
-        choices: [{ text: "Avancer vers la Faille Géothermique (Vague 2)", next: "ACT_1_KAIROK_WAVE2_FIGHT" }]
+        text: "EMBUSCADE RÉUSSIE. Votre tir d'artillerie préventif frappe la colonne ennemie. La seconde vague est désorganisée et affaiblie. (Le prochain combat est facilité)",
+        choices: [{ text: "Continuer vers le Combat", next: "ACT_1_KAIROK_WAVE2_FIGHT_EASY" }]
     },
 
     ACT_1_KAIROK_AMBUSH_FAILURE: {
-        text: "ÉCHEC D'EMBUSCADE. Votre tir d'artillerie est intercepté. L'ennemi est alerté de votre position et se déploie plus prudemment. La prochaine bataille s'annonce plus difficile.",
-        choices: [{ text: "Avancer vers la Faille Géothermique (Vague 2)", next: "ACT_1_KAIROK_WAVE2_FIGHT" }]
+        text: "ÉCHEC D'EMBUSCADE. Votre tir d'artillerie est intercepté. L'ennemi est alerté de votre position et se déploie plus prudemment. (Le prochain combat est plus difficile)",
+        choices: [{ text: "Continuer vers le Combat", next: "ACT_1_KAIROK_WAVE2_FIGHT_HARD" }]
     },
 
-    // --- VAGUE 2 : COMBAT FINAL ACTE I ---
+    // --- COMBATS VAGUE 2 (Ajustés pour la difficulté) ---
 
     ACT_1_KAIROK_WAVE2_FIGHT: {
-        text: "La seconde vague arrive, plus nombreuse et mieux coordonnée. La Phalange de tête est un monstre blindé. Vous devez la neutraliser pour tenir la ligne. Vous devez faire un choix tactique pour le combat final. **(Jet de QI_de_Combat - Diff 10)**",
-        check: { stat: "QI_de_Combat", difficulty: 10, success: "ACT_1_KAIROK_WAVE2_FIGHT_SUCCESS", failure: "ACT_1_KAIROK_WAVE2_FIGHT_FAILURE" }
+        text: "La seconde vague arrive, plus nombreuse et mieux coordonnée. La Phalange de tête est un monstre blindé. Vous devez la neutraliser pour tenir la ligne. **(Combat Normal)**",
+        check: { stat: "QI_de_Combat", difficulty: 10, damageMante: 200, damagePilot: 10, success: "ACT_1_WAVE2_OUTRO_SUCCESS", failure: "ACT_1_WAVE2_OUTRO_FAILURE_RETREAT" }
     },
 
-    ACT_1_KAIROK_WAVE2_FIGHT_SUCCESS: {
-        text: "VICTOIRE TACTIQUE. Votre **QI_de_Combat** est supérieur. Vous exploitez les faiblesses du blindage de la Phalange ennemie, neutralisant la menace avec une précision chirurgicale. La ligne est tenue. Kairok est sécurisée. Les dégâts sont minimes, mais la Mante est fatiguée.",
-        consequence: { ManteHP: -25, progress: 20, reputation: { CEL: 1 } },
-        choices: [{ text: "Déployer pour la prochaine mission (Géothermia)", next: "ACT_1_GEOTHERMIA_INTRO" }]
+    ACT_1_KAIROK_WAVE2_FIGHT_EASY: {
+        text: "Grâce à votre préparation, l'ennemi est affaibli et désorganisé. La Phalange de tête est vulnérable. Vous avez une fenêtre de tir. **(Combat Facilité)**",
+        check: { stat: "QI_de_Combat", difficulty: 8, damageMante: 150, damagePilot: 5, success: "ACT_1_WAVE2_OUTRO_SUCCESS", failure: "ACT_1_WAVE2_OUTRO_FAILURE_RETREAT" }
     },
 
-    ACT_1_KAIROK_WAVE2_FIGHT_FAILURE: {
-        text: "ÉCHEC TACTIQUE. La Phalange ennemie perce la ligne. Votre Mante subit un barrage de tirs et est forcée de battre en retraite pour éviter l'anéantissement. Kairok tombe, mais vous survivez. Cet échec pèsera sur votre dossier. La CEL est furieuse.",
-        consequence: { ManteHP: -50, PilotHP: -5, progress: 10, reputation: { CEL: -2 } },
-        choices: [{ text: "Poursuivre la campagne (Géothermia)", next: "ACT_1_GEOTHERMIA_INTRO" }]
+    ACT_1_KAIROK_WAVE2_FIGHT_HARD: {
+        text: "L'ennemi est en position supérieure et ses renforts sont intègres. Vous faites face à un assaut brutal. C'est un combat désespéré. **(Combat Difficile)**",
+        check: { stat: "QI_de_Combat", difficulty: 12, damageMante: 250, damagePilot: 15, success: "ACT_1_WAVE2_OUTRO_SUCCESS", failure: "ACT_1_WAVE2_OUTRO_FAILURE_RETREAT" }
     },
+
+    // --- RÉSULTATS VAGUE 2 ---
+
+    ACT_1_WAVE2_OUTRO_SUCCESS: {
+        text: "VICTOIRE. La Phalange de tête s'effondre dans une explosion de plasma. Le reste des forces ennemies panique et se retire, laissant le goulot d'étranglement sécurisé. Les renforts CEL arrivent pour nettoyer la zone. Vous avez tenu. La mission est accomplie. Votre Mante est endommagée, mais le pilote est sauf.",
+        consequence: { progress: 30, reputation: { CEL: 1 } },
+        choices: [{ text: "Continuer (Débriefing et nouvelle mission)", next: "ACT_1_GEOTHERMIA_INTRO" }]
+    },
+
+    ACT_1_WAVE2_OUTRO_FAILURE_RETREAT: {
+        text: "ÉCHEC. Le blindage de la Phalange ennemie tient bon. Votre escouade subit des pertes et vous êtes forcé de battre en retraite, laissant les dépôts d'Osselets exposés. La CEL vous considérera comme un échec, mais l'escouade est sauve. Vous devez immédiatement rejoindre la zone de regroupement.",
+        consequence: { progress: 25, reputation: { CEL: -2 } },
+        choices: [{ text: "Continuer (Débriefing et nouvelle mission)", next: "ACT_1_GEOTHERMIA_INTRO" }]
+    },
+
 
     // --- BATAILLE 2 : LA FAILLE GÉOTHERMIQUE ---
 
     ACT_1_GEOTHERMIA_INTRO: {
-        text: "Le champ de bataille se déplace vers les puits géothermiques de l'Archipel, là où l'énergie de l'île est concentrée. L'objectif est de sécuriser le 'Noyau Géo'. L'environnement est instable : vapeur, geysers explosifs, et terrain glissant. Le combat sera chaotique. L'ennemi s'est retranché au centre de la Faille. Vous devez le déloger ou sécuriser le Noyau par une manœuvre risquée. La menace d'Aetheria plane toujours.",
-        consequence: { progress: 30 },
+        text: "Le champ de bataille se déplace vers les puits géothermiques de l'Archipel. L'objectif est de sécuriser le 'Noyau Géo'. L'environnement est instable : vapeur, geysers explosifs, et terrain glissant. L'ennemi s'est retranché au centre de la Faille. La menace d'Aetheria plane toujours. Vous avez le choix entre trois manœuvres principales pour déloger l'ennemi.",
+        consequence: { progress: 50 },
         choices: [
             { text: "Manœuvre : Utiliser la vapeur et le terrain instable à votre avantage pour piéger l'ennemi. (Jet de Synchronisation - Diff 10)", next: "ACT_1_GEOTHERMIA_SYNCHRO" },
             { text: "Manœuvre : Assurer la protection du Noyau Géo, vous préparez une ligne de défense statique et puissante. (Jet de Force - Diff 7)", next: "ACT_1_GEOTHERMIA_FORCE_CHECK" },
@@ -254,7 +321,7 @@ export const SCENES_DATA = {
     ACT_1_GEOTHERMIA_FORCE_SUCCESS: {
         text: "SUCCÈS DE FORCE. Vous ancrez votre Mante dans le sol volcanique, créant un mur impénétrable. L'ennemi se brise contre votre ligne. Le Noyau Géo est sécurisé. (Dégâts Mante minimes subis)",
         consequence: { ManteHP: -10 },
-        choices: [{ text: "Continuer l'opération (Phase de Débriefing)", next: "ACT_1_GEOTHERMIA_OUTRO_SUCCESS" }]
+        choices: [{ text: "Continuer l'opération (Phase de Débriefing)", next: "ACT_1_GEOTHERMIA_OUTRO" }]
     },
 
     ACT_1_GEOTHERMIA_FORCE_FAILURE: {
@@ -271,7 +338,7 @@ export const SCENES_DATA = {
     ACT_1_GEOTHERMIA_VITESSE_SUCCESS: {
         text: "SUCCÈS DE VITESSE. Vous êtes une ombre dans la vapeur. Vous contournez les unités ennemies et détruisez leur poste de commandement. La bataille s'effondre en votre faveur. (Victoire rapide)",
         consequence: { ManteHP: -5 },
-        choices: [{ text: "Continuer l'opération (Phase de Débriefing)", next: "ACT_1_GEOTHERMIA_OUTRO_SUCCESS" }]
+        choices: [{ text: "Continuer l'opération (Phase de Débriefing)", next: "ACT_1_GEOTHERMIA_OUTRO" }]
     },
 
     ACT_1_GEOTHERMIA_VITESSE_FAILURE: {
@@ -280,14 +347,8 @@ export const SCENES_DATA = {
         choices: [{ text: "Continuer l'opération (Phase de Débriefing)", next: "ACT_1_GEOTHERMIA_OUTRO" }]
     },
 
-    ACT_1_GEOTHERMIA_OUTRO_SUCCESS: {
-        text: "La bataille de l'Archipel s'achève sur une victoire. Alors les unités de FEU se retirent pour panser leurs plaies, un message ultra-prioritaire arrive : un signal complexe et non-humain a été détecté dans l'espace. Toutes les forces d'élite sont redéployées immédiatement. Le sort de la guerre est mis en pause par une question existentielle.",
-        consequence: { progress: 50 },
-        choices: [{ text: "Accepter la nouvelle mission (Direction : Station Léviathan)", next: "ACT_2_MONOLITHE_INTRO" }]
-    },
-
     ACT_1_GEOTHERMIA_OUTRO: {
-        text: "La bataille de l'Archipel s'achève sur une victoire amère. Votre Mante est gravement endommagée. Alors que la CEL et la FEU se retirent pour panser leurs plaies, un message ultra-prioritaire arrive : un signal complexe et non-humain a été détecté dans l'espace. Toutes les forces d'élite sont redéployées immédiatement. Le sort de la guerre est mis en pause par une question existentielle.",
+        text: "La bataille de l'Archipel s'achève sur une victoire amère. Votre Mante est gravement endommagée. Alors que la CEL et la FEU se retirent pour panser leurs plaies, un message ultra-prioritaire arrive : un contact non-humain a été détecté dans l'espace lointain, au-delà de l'orbite lunaire. Toutes les forces d'élite sont redéployées immédiatement. Le sort de la guerre géopolitique est mis en pause par une question existentielle.",
         consequence: { progress: 50 },
         choices: [{ text: "Accepter la nouvelle mission (Direction : Station Léviathan)", next: "ACT_2_MONOLITHE_INTRO" }]
     },
@@ -295,16 +356,16 @@ export const SCENES_DATA = {
     // --- ACTE II : PREMIER CONTACT (LE MONOLITHE) ---
 
     ACT_2_MONOLITHE_INTRO: {
-        text: "ACTE II : LE MIROIR. L'objet emettant le signal a été recupéré et placé sur la base neutre de Leviathan, une vieille carcasse de station spatiale de la seconde Guerre Froide decomissionnée. La tension est palpable. L'objet est massif, noir, parfaitement lisse, surnommé le 'Monolithe'. Il émet une onde répétitive, sans aucune structure connue. Votre escouade Mante, est propulsée sur place afin d'escorter un VIP, le Dr. Volkov, linguiste et scientifique de la CEL, mènant les opérations scientifques. Il vous demande de l'accompagner afin d'effectuer une analyse de résonance. Vous êtes maintenant dans l'espace, la Terre est une bille bleue bien loin derrière vous.",
+        text: "ACTE II : LE MIROIR. Vous êtes à bord de la station 'Léviathan', une vieille carcasse de la Guerre Froide réactivée. La tension est palpable. Le contact est un objet massif, noir, parfaitement lisse, surnommé le 'Monolithe'. Il émet une onde répétitive, sans aucune structure connue. Votre escouade Mante est jugée essentielle pour l'analyser de près. Le Dr. Volkov, linguiste et scientifique de la CEL, mène l'opération. Il vous demande d'effectuer une analyse de résonance. Vous êtes maintenant dans l'espace, la Terre est une bille bleue loin derrière vous.",
         choices: [
-            { text: "Manœuvre : Le docteur adapte un outil brancher a votre Mante afin de lancer une série d'échos haute fréquence pour cartographier la structure interne du Monolithe. (Jet d'Intelligence - Diff 8)", next: "ACT_2_MONOLITHE_ECHO_INTEL" },
-            { text: "Manœuvre : Une pulsion vous envahis et vous tentez de vous synchroniser neuro-mécaniquement avec le Monolithe, en utilisant votre propre Mante comme traducteur. (Jet de Synchronisation - Diff 10)", next: "ACT_2_MONOLITHE_SYNCHRO_S" },
-            { text: "Manœuvre : Vous assistez Volkov en vous concentrant sur les ressources et les communications passives, l'observation, en évitant toute interaction. (Jet de Lucidité - Diff 6)", next: "ACT_2_MONOLITHE_PASSIVE_LUCIDITE" }
+            { text: "Manœuvre : Lancer une série d'échos haute fréquence pour cartographier sa structure interne. (Jet d'Intelligence - Diff 8)", next: "ACT_2_MONOLITHE_ECHO_INTEL" },
+            { text: "Manœuvre : Tenter de vous synchroniser neuro-mécaniquement avec le Monolithe, en utilisant votre propre Mante comme traducteur. (Jet de Synchronisation - Diff 10)", next: "ACT_2_MONOLITHE_SYNCHRO_S" },
+            { text: "Manœuvre : Demander à Volkov de concentrer les ressources sur les communications passives et l'observation, en évitant toute interaction. (Jet de Lucidité - Diff 6)", next: "ACT_2_MONOLITHE_PASSIVE_LUCIDITE" }
         ],
     },
 
     ACT_2_MONOLITHE_ECHO_INTEL: {
-        text: "Etonnement, et instinctivement vous arrivez a moduler les fréquences de la Mante au-delà de leurs limites habituelles. Réussir pourrait vous donner un plan 3D de l'intérieur du Monolithe, révélant ses mécanismes cachés. Échouer pourrait provoquer une réaction non désirée.",
+        text: "Votre **Intelligence** vous permet de moduler les fréquences de la Mante au-delà de leurs limites habituelles. Réussir pourrait vous donner un plan 3D de l'intérieur du Monolithe. Échouer pourrait provoquer une réaction non désirée.",
         check: { stat: "Intelligence", difficulty: 8, success: "ACT_2_MONOLITHE_CHECK_SUCCESS", failure: "ACT_2_MONOLITHE_CHECK_FAILURE" }
     },
 
@@ -314,35 +375,35 @@ export const SCENES_DATA = {
     },
 
     ACT_2_MONOLITHE_PASSIVE_LUCIDITE: {
-        text: "La **Lucidité** suggère qu'une action est une erreur. Vous proposez à Volkov d'utiliser la puissance de la Mante pour stabiliser l'environnement autour de l'objet, se contentant d'enregistrer. Cela évite le danger, mais limite l'information.",
+        text: "La **Lucidité** suggère qu'une action est une erreur. Vous proposez à Volkov d'utiliser la puissance de la Mante pour stabiliser l'environnement autour de l'objet. Cela évite le danger, mais limite l'information.",
         check: { stat: "Lucidité", difficulty: 6, success: "ACT_2_MONOLITHE_CHECK_SUCCESS_LUCID", failure: "ACT_2_MONOLITHE_CHECK_FAILURE" }
     },
 
     ACT_2_MONOLITHE_CHECK_SUCCESS: {
-        text: "SUCCÈS. Les données révèlent que le Monolithe ne communique pas, il *enseigne*. Il diffuse des concepts de mécanique quantique et de linguistique encore inconnu par nos scientifiques. Le Dr. Volkov est surexcité : nous pouvons apprendre à parler le langage des Architectes. Mais Volkov est également de plus en plus secret, sous l'influence de l'information.",
+        text: "SUCCÈS. Les données révèlent que le Monolithe ne communique pas, il *enseigne*. Il diffuse des bases de mécanique quantique et de linguistique. Le Dr. Volkov est surexcité. (Avance vers la trahison)",
         consequence: { reputation: { Aetheria: 1 } },
-        choices: [{ text: "Poursuivre la mission (Traversée vers la trahison)", next: "ACT_2_VOLKOV_BETRAYAL" }]
+        choices: [{ text: "Poursuivre la mission", next: "ACT_2_VOLKOV_BETRAYAL" }]
     },
 
     ACT_2_MONOLITHE_CHECK_SUCCESS_LUCID: {
-        text: "SUCCÈS D'OBSERVATION. En évitant l'interaction, vous réalisez que les transmissions sont cryptées mais basées sur des concepts universels. Volkov est frustré par la lenteur, mais le danger est évité. Il vous ordonne de rester en alerte pour une nouvelle tentative d'analyse.",
-        choices: [{ text: "Poursuivre la mission (Traversée vers la trahison)", next: "ACT_2_VOLKOV_BETRAYAL" }]
+        text: "SUCCÈS D'OBSERVATION. En évitant l'interaction, vous réalisez que les transmissions sont cryptées mais basées sur des concepts universels. Volkov est frustré par la lenteur, mais le danger est évité.",
+        choices: [{ text: "Poursuivre la mission", next: "ACT_2_VOLKOV_BETRAYAL" }]
     },
 
     ACT_2_MONOLITHE_SYNCHRO_FAILURE: {
-        text: "ÉCHEC CRITIQUE. Le feedback est brutal. Le langage des Architectes inonde votre conscience, provoquant une surcharge neurologique dans la Mante. Vous avez subi des dégâts temporaires à votre Synchronisation, mais vous avez également entrevu quelque chose : une *peur* primale, non-humaine. Le danger est réel.",
-        consequence: { Synchronisation: -1, PilotHP: -70 },
-        choices: [{ text: "Poursuivre la mission (Traversée vers la trahison)", next: "ACT_2_VOLKOV_BETRAYAL" }]
+        text: "ÉCHEC CRITIQUE. Le feedback est brutal. Le langage des Architectes inonde votre conscience, provoquant une surcharge neurologique. Vous avez subi des dégâts temporaires à votre Synchronisation, mais vous avez également entrevu quelque chose : une *peur* primale, non-humaine.",
+        consequence: { Synchronisation: -1, PilotHP: -10 },
+        choices: [{ text: "Poursuivre la mission", next: "ACT_2_VOLKOV_BETRAYAL" }]
     },
 
     ACT_2_MONOLITHE_CHECK_FAILURE: {
-        text: "ÉCHEC. Le Monolithe ne réagit pas bien. Il émet une onde de résonance qui secoue violemment votre Mante. Vous reculez, les dégâts sont physiques. Vous avez échoué à obtenir l'information et vous avez potentiellement attiré son attention.",
-        consequence: { ManteHP: -300 },
-        choices: [{ text: "Poursuivre la mission (Traversée vers la trahison)", next: "ACT_2_VOLKOV_BETRAYAL" }]
+        text: "ÉCHEC. Le Monolithe ne réagit pas bien. Il émet une onde de résonance qui secoue violemment votre Mante. Vous reculez, les dégâts sont physiques. Vous avez échoué à obtenir l'information.",
+        consequence: { ManteHP: -30 },
+        choices: [{ text: "Poursuivre la mission", next: "ACT_2_VOLKOV_BETRAYAL" }]
     },
 
     ACT_2_VOLKOV_BETRAYAL: {
-        text: "Les jours s'écoulent. Le Docteur Volkov a finalement établi la « communication ». Il vit désormais retranché dans le laboratoire principal, refusant toute interaction ou sortie, même pour sa subsistance. Silencieusement, vous lui déposez des rations devant la porte blindée. L'inertie est rompue à la nuit tombée. Une vibration stridente de votre terminal vous arrache au sommeil. C'est un ordre codé, priorité maximale, émanant d'un opérateur du CEL : « ALERTE ROUGE. Neutralisez Volkov. Le sujet est compromis. L'artefact infecte le scientifique. Évacuez. Si l'installation n'est pas détruite d'ici dix minutes, vous serez considérés comme perdus et nous procèderons à la frappe balistique. » Votre Mante est votre seul atout. L'instant d'après, l'appareil vibre à nouveau. Un second message, crypté et d'origine inconnue, apparaît : « Ne neutralisez pas Volkov. Laissez le processus s'accomplir. »",
+        text: "Les jours passent. Volkov a établi la 'communication'. Il est maintenant isolé dans le laboratoire principal. Vous recevez un ordre codé (non CEL) d'un opérateur Aetheria : 'Neutraliser Volkov. Il a été synthétisé.' La corporation a utilisé l'objet pour infecter le scientifique. Votre Mante est votre seul atout.",
         consequence: { progress: 75, reputation: { CEL: -1 } },
         choices: [
             { text: "Neutralisation : Forcer la porte blindée du laboratoire pour une confrontation directe. (Jet de Force - Diff 15)", next: "ACT_3_LEVIATHAN_BREACH_FORCE" },
@@ -354,7 +415,7 @@ export const SCENES_DATA = {
     // --- ACTE III : HORREUR CORPORATIVE (LEVIATHAN) ---
 
     ACT_3_LEVIATHAN_BREACH_FORCE: {
-        text: "Vous utilisez la pleine puissance de votre Mante pour démolir la porte blindée. L'impact est brutal, mais réussi. Vous entrez. Volkov, ou ce qu'il est devenu, est là. Un combat rapproché, sans retenue, commence.",
+        text: "Vous utilisez la pleine puissance de votre Mante pour démolir la porte blindée. L'impact est brutal. Vous entrez. Volkov, ou ce qu'il est devenu, est là. Un combat rapproché, sans retenue, commence.",
         choices: [{ text: "Confronter la Synthèse (Combat final)", next: "ACT_3_LEVIATHAN_SYNTHESE" }]
     },
 
@@ -365,8 +426,7 @@ export const SCENES_DATA = {
 
     ACT_3_LEVIATHAN_SYNTHESE_AGI_SUCCESS: {
         text: "L'agent neutralisant a partiellement ralenti Volkov. Le combat est facilité, mais l'horreur demeure. Le scientifique est une masse de chair et de métal étranger. Vous devez l'achever.",
-        consequence: { ManteHP: -0, PilotHP: -0 }, // Pas de dégâts, mais la scène mène au combat
-        choices: [{ text: "Confronter la Synthèse (Combat facilité)", next: "ACT_3_LEVIATHAN_SYNTHESE" }]
+        choices: [{ text: "Confronter la Synthèse (Combat facilité)", next: "ACT_3_LEVIATHAN_SYNTHESE_EASY" }]
     },
 
     ACT_3_LEVIATHAN_BREACH_INTEL: {
@@ -389,9 +449,22 @@ export const SCENES_DATA = {
         ],
     },
 
+    ACT_3_LEVIATHAN_SYNTHESE_EASY: {
+        text: "Grâce à l'agent neutralisant, la créature est ralentie. Le combat est moins désespéré. Vous devez l'achever rapidement avant qu'elle ne s'adapte.",
+        choices: [
+            { text: "Stratégie : Viser les points faibles neurologiques du Monolithe dans la créature. (Jet de Synchronisation - Diff 8)", next: "ACT_3_LEVIATHAN_SYNTHESE_SYNCHRO_EASY" },
+            { text: "Stratégie : Engagement total, utiliser toute la puissance pour la détruire en un seul coup. (Jet de Force - Diff 10)", next: "ACT_3_LEVIATHAN_SYNTHESE_FORCE_EASY" }
+        ],
+    },
+
     ACT_3_LEVIATHAN_SYNTHESE_SYNCHRO: {
-        text: "Votre **Synchronisation** est mise à l'épreuve. Si vous réussissez, vous rompez la connexion de la créature au Monolithe, la laissant sans défense. Si vous échouez, l'horreur s'installe dans votre propre esprit.",
+        text: "Votre **Synchronisation** est mise à l'épreuve. Si vous réussissez, vous rompez la connexion de la créature au Monolithe, la laissant sans défense.",
         check: { stat: "Synchronisation", difficulty: 11, success: "ACT_3_LEVIATHAN_SYNTHESE_SUCCESS", failure: "ACT_3_LEVIATHAN_SYNTHESE_FAILURE" }
+    },
+
+    ACT_3_LEVIATHAN_SYNTHESE_SYNCHRO_EASY: {
+        text: "Votre **Synchronisation** est mise à l'épreuve contre une cible ralentie. Le feedback est moins intense.",
+        check: { stat: "Synchronisation", difficulty: 8, success: "ACT_3_LEVIATHAN_SYNTHESE_SUCCESS", failure: "ACT_3_LEVIATHAN_SYNTHESE_FAILURE" }
     },
 
     ACT_3_LEVIATHAN_SYNTHESE_FORCE: {
@@ -399,10 +472,16 @@ export const SCENES_DATA = {
         check: { stat: "Force", difficulty: 13, success: "ACT_3_LEVIATHAN_SYNTHESE_SUCCESS", failure: "ACT_3_LEVIATHAN_SYNTHESE_FAILURE" }
     },
 
+    ACT_3_LEVIATHAN_SYNTHESE_FORCE_EASY: {
+        text: "La créature est ralentie, mais nécessite toujours un coup puissant pour être détruite. La difficulté est réduite.",
+        check: { stat: "Force", difficulty: 10, success: "ACT_3_LEVIATHAN_SYNTHESE_SUCCESS", failure: "ACT_3_LEVIATHAN_SYNTHESE_FAILURE" }
+    },
+
+
     // --- RÉSULTATS COMBAT FINAL ---
 
     ACT_3_LEVIATHAN_SYNTHESE_SUCCESS: {
-        text: "VICTOIRE EXTREME. La créature PXF-Volkov est enfin réduite au silence. Vous avez tenu tête à l'indicible. Immédiatement, les transmissions de l'opérateur inconnu s'intensifient : il veut que vous deroutiez l'épave de la station et il veut toutes les données récupérées. En guise de gage de bonne foi, il accepte de dévoiler son identité : il travaille pour la mégacorporation 'Aetheria', ce nom ne vous est pas inconnu c'est une corporation qui collabore avec CEL dans la conception d'armement et d'armure, d'ailleurs votre armure en est issue. Il révèle qu'il surveille la situation depuis le début car l'épave du Léviathan appartient en réalité à la corporation. « Il y a de l'argent à la clef, plus que vous ne sauriez imaginer », ajoute-t-il froidement. « Nous vous garantissons une extraction immédiate ainsi qu'une place au sein de nos équipes. » Le choix est désormais vôtre.",
+        text: "VICTOIRE EXTREME. La créature PXF-Volkov est réduite au silence. Vous avez tenu face à l'horreur. Les transmissions d'Aetheria s'intensifient : ils veulent l'épave de la station et les données. Vous avez un choix.",
         consequence: { progress: 99 },
         choices: [{ text: "Écouter les transmissions Aetheria (Choix final)", next: "ACT_3_LEVIATHAN_OUTRO_CHOICE" }]
     },
@@ -421,7 +500,7 @@ export const SCENES_DATA = {
     ACT_3_LEVIATHAN_OUTRO_CHOICE: {
         text: "La station Léviathan est sur le point d'être détruite. Aetheria vous offre une extraction et de l'argent en échange de toutes les données du Monolithe. La CEL vous ordonne d'utiliser l'autodestruction pour purifier la zone.",
         choices: [
-            { text: "Accepter l'offre d'Aetheria. La survie avant l'idéologie. Vous acceptez de rallumer les moteurs de la station afin d'eviter les missiles envoyé par la CEL et vous enfermez les reste de Volkov dans un caisson que vous envoyez vers un point GPS donné. (Augmente Réputation Aetheria)", next: "ENDING_SUCCESS_CORPO", consequence: { reputation: { CEL: -5, Aetheria: 5 } } },
+            { text: "Accepter l'offre d'Aetheria. La survie avant l'idéologie. (Augmente Réputation Aetheria)", next: "ENDING_SUCCESS_CORPO", consequence: { reputation: { CEL: -5, Aetheria: 5 } } },
             { text: "Obéir à la CEL : Détruire toutes les preuves et fuir. (Augmente Réputation CEL)", next: "ACT_3_LEVIATHAN_ESCAPE_VITESSE", consequence: { reputation: { CEL: 5, Aetheria: -2 } } },
             { text: "Obéir partiellement à la CEL : Détruire l'épave mais envoyer les données recueillies au haut commandement CEL. (Augmente Réputation CEL)", next: "ENDING_SUCCESS_CEL", consequence: { reputation: { CEL: 4, Aetheria: -2 } } },
             { text: "Détruire l'épave et envoyer les données à une faction de la FEU, contre extraction et protection. (Diminue Réputation CEL/Aetheria)", next: "ENDING_SUCCESS_FEU", consequence: { reputation: { CEL: -5, Aetheria: -2, FEU: 5 } } },
@@ -432,12 +511,12 @@ export const SCENES_DATA = {
     // --- FINS DU JEU ---
 
     ENDING_SUCCESS_CORPO: {
-        text: "Volko enfin ce qu'il est devenu est 'sauvé'. Vous êtes riche, mais vous savez que la menace qu'il represente est maintenant entre les mains d'Aetheria, qui rêve de l'etudier et surtout de s'approprier sa force destructrice et assimilatrice. Le salut du monde est désormais monnayable. Vous avez survécu à la guerre, mais pas à la cupidité. Paria dans votre propre pays, vous vous installez dans une republique fantoche controlée par Aetheria, où elle détient ses principaux laboratoires, vous y occupez desormais le role de consultant. (Fin du Cycle de Prométhée: Voie Corporative)",
+        text: "La Mante est sauvée. Vous êtes riche, mais vous savez que la menace PXF est maintenant entre les mains d'Aetheria, qui rêve de l'etudier et surtout de s'approprier sa force destructrice. Le salut du monde est désormais monnayable. Vous avez survécu à la guerre, mais pas à la cupidité. Paria dans votre propre pays, vous vous installez dans une republique controlée par Aetheria, où elle détient ses principaux laboratoires, vous y occupez desormais le role de consultant. (Fin du Cycle de Prométhée: Voie Corporative)",
         gameStatus: "ENDED_SUCCESS",
     },
 
     ENDING_SUCCESS_CEL: {
-        text: "Vous vous échappez de justesse, votre Mante est à peine fonctionnelle. Les données ont été transmises au haut commandement.Désormais accessible à la communauté scientifique de votre pays, le savoir du monolithe permet des avancées technologiques magistrales. La guerre vient de prendre un tournant décisif à l'avantage du CEL, qui va manifestement l'emporter. Le CEL vous propulse au rang de « Héros des Cendres », mais étrangement, certains hauts gradés ont désormais une dent contre vous. (Fin du Cycle de Prométhée: Voie CEL)",
+        text: "Vous vous échappez de justesse, votre Mante est à peine fonctionnelle. Les données ont été transmises au haut commandement. Désormais accessible à la communauté scientifique de votre pays, le savoir du monolithe permet des avancées technologiques magistrales. La guerre vient de prendre un tournant décisif à l'avantage du CEL, qui va manifestement l'emporter. Le CEL vous propulse au rang de « Héros des Cendres », mais étrangement, certains hauts gradés ont désormais une dent contre vous. (Fin du Cycle de Prométhée: Voie CEL)",
         gameStatus: "ENDED_SUCCESS",
     },
 
