@@ -1,16 +1,14 @@
 import { gameState, SCENES, filterChoicesByRequirements, resetToCreation, saveGameLocal, loadGameLocal, startGame, handleCombatChoice } from './game_logic.js';
-// CORRECTION : Importation des constantes depuis le fichier centralisé `models.js`.
 import { MANTES, PILOT_BASE_STATS, POOL_TOTAL, DISTRIBUTION_POOL, ENEMY_TYPES, MANTE_SPECIAL_ATTACKS } from './models.js';
 
 const gameView = document.getElementById('game-view');
 
 // --- Fonctions d'Affichage ---
 
-// Met à jour le journal des opérations.
 export function updateLog(message) {
     gameState.log.push(message);
     if (gameState.log.length > 50) {
-        gameState.log.shift(); // Limite la taille du log pour éviter les problèmes de performance
+        gameState.log.shift();
     }
     const logEl = document.getElementById('log-display');
     if (logEl) {
@@ -429,3 +427,4 @@ export async function exportRunAsPDF() {
         }
     }
 }
+
