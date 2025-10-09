@@ -71,13 +71,13 @@ Composition des Escouades ECA (Mantes)
 
     ACT_1_KAIROK_ASSAULT_FORCE_SUCCESS: {
         text: "SUCCÈS DE L'IMPACT. La force brute de votre Mante est inégalée. Vous écrasez deux unités ennemies sous vos pieds, brisant leur élan. Les tirs de suppression lourds vous atteignent, mais l'armure encaisse. Vous avez sécurisé la ligne pour l'instant. (Dégâts Mante légers subis, statut AVANTAGE acquis)",
-        consequence: { ManteHP: -20, successStatus: true },
+        consequence: { ManteHP: -20, setStatus: { success: true } },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_ASSAULT_FORCE_FAILURE: {
         text: "ÉCHEC DE L'IMPACT. La manœuvre est interceptée par un tir de plasma lourd. Votre charge est stoppée net. L'armure de votre jambe gauche est percée, le feedback est brutal. Vous reculez, blessé, mais vous tenez toujours la ligne. (Dégâts Mante lourds subis, dégâts Pilote, statut CRITIQUE acquis)",
-        consequence: { ManteHP: -40, PilotHP: -5, failureStatus: true },
+        consequence: { ManteHP: -40, PilotHP: -5, setStatus: { failure: true } },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
@@ -88,13 +88,13 @@ Composition des Escouades ECA (Mantes)
 
     ACT_1_KAIROK_STRAT_QC_SUCCESS: {
         text: "SUCCÈS TACTIQUE. Vos ordres sont exécutés à la perfection. Les Phalanges ennemies tombent dans votre piège. Vous infligez des dégâts ciblés qui forcent leur repli immédiat. Vous avez gagné du temps. (Dégâts Mante minimes subis, statut AVANTAGE acquis)",
-        consequence: { ManteHP: -10, successStatus: true },
+        consequence: { ManteHP: -10, setStatus: { success: true } },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_STRAT_QC_FAILURE: {
         text: "ÉCHEC TACTIQUE. Les mercenaires d'Aetheria ont anticipé votre manœuvre de flanc. Votre escouade est prise sous le feu croisé. Votre Mante subit des tirs de riposte violents. (Dégâts Mante lourds subis, statut CRITIQUE acquis)",
-        consequence: { ManteHP: -30, failureStatus: true },
+        consequence: { ManteHP: -30, setStatus: { failure: true } },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
@@ -105,13 +105,13 @@ Composition des Escouades ECA (Mantes)
 
     ACT_1_KAIROK_FLANK_AGI_SUCCESS: {
         text: "SUCCÈS D'AGILITÉ. Vous avez l'élégance d'un chat dans la fumée. Un tir bien placé provoque une réaction en chaîne. L'assaut s'arrête. (Dégâts Mante minimes subis, statut AVANTAGE acquis)",
-        consequence: { ManteHP: -5, successStatus: true },
+        consequence: { ManteHP: -5, setStatus: { success: true } },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_FLANK_AGI_FAILURE: {
         text: "ÉCHEC D'AGILITÉ. Vous êtes ralenti par des débris dissimulés et un capteur vous trahit. Un sniper vous vise et vous touche. La douleur est vive. (Dégâts Mante et Pilote subis, statut CRITIQUE acquis)",
-        consequence: { ManteHP: -35, PilotHP: -8, failureStatus: true },
+        consequence: { ManteHP: -35, PilotHP: -8, setStatus: { failure: true } },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
@@ -122,13 +122,13 @@ Composition des Escouades ECA (Mantes)
 
     ACT_1_KAIROK_RUSH_VITESSE_SUCCESS: {
         text: "SUCCÈS DE VITESSE. Votre Mante est un missile. Vous franchissez la ligne et créez un point de rupture dans leurs défenses. La désorientation ennemie est totale. (Dégâts Mante minimes subis, statut AVANTAGE acquis)",
-        consequence: { ManteHP: -15, successStatus: true },
+        consequence: { ManteHP: -15, setStatus: { success: true } },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_RUSH_VITESSE_FAILURE: {
         text: "ÉCHEC DE VITESSE. La surcharge est trop forte. Votre Mante subit un flash de désynchronisation, heurtant une ruine. L'ennemi concentre son feu. (Dégâts Mante lourds subis, dégâts Pilote, statut CRITIQUE acquis)",
-        consequence: { ManteHP: -45, PilotHP: -10, failureStatus: true },
+        consequence: { ManteHP: -45, PilotHP: -10, setStatus: { failure: true } },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
@@ -139,13 +139,13 @@ Composition des Escouades ECA (Mantes)
 
     ACT_1_KAIROK_ANALYSE_INTEL_SUCCESS: {
         text: "SUCCÈS D'ANALYSE. Vous percez le cryptage : ce sont des agents d'Aetheria ! Vous utilisez cette faille. Leur réputation sera entachée et l'assaut affaibli. (Dégâts Mante minimes subis, statut AVANTAGE acquis, Réputation Aetheria réduite)",
-        consequence: { reputation: { Aetheria: -2 }, ManteHP: -10, successStatus: true },
+        consequence: { reputation: { Aetheria: -2 }, ManteHP: -10, setStatus: { success: true } },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_ANALYSE_INTEL_FAILURE: {
         text: "ÉCHEC D'ANALYSE. Le cryptage est trop complexe. Vous perdez un temps précieux. Vous subissez des tirs de riposte alors que vous tentez de vous reconcentrer. (Dégâts Mante subis, statut CRITIQUE acquis)",
-        consequence: { ManteHP: -30, failureStatus: true },
+        consequence: { ManteHP: -30, setStatus: { failure: true } },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
@@ -156,13 +156,13 @@ Composition des Escouades ECA (Mantes)
 
     ACT_1_KAIROK_COUNTER_PIVOT_SUCCESS: {
         text: "SUCCÈS DE LUCIDITÉ. Vous neutralisez la menace cachée en un éclair. L'ennemi est déconcerté, forcé de se réorganiser. Vous avez gagné l'initiative. (Dégâts Mante minimes subis, statut AVANTAGE acquis)",
-        consequence: { ManteHP: -10, successStatus: true },
+        consequence: { ManteHP: -10, setStatus: { success: true } },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_COUNTER_PIVOT_FAILURE: {
         text: "ÉCHEC DE LUCIDITÉ. Le piège était une diversion. Vous vous exposez inutilement à la ligne de front et subissez des tirs de suppression. (Dégâts Mante subis, statut CRITIQUE acquis)",
-        consequence: { ManteHP: -35, failureStatus: true },
+        consequence: { ManteHP: -35, setStatus: { failure: true } },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
@@ -173,13 +173,13 @@ Composition des Escouades ECA (Mantes)
 
     ACT_1_KAIROK_SYNCHRO_ATTACK_SUCCESS: {
         text: "SUCCÈS DE SYNCHRONISATION. Vous inondez les canaux ennemis de bruit blanc, désorganisant leur coordination. L'assaut ralentit. (Dégâts Mante minimes subis, statut AVANTAGE acquis)",
-        consequence: { ManteHP: -5, successStatus: true },
+        consequence: { ManteHP: -5, setStatus: { success: true } },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
     ACT_1_KAIROK_SYNCHRO_ATTACK_FAILURE: {
         text: "ÉCHEC DE SYNCHRONISATION. La tentative est repoussée. Un puissant feedback de l'ennemi submerge vos propres systèmes. Vous subissez une désorientation temporaire. (Dégâts Mante subis, statut CRITIQUE acquis)",
-        consequence: { ManteHP: -30, failureStatus: true },
+        consequence: { ManteHP: -30, setStatus: { failure: true } },
         choices: [{ text: "Continuer l'opération (Préparation Vague 2)", next: "ACT_1_KAIROK_WAVE2_PREP" }]
     },
 
@@ -187,6 +187,7 @@ Composition des Escouades ECA (Mantes)
 
     ACT_1_KAIROK_WAVE2_PREP: {
         text: "Le champ de bataille est jonché d'épaves. Les renforts sont encore à 5 minutes. Votre Mante est endommagée. Vous avez le temps de tenter une réparation ou une manœuvre de reconnaissance. La survie de l'escouade dépend de cette décision.",
+        clearStatusFlags: true,
         choices: [
             // Choix basique disponibles pour tout le monde
             { text: "Tenter une réparation d'urgence sur le blindage pour récupérer 20 PV (Jet de QI_de_Combat - Diff 8)", next: "ACT_1_KAIROK_REPAIR_QC" },
@@ -196,14 +197,14 @@ Composition des Escouades ECA (Mantes)
             {
                 text: "[AVANTAGE/DÉTERMINANT] **Position Dominante :** Utiliser votre élan pour prendre la position la plus élevée et forcer la seconde vague à combattre en terrain découvert. (Augmente la Réputation CEL)",
                 next: "ACT_1_KAIROK_ADVANTAGE_CHOICE",
-                requirements: { successStatus: true }
+                requirements: { success: true }
             },
 
             // Choix Critique (Risqué) - Disponible uniquement après un échec initial
             {
                 text: "[DIFFICILE/CRITIQUE] **Sacrifice de Puissance :** Désactiver temporairement les systèmes de support pour surcharger les armes principales avant la seconde vague. (Risque dégâts Pilote/Échec critique, Augmente la Force pour le combat)",
                 next: "ACT_1_KAIROK_CRITIQUE_CHOICE",
-                requirements: { failureStatus: true }
+                requirements: { failure: true }
             }
         ],
     },
@@ -256,17 +257,17 @@ Composition des Escouades ECA (Mantes)
 
     ACT_1_KAIROK_WAVE2_FIGHT: {
         text: "La seconde vague arrive, plus nombreuse et mieux coordonnée. La Phalange de tête est un monstre blindé. Vous devez la neutraliser pour tenir la ligne. **(Combat Normal)**",
-        check: { stat: "QI_de_Combat", difficulty: 10, damageMante: 200, damagePilot: 10, success: "ACT_1_WAVE2_OUTRO_SUCCESS", failure: "ACT_1_WAVE2_OUTRO_FAILURE_RETREAT" }
+        check: { type: "COMBAT_INIT", enemyType: "PHALANGE_LOURDE", success: "ACT_1_WAVE2_OUTRO_SUCCESS", failure: "ACT_1_WAVE2_OUTRO_FAILURE_RETREAT" }
     },
 
     ACT_1_KAIROK_WAVE2_FIGHT_EASY: {
         text: "Grâce à votre préparation, l'ennemi est affaibli et désorganisé. La Phalange de tête est vulnérable. Vous avez une fenêtre de tir. **(Combat Facilité)**",
-        check: { stat: "QI_de_Combat", difficulty: 8, damageMante: 150, damagePilot: 5, success: "ACT_1_WAVE2_OUTRO_SUCCESS", failure: "ACT_1_WAVE2_OUTRO_FAILURE_RETREAT" }
+        check: { type: "COMBAT_INIT", enemyType: "PHALANGE_LOURDE", success: "ACT_1_WAVE2_OUTRO_SUCCESS", failure: "ACT_1_WAVE2_OUTRO_FAILURE_RETREAT" }
     },
 
     ACT_1_KAIROK_WAVE2_FIGHT_HARD: {
         text: "L'ennemi est en position supérieure et ses renforts sont intègres. Vous faites face à un assaut brutal. C'est un combat désespéré. **(Combat Difficile)**",
-        check: { stat: "QI_de_Combat", difficulty: 12, damageMante: 250, damagePilot: 15, success: "ACT_1_WAVE2_OUTRO_SUCCESS", failure: "ACT_1_WAVE2_OUTRO_FAILURE_RETREAT" }
+        check: { type: "COMBAT_INIT", enemyType: "PHALANGE_LOURDE", success: "ACT_1_WAVE2_OUTRO_SUCCESS", failure: "ACT_1_WAVE2_OUTRO_FAILURE_RETREAT" }
     },
 
     // --- RÉSULTATS VAGUE 2 ---
@@ -416,69 +417,28 @@ Composition des Escouades ECA (Mantes)
 
     ACT_3_LEVIATHAN_BREACH_FORCE: {
         text: "Vous utilisez la pleine puissance de votre Mante pour démolir la porte blindée. L'impact est brutal. Vous entrez. Volkov, ou ce qu'il est devenu, est là. Un combat rapproché, sans retenue, commence.",
-        choices: [{ text: "Confronter la Synthèse (Combat final)", next: "ACT_3_LEVIATHAN_SYNTHESE" }]
+        check: { type: "COMBAT_INIT", enemyType: "SYNTHESE_VOLKOV", success: "ACT_3_LEVIATHAN_SYNTHESE_SUCCESS", failure: "ACT_3_LEVIATHAN_SYNTHESE_FAILURE" }
     },
 
     ACT_3_LEVIATHAN_BREACH_AGI: {
         text: "L'Agilité de votre Mante vous permet de naviguer dans les conduits de ventilation étroits pour atteindre la salle de confinement. Le risque de vous coincer est réel, mais vous évitez l'alarme. L'agent est injecté. Il réagit.",
-        check: { stat: "Agilité", difficulty: 12, success: "ACT_3_LEVIATHAN_SYNTHESE_AGI_SUCCESS", failure: "ACT_3_LEVIATHAN_SYNTHESE" }
+        check: { stat: "Agilité", difficulty: 12, success: "ACT_3_LEVIATHAN_SYNTHESE_AGI_SUCCESS", failure: "ACT_3_LEVIATHAN_BREACH_FORCE" }
     },
 
     ACT_3_LEVIATHAN_SYNTHESE_AGI_SUCCESS: {
         text: "L'agent neutralisant a partiellement ralenti Volkov. Le combat est facilité, mais l'horreur demeure. Le scientifique est une masse de chair et de métal étranger. Vous devez l'achever.",
-        choices: [{ text: "Confronter la Synthèse (Combat facilité)", next: "ACT_3_LEVIATHAN_SYNTHESE_EASY" }]
+        check: { type: "COMBAT_INIT", enemyType: "SYNTHESE_VOLKOV", success: "ACT_3_LEVIATHAN_SYNTHESE_SUCCESS", failure: "ACT_3_LEVIATHAN_SYNTHESE_FAILURE" }
     },
 
     ACT_3_LEVIATHAN_BREACH_INTEL: {
         text: "Le piratage du système de confinement nécessite une **Intelligence** hors norme. Si vous réussissez, vous pouvez déclencher le protocole d'autodestruction. Si vous échouez, vous alarmez Volkov.",
-        check: { stat: "Intelligence", difficulty: 10, success: "ACT_3_LEVIATHAN_SYNTHESE_INTEL_SUCCESS", failure: "ACT_3_LEVIATHAN_SYNTHESE" }
+        check: { stat: "Intelligence", difficulty: 10, success: "ACT_3_LEVIATHAN_SYNTHESE_INTEL_SUCCESS", failure: "ACT_3_LEVIATHAN_BREACH_FORCE" }
     },
 
     ACT_3_LEVIATHAN_SYNTHESE_INTEL_SUCCESS: {
         text: "Piratage réussi. La séquence d'autodestruction est lancée. Volkov est piégé, mais vous devez fuir immédiatement avant que le réacteur de la station n'explose. Vous avez 3 minutes.",
         choices: [{ text: "Fuir immédiatement (Jet de Vitesse)", next: "ACT_3_LEVIATHAN_ESCAPE_VITESSE" }]
     },
-
-    // Le combat réel contre la créature synthétisée (Volkov)
-    ACT_3_LEVIATHAN_SYNTHESE: {
-        text: "La créature PXF-Volkov est incroyablement rapide et utilise la science des Architectes. Il ne vous attaque pas, il tente de se connecter à votre Mante, de *vous* synthétiser. Vous devez la détruire ou la déconnecter. Le risque de contamination est maximal.",
-        choices: [
-            { text: "Stratégie : Viser les points faibles neurologiques du Monolithe dans la créature. (Jet de Synchronisation - Diff 11)", next: "ACT_3_LEVIATHAN_SYNTHESE_SYNCHRO" },
-            { text: "Stratégie : Éviter l'engagement et vider la salle dans l'espace. (Jet de Vitesse - Diff 10)", next: "ACT_3_LEVIATHAN_ESCAPE_VITESSE" },
-            { text: "Stratégie : Engagement total, utiliser toute la puissance pour la détruire en un seul coup. (Jet de Force - Diff 13)", next: "ACT_3_LEVIATHAN_SYNTHESE_FORCE" }
-        ],
-    },
-
-    ACT_3_LEVIATHAN_SYNTHESE_EASY: {
-        text: "Grâce à l'agent neutralisant, la créature est ralentie. Le combat est moins désespéré. Vous devez l'achever rapidement avant qu'elle ne s'adapte.",
-        choices: [
-            { text: "Stratégie : Viser les points faibles neurologiques du Monolithe dans la créature. (Jet de Synchronisation - Diff 8)", next: "ACT_3_LEVIATHAN_SYNTHESE_SYNCHRO_EASY" },
-            { text: "Stratégie : Engagement total, utiliser toute la puissance pour la détruire en un seul coup. (Jet de Force - Diff 10)", next: "ACT_3_LEVIATHAN_SYNTHESE_FORCE_EASY" }
-        ],
-    },
-
-    ACT_3_LEVIATHAN_SYNTHESE_SYNCHRO: {
-        text: "Votre **Synchronisation** est mise à l'épreuve. Si vous réussissez, vous rompez la connexion de la créature au Monolithe, la laissant sans défense.",
-        check: { stat: "Synchronisation", difficulty: 11, success: "ACT_3_LEVIATHAN_SYNTHESE_SUCCESS", failure: "ACT_3_LEVIATHAN_SYNTHESE_FAILURE" }
-    },
-
-    ACT_3_LEVIATHAN_SYNTHESE_SYNCHRO_EASY: {
-        text: "Votre **Synchronisation** est mise à l'épreuve contre une cible ralentie. Le feedback est moins intense.",
-        check: { stat: "Synchronisation", difficulty: 8, success: "ACT_3_LEVIATHAN_SYNTHESE_SUCCESS", failure: "ACT_3_LEVIATHAN_SYNTHESE_FAILURE" }
-    },
-
-    ACT_3_LEVIATHAN_SYNTHESE_FORCE: {
-        text: "La Force est la seule réponse à l'horreur. Un coup puissant dans la masse informe de Volkov. Mais si le blindage échoue, la contamination sera immédiate.",
-        check: { stat: "Force", difficulty: 13, success: "ACT_3_LEVIATHAN_SYNTHESE_SUCCESS", failure: "ACT_3_LEVIATHAN_SYNTHESE_FAILURE" }
-    },
-
-    ACT_3_LEVIATHAN_SYNTHESE_FORCE_EASY: {
-        text: "La créature est ralentie, mais nécessite toujours un coup puissant pour être détruite. La difficulté est réduite.",
-        check: { stat: "Force", difficulty: 10, success: "ACT_3_LEVIATHAN_SYNTHESE_SUCCESS", failure: "ACT_3_LEVIATHAN_SYNTHESE_FAILURE" }
-    },
-
-
-    // --- RÉSULTATS COMBAT FINAL ---
 
     ACT_3_LEVIATHAN_SYNTHESE_SUCCESS: {
         text: "VICTOIRE EXTREME. La créature PXF-Volkov est réduite au silence. Vous avez tenu face à l'horreur. Les transmissions d'Aetheria s'intensifient : ils veulent l'épave de la station et les données. Vous avez un choix.",
@@ -500,11 +460,11 @@ Composition des Escouades ECA (Mantes)
     ACT_3_LEVIATHAN_OUTRO_CHOICE: {
         text: "La station Léviathan est sur le point d'être détruite. Aetheria vous offre une extraction et de l'argent en échange de toutes les données du Monolithe. La CEL vous ordonne d'utiliser l'autodestruction pour purifier la zone.",
         choices: [
-            { text: "Accepter l'offre d'Aetheria. La survie avant l'idéologie. (Augmente Réputation Aetheria)", next: "ENDING_SUCCESS_CORPO", consequence: { reputation: { CEL: -5, Aetheria: 5 } } },
-            { text: "Obéir à la CEL : Détruire toutes les preuves et fuir. (Augmente Réputation CEL)", next: "ACT_3_LEVIATHAN_ESCAPE_VITESSE", consequence: { reputation: { CEL: 5, Aetheria: -2 } } },
-            { text: "Obéir partiellement à la CEL : Détruire l'épave mais envoyer les données recueillies au haut commandement CEL. (Augmente Réputation CEL)", next: "ENDING_SUCCESS_CEL", consequence: { reputation: { CEL: 4, Aetheria: -2 } } },
-            { text: "Détruire l'épave et envoyer les données à une faction de la FEU, contre extraction et protection. (Diminue Réputation CEL/Aetheria)", next: "ENDING_SUCCESS_FEU", consequence: { reputation: { CEL: -5, Aetheria: -2, FEU: 5 } } },
-            { text: "Détruire l'épave et envoyer les données aux 2 camps. (Diminue Réputation CEL/Aetheria)", next: "ENDING_SUCCESS_REBEL", consequence: { reputation: { CEL: -2, Aetheria: -2, FEU: 2 } } }
+            { text: "Accepter l'offre d'Aetheria. La survie avant l'idéologie. (Augmente Réputation Aetheria)", next: "ENDING_SUCCESS_CORPO", consequence: () => applyConsequenceFromData({ reputation: { CEL: -5, Aetheria: 5 } }) },
+            { text: "Obéir à la CEL : Détruire toutes les preuves et fuir. (Augmente Réputation CEL)", next: "ACT_3_LEVIATHAN_ESCAPE_VITESSE", consequence: () => applyConsequenceFromData({ reputation: { CEL: 5, Aetheria: -2 } }) },
+            { text: "Obéir partiellement à la CEL : Détruire l'épave mais envoyer les données recueillies au haut commandement CEL. (Augmente Réputation CEL)", next: "ENDING_SUCCESS_CEL", consequence: () => applyConsequenceFromData({ reputation: { CEL: 4, Aetheria: -2 } }) },
+            { text: "Détruire l'épave et envoyer les données à une faction de la FEU, contre extraction et protection. (Diminue Réputation CEL/Aetheria)", next: "ENDING_SUCCESS_FEU", consequence: () => applyConsequenceFromData({ reputation: { CEL: -5, Aetheria: -2, FEU: 5 } }) },
+            { text: "Détruire l'épave et envoyer les données aux 2 camps. (Diminue Réputation CEL/Aetheria)", next: "ENDING_SUCCESS_REBEL", consequence: () => applyConsequenceFromData({ reputation: { CEL: -2, Aetheria: -2, FEU: 2 } }) }
         ],
     },
 
@@ -512,36 +472,36 @@ Composition des Escouades ECA (Mantes)
 
     ENDING_SUCCESS_CORPO: {
         text: "La Mante est sauvée. Vous êtes riche, mais vous savez que la menace PXF est maintenant entre les mains d'Aetheria, qui rêve de l'etudier et surtout de s'approprier sa force destructrice. Le salut du monde est désormais monnayable. Vous avez survécu à la guerre, mais pas à la cupidité. Paria dans votre propre pays, vous vous installez dans une republique controlée par Aetheria, où elle détient ses principaux laboratoires, vous y occupez desormais le role de consultant. (Fin du Cycle de Prométhée: Voie Corporative)",
-        gameStatus: "ENDED_SUCCESS",
+        consequence: { gameStatus: "ENDED_SUCCESS" }
     },
 
     ENDING_SUCCESS_CEL: {
         text: "Vous vous échappez de justesse, votre Mante est à peine fonctionnelle. Les données ont été transmises au haut commandement. Désormais accessible à la communauté scientifique de votre pays, le savoir du monolithe permet des avancées technologiques magistrales. La guerre vient de prendre un tournant décisif à l'avantage du CEL, qui va manifestement l'emporter. Le CEL vous propulse au rang de « Héros des Cendres », mais étrangement, certains hauts gradés ont désormais une dent contre vous. (Fin du Cycle de Prométhée: Voie CEL)",
-        gameStatus: "ENDED_SUCCESS",
+        consequence: { gameStatus: "ENDED_SUCCESS" }
     },
 
     ENDING_SUCCESS_REBEL: {
         text: "Vous vous échappez de justesse, votre Mante est à peine fonctionnelle. Les données ont été transmises aux deux camps. La connaissance des Architectes est désormais dispersée, empêchant tout monopole. La guerre se poursuit, mais les enjeux sont plus clairs que jamais. CEL vous célèbre publiquement, mais en coulisses, le haut commandement et les autorités responsables vous renient. Parmi la population, de nombreuses voix s'indignent de cette guerre sans sens aux vues de la menace qui plane. Néanmoins, des rumeurs de rencontres secrètes entre les deux partis, en vue de pourparlers, laissent espérer une avancée vers la résolution du conflit, ou du moins d'une trêve exceptionnelle. (Fin du Cycle de Prométhée: Voie Rebelle)",
-        gameStatus: "ENDED_SUCCESS",
+        consequence: { gameStatus: "ENDED_SUCCESS" }
     },
 
     ENDING_SUCCESS_FEU: {
         text: "Vous vous échappez de justesse, votre Mante est à peine fonctionnelle. Le commandement du FEU prend connaissance avec surprise des données que vous leur avez transmises. D'abord méfiant, le FEU vous met rapidement en avant comme réfugié politique via sa propagande étatique. Cette stratégie s'intensifie lorsque les premiers rapports scientifiques tombent et confirment une percée technologique colossale. La guerre vient de prendre un tournant décisif et le FEU va manifestement l'emporter. Vous êtes inquiet quant à la menace du PXF. Selon vous, le parti n'a pas pris conscience du danger réel qui pèse sur l'humanité, relayant ces informations au second plan. Leur priorité actuelle se limite à mettre un point final à cette guerre et à faire payer le prix à CEL. Désormais considéré comme un traître par toute la population CEL, vous vous installez dans la capitale, New Chongqing. La population FEU vous traite majoritairement avec respect, même si vous êtes parfois victime d'animosité de la part de personnes vous considérant comme peu fiable, voire sans honneur. (Fin du Cycle de Prométhée: Voie FEU)",
-        gameStatus: "ENDED_SUCCESS",
+        consequence: { gameStatus: "ENDED_SUCCESS" }
     },
 
     ENDING_FAILURE_ESCAPE: {
         text: "Vous avez réussi à vous éjecter avant l'explosion de Léviathan. La créature PXF est libre, quelque part. La guerre politique reprend sans que personne ne comprenne ou même n'ait conscience la nouvelle menace. Votre échec pourrait coûter cher à l'humanité. Vous regagnez votre base, et recevez un appel vous demandant de venir faire votre rapport. (Fin du Cycle de Prométhée: Échec Ténu)",
-        gameStatus: "ENDED_FAILURE",
+        consequence: { gameStatus: "ENDED_FAILURE" }
     },
 
     ENDING_FAILURE_DESTRUCTION: {
         text: "L'explosion vous rattrape. La Mante, votre Pilote, et la station Léviathan sont réduits en poussière. La menace PXF, le Monolithe, et les trahisons corporatives sont anéantis dans le vide. La Terre ne sait pas quelles monstrosités s'apprete à rencontrer. (Fin du Cycle de Prométhée: Destruction Totale)",
-        gameStatus: "ENDED_FAILURE",
+        consequence: { gameStatus: "ENDED_FAILURE" }
     },
 
     GAME_OVER: {
         text: "La mission s'est terminée prématurément. Votre Mante a été détruite, ou votre Pilote n'a pas survécu à la surcharge. C'est une perte critique pour l'escouade. Fin de la partie.",
-        gameStatus: "ENDED_FAILURE",
+        consequence: { gameStatus: "ENDED_FAILURE" }
     }
 };
