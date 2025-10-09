@@ -1,11 +1,12 @@
-import { gameState, MANTES, PILOT_BASE_STATS, POOL_TOTAL, DISTRIBUTION_POOL, SCENES, checkSkill, filterChoicesByRequirements, resetToCreation, saveGameLocal, loadGameLocal, startGame } from './game_logic.js';
+import { gameState, SCENES, checkSkill, filterChoicesByRequirements, resetToCreation, saveGameLocal, loadGameLocal, startGame, handleCombatChoice } from './game_logic.js';
+import { MANTES, PILOT_BASE_STATS, POOL_TOTAL, DISTRIBUTION_POOL, ENEMY_TYPES } from './models.js';
 
 const gameView = document.getElementById('game-view');
-const PILOT_BASE_MIN = 1; // Minimum de stat pour la distribution
+const PILOT_BASE_MIN = 1;
 
 function renderStatBar(stat, value) {
     const checkValue = ['Force', 'Agilité', 'Vitesse'].includes(stat) ? value / 10 : value;
-    const max = 10; // Maximum visuel raisonnable (max ~18 pour les stats du pilote)
+    const max = 10;
     const percentage = Math.min(checkValue, max) / max * 100;
     let color;
     switch (stat) {
