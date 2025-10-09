@@ -13,7 +13,12 @@ function getInitialGameState() {
         pilotHP: 100,
         manteHP: null,
         manteMaxHP: null,
-        reputation: { CEL: 5, FEU: 5, Aetheria: 0 },
+        manteEnergy: null,
+        manteMaxEnergy: null,
+        level: 1,
+        xp: 0,
+        xpToNextLevel: 100,
+        statPoints: 0,
         currentScene: "LORE_INTRO",
         log: [],
         progress: 0,
@@ -38,16 +43,7 @@ function updateLog(message) {
 }
 
 function buildScenes(data) {
-    const scenes = {};
-    for (const [key, value] of Object.entries(data)) {
-        scenes[key] = {
-            ...value,
-            consequence: value.consequence
-                ? () => applyConsequenceFromData(value.consequence)
-                : undefined
-        };
-    }
-    return scenes;
+    return { ...data };
 }
 
 export const SCENES = buildScenes(SCENES_DATA);
@@ -67,11 +63,6 @@ export function calculateEffectiveStats() {
 
 function applyConsequenceFromData(cons) {
     if (!cons) return;
-    if (cons.reputation) {
-        Object.keys(cons.reputation).forEach(k => {
-            gameState.reputation[k] = Math.max(0, Math.min(10, (gameState.reputation[k] || 0) + cons.reputation[k]));
-        });
-    }
     if (cons.ManteHP) gameState.manteHP = Math.max(0, Math.min(gameState.manteMaxHP, gameState.manteHP + cons.ManteHP));
     if (cons.PilotHP) gameState.pilotHP = Math.max(0, Math.min(100, gameState.pilotHP + cons.PilotHP));
     if (cons.setStatus) gameState.statusFlags = { ...gameState.statusFlags, ...cons.setStatus };
@@ -83,25 +74,22 @@ function applyConsequenceFromData(cons) {
         });
         calculateEffectiveStats();
     }
+    if (cons.xp) {
+        gainXP(cons.xp);
+    }
 }
 
 export function filterChoicesByRequirements(sceneChoices) {
     if (!sceneChoices) return [];
-    return sceneChoices.map(choice => {
-        let disabled = false;
-        let reason = '';
-        if (choice.requirements) {
-            for (const req in choice.requirements) {
-                const required = choice.requirements[req];
-                const current = gameState.statusFlags[req] ?? gameState.pilotStats[req];
-                if (current < required) {
-                    disabled = true;
-                    reason = `(Req: ${req} ${required})`;
-                    break;
-                }
+    return sceneChoices.filter(choice => {
+        if (!choice.requirements) return true;
+        for (const req in choice.requirements) {
+            const requiredValue = choice.requirements[req];
+            if (gameState.statusFlags[req] !== requiredValue) {
+                return false;
             }
         }
-        return { ...choice, disabledReason: disabled ? reason : null };
+        return true;
     });
 }
 
@@ -116,17 +104,21 @@ function restoreForNewAct(act) {
     updateLog(`[SYSTÈME] Début de l'Acte ${act}. Systèmes restaurés.`);
     gameState.pilotHP = 100;
     gameState.manteHP = gameState.manteMaxHP;
+    gameState.manteEnergy = gameState.manteMaxEnergy;
 }
 
 export function handleChoice(sceneKey, choiceIndex) {
     const currentScene = SCENES[sceneKey];
     let choices = currentScene[`choices_${gameState.manteType}`] || currentScene.choices;
-    const availableChoices = filterChoicesByRequirements(choices);
+
     const choice = choices[choiceIndex];
+
     if (!choice) return;
+
     if (choice.consequence) {
         applyConsequenceFromData(choice.consequence);
     }
+
     const nextSceneKey = choice.next;
     if (nextSceneKey.startsWith('ACT_2_') && gameState.currentScene.startsWith('ACT_1_')) restoreForNewAct("II");
     if (nextSceneKey.startsWith('ACT_3_') && gameState.currentScene.startsWith('ACT_2_')) restoreForNewAct("III");
@@ -152,7 +144,7 @@ export function handleChoice(sceneKey, choiceIndex) {
             applyConsequenceFromData(nextScene.consequence);
         }
     }
-    
+
     checkPilotStatus();
     saveGameLocal();
     render();
@@ -180,19 +172,31 @@ function rollDice(num, sides, bonus) {
 
 export function handleCombatChoice(action) {
     const combat = gameState.combatState;
+    if (!combat) return;
+
     const enemy = ENEMY_TYPES[combat.enemyType];
     const mante = MANTES[gameState.manteType];
     let playerTurnOver = false;
 
     if (action === 'ATTACK_BASE' || action === 'ATTACK_SPECIAL') {
-        const attack = action === 'ATTACK_SPECIAL' ? MANTE_SPECIAL_ATTACKS[gameState.manteType] : { stat: 'QI_de_Combat', damageMult: 1.0 };
+        const specialAttack = MANTE_SPECIAL_ATTACKS[gameState.manteType];
+        const attack = action === 'ATTACK_SPECIAL' ? specialAttack : { stat: 'QI_de_Combat', damageMult: 1.0, cost: 0 };
+
+        if (gameState.manteEnergy < attack.cost) {
+            updateLog(`[ÉNERGIE] Pas assez d'énergie pour cette attaque.`);
+            render();
+            return;
+        }
+
+        gameState.manteEnergy -= attack.cost;
+
         const totalAttack = rollDice(1, 20, gameState.pilotStats[attack.stat]);
         if (totalAttack >= enemy.defenseValue) {
             const damage = Math.round(rollDice(1, 10, gameState.pilotStats[attack.stat]) * attack.damageMult);
             combat.enemyHP = Math.max(0, combat.enemyHP - damage);
-            updateLog(`[ATTAQUE] Touche ! Dégâts : ${damage}.`);
+            updateLog(`[ATTAQUE] Touche ! Dégâts : ${damage}. Coût : ${attack.cost} énergie.`);
         } else {
-            updateLog(`[ATTAQUE] Manqué.`);
+            updateLog(`[ATTAQUE] Manqué. Coût : ${attack.cost} énergie.`);
         }
         playerTurnOver = true;
     } else if (action === 'DEFEND') {
@@ -205,9 +209,15 @@ export function handleCombatChoice(action) {
 
     if (combat.enemyHP <= 0) {
         updateLog(`[VICTOIRE] ${enemy.name} détruit !`);
+        gainXP(enemy.xpReward);
         gameState.currentScene = combat.nextSceneSuccess;
+        const resultScene = SCENES[gameState.currentScene];
+        if (resultScene.consequence) {
+            applyConsequenceFromData(resultScene.consequence);
+        }
         gameState.combatState = null;
     } else if (playerTurnOver) {
+        // Enemy Turn
         let playerDefense = 10 + gameState.pilotStats[mante.defenseStat];
         const defenseBuff = combat.playerBuffs.find(b => b.type === 'defense');
         if (defenseBuff) playerDefense += defenseBuff.value;
@@ -221,12 +231,44 @@ export function handleCombatChoice(action) {
             updateLog(`[ENNEMI] Manqué.`);
         }
         combat.playerBuffs = combat.playerBuffs.filter(b => b.turns-- > 1);
+
+        // Energy Regen
+        gameState.manteEnergy = Math.min(gameState.manteMaxEnergy, gameState.manteEnergy + 5);
+        updateLog(`[ÉNERGIE] +5 Énergie récupérée.`);
     }
 
     checkPilotStatus();
     saveGameLocal();
     render();
 }
+
+function gainXP(amount) {
+    gameState.xp += amount;
+    updateLog(`[EXP] +${amount} XP gagnés.`);
+    while (gameState.xp >= gameState.xpToNextLevel) {
+        levelUp();
+    }
+}
+
+function levelUp() {
+    gameState.level++;
+    gameState.xp -= gameState.xpToNextLevel;
+    gameState.xpToNextLevel = Math.floor(gameState.xpToNextLevel * 1.5);
+    gameState.statPoints += 2; // Gagne 2 points de stat par niveau
+    updateLog(`[NIVEAU SUPÉRIEUR] Vous êtes maintenant niveau ${gameState.level} ! Vous avez ${gameState.statPoints} points à distribuer.`);
+}
+
+export function spendStatPoint(stat) {
+    if (gameState.statPoints > 0) {
+        gameState.pilotStats[stat]++;
+        gameState.statPoints--;
+        calculateEffectiveStats();
+        updateLog(`[STAT] ${stat} augmentée à ${gameState.pilotStats[stat]}.`);
+        saveGameLocal();
+        render();
+    }
+}
+
 
 function takeDamage(amount) {
     const overflow = amount - gameState.manteHP;
@@ -250,13 +292,16 @@ export function startGame(manteType, name, stats) {
         alert(`La distribution des points est incorrecte.`);
         return;
     }
+    const manteModel = MANTES[manteType];
     gameState = {
         ...getInitialGameState(),
         name,
         manteType,
         pilotStats: stats,
-        manteHP: MANTES[manteType].maxHP,
-        manteMaxHP: MANTES[manteType].maxHP,
+        manteHP: manteModel.maxHP,
+        manteMaxHP: manteModel.maxHP,
+        manteEnergy: manteModel.maxEnergy,
+        manteMaxEnergy: manteModel.maxEnergy,
         currentScene: 'ACT_1_KAIROK_INTRO',
         log: [`[Départ] ${name} a choisi l'ECA Mante ${manteType}.`]
     };
@@ -287,8 +332,9 @@ export function saveGameLocal() {
 export function loadGameLocal() {
     const saved = localStorage.getItem(getLocalStorageKey());
     if (saved) {
-        gameState = JSON.parse(saved);
-        calculateEffectiveStats(); // Important après chargement
+        const loadedState = JSON.parse(saved);
+        gameState = { ...getInitialGameState(), ...loadedState };
+        calculateEffectiveStats();
     } else {
         gameState = getInitialGameState();
     }
