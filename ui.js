@@ -1,6 +1,6 @@
-import { render } from 'preact';
-import { useState, useEffect } from 'preact/hooks';
-import htm from 'htm';
+import { render, h } from 'https://esm.sh/preact@10.19.2';
+import { useState, useEffect } from 'https://esm.sh/preact@10.19.2/hooks';
+import htm from 'https://esm.sh/htm@3.1.1';
 
 import { SCENES } from './data/scenes_index.js';
 import { MANTES, ENEMY_TYPES, MANTE_SPECIAL_ATTACKS, POOL_TOTAL, PILOT_BASE_MIN } from './models.js';
@@ -307,3 +307,4 @@ export function renderUI(gameState) {
     const appRoot = document.getElementById('app');
     render(html`<${App} gameState=${gameState} />`, appRoot);
 }
+
