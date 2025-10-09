@@ -12,12 +12,14 @@ window.DISTRIBUTION_POOL = DISTRIBUTION_POOL;
 window.startGame = startGame;
 window.loadGameLocal = loadGameLocal;
 window.resetToCreation = resetToCreation;
-window.saveGameLocal = saveGameLocal; 
+window.saveGameLocal = saveGameLocal; // Expose la fonction de sauvegarde pour les boutons
 
 // Fonctions d'interaction
 window.renderScene = renderScene;
-window.handleChoice = handleChoice; 
+window.handleChoice = handleChoice;
 window.handleCombatChoice = handleCombatChoice;
+
+// Fonctions d'exportation
 window.exportRunAsJSON = exportRunAsJSON;
 window.exportRunAsPDF = exportRunAsPDF;
 
@@ -26,4 +28,3 @@ window.exportRunAsPDF = exportRunAsPDF;
 document.addEventListener('DOMContentLoaded', () => {
     loadGameLocal();
 });
-
