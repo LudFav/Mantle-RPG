@@ -1,3 +1,5 @@
+// --- Fonctions d'Export ---
+
 function buildRunSummary(gameState) {
     const lines = [];
     lines.push(`Joueur: ${gameState.name}`);
