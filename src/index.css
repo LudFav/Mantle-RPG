@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: "Inter", sans-serif;
+    background-color: #0d1117;
+    color: #e6edf3;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .container-bg {
+    background-color: #161b22;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border: 1px solid #30363d;
+  }
+
+  .btn-primary {
+    background-color: #38a169;
+    color: white;
+    transition: background-color 0.2s;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background-color: #2f855a;
+  }
+
+  .btn-choice {
+    background-color: #21262d;
+    border: 1px solid #484f58;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+
+  .btn-choice:hover {
+    background-color: #30363d;
+    border-color: #58a6ff;
+  }
+
+  .stat-bar-bg {
+    background-color: #30363d;
+  }
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #161b22;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
+}
