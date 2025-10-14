@@ -57,12 +57,12 @@ const LoreScreen = () => {
               décupler la force, l'agilité et la vitesse de l'hôte.
             </p>
             <p className="text-gray-300 leading-relaxed">
-              L`&apos`ECA est une symbiose : l`&apos`armure amplifie les
-              capacités de l`&apos`opérateur, mais elle amplifie aussi les
-              différences infimes entre humains. Un soldat doté d`&apos`une
-              Aptitude naturelle de 7/10 verra son score effectif multiplié à
-              70, tandis qu`&apos`un autre à 6/10 atteindra 60. L`&apos`écart
-              est considérable en combat, transformant les secondes en abîmes.
+              L'ECA est une symbiose : l'armure amplifie les capacités de
+              l'opérateur, mais elle amplifie aussi les différences infimes
+              entre humains. Un soldat doté d'une Aptitude naturelle de 7/10
+              verra son score effectif multiplié à 70, tandis qu'un autre à 6/10
+              atteindra 60. L'écart est considérable en combat, transformant les
+              secondes en abîmes.
             </p>
           </section>
 
@@ -87,11 +87,11 @@ const LoreScreen = () => {
               La géopolitique actuelle :
             </h3>
             <p className="text-gray-300 leading-relaxed">
-              Apres la surprenante emergence d`&apos`un archipel au large du
-              Pacifique nord, refermant des ressources premieres rares dans des
-              dimensions interstellaires, la guerre froide opposant la
-              Confédération des États Libres (CEL) et la Fédération Eurasiatique
-              Unifiée (FEU) se rechauffe considérablement.. :
+              Apres la surprenante emergence d'un archipel au large du Pacifique
+              nord, refermant des ressources premieres rares dans des dimensions
+              interstellaires, la guerre froide opposant la Confédération des
+              États Libres (CEL) et la Fédération Eurasiatique Unifiée (FEU) se
+              rechauffe considérablement.. :
             </p>
           </section>
           {/* Section Factions */}
