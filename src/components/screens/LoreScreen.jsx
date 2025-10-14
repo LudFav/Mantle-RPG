@@ -4,7 +4,22 @@ const LoreScreen = () => {
   const handleChoice = useGameStore((state) => state.handleChoice);
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div 
+      className="max-w-5xl mx-auto space-y-6 relative"
+      style={{
+        backgroundImage: 'url(/assets/img/fond lore.png)',
+        backgroundAttachment: 'fixed',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        minHeight: '100vh'
+      }}
+    >
+      {/* Overlay semi-transparent pour améliorer la lisibilité */}
+      <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
+      
+      {/* Contenu avec position relative pour passer au-dessus de l'overlay */}
+      <div className="relative z-10">
       {/* En-tête */}
       <header className="text-center border-b-2 border-green-500/30 pb-6">
         <h2 className="text-2xl md:text-3xl font-semibold text-white mb-3">
@@ -143,52 +158,58 @@ const LoreScreen = () => {
             <h3 className="text-2xl font-bold text-green-400 mb-3 border-b border-gray-700 pb-2">
               Les Mégacorporations
             </h3>
+            <h5 className="text-green-400 font-bold mb-3">
+              Aetheria Syncron Dynamics
+            </h5>
             <p className="text-gray-300 leading-relaxed mb-3">
-              Aetheria Syncron Dynamics Aetheria Syncron Dynamics est née dans
-              la confédération, de la fusion entre Aertheria, une société
-              spécialisé dans l'aeronautique, et Syncron, la société spécialisé
-              dans la technologie de synchronisation humain/net. Aetheria
-              Syncron Dynamics est la plus puissante des mégacorporations.
-              Dirigiée par Siléas Karr, un brillant scientifique devenu
-              entrepreneur, elle a inventé le premier Exosquelette de Combat
-              Amélioré (ECA). Dernierement, elle a fourni à la CEL le dernier
-              modele et ses variantes, le Mante, censé donner un avantage
-              notable dans le conflit..
+              Aetheria Syncron Dynamics est née dans la confédération, de la
+              fusion entre Aertheria, une société spécialisé dans
+              l'aeronautique, et Syncron, la société spécialisé dans la
+              technologie de synchronisation humain/net. Aetheria Syncron
+              Dynamics est la plus puissante des mégacorporations. Dirigiée par
+              Siléas Karr, un brillant scientifique devenu entrepreneur, elle a
+              inventé le premier Exosquelette de Combat Amélioré (ECA).
+              Dernierement, elle a fourni à la CEL le dernier modele et ses
+              variantes, le Mante, censé donner un avantage notable dans le
+              conflit..
             </p>
+            <h5 className="text-green-400 font-bold mb-3">Talos</h5>
             <p className="text-gray-300 leading-relaxed mb-3">
-              Talos Talos, une société spécialisé dans la web-sécurité à la
-              base, a su evoluer et s'imposer dans le domaine de la
-              cybernétique. Plus discrète qu'Aetheria Syncron Dynamics, elle a
-              été fondé à la base par un hacker etique de renom : Anya Sharma
-              surnommé "L'impératrice du code". Talos a su rester neutre dans le
-              conflit, en vendant ses services à la fois à la CEL et à la FEU.
-              Talos fabrique desormais les implants neurologiques et les
-              prothèses cybernétiques de la plus haute qualité disponibles sur
-              le marché. Leurs puces 'Synapse Guard' sont essentielles pour
-              prévenir les attaques de feedback neurologique ( souvent cause de
-              l'usage prolongé de la connexion Syncron ) et pour garantir la
-              stabilité de la connexion ECA-Pilote. Ironiquement, même Aetheria
-              doit acheter ces puces à Talos.
+              Talos, une société spécialisé dans la web-sécurité à la base, a su
+              evoluer et s'imposer dans le domaine de la cybernétique. Plus
+              discrète qu'Aetheria Syncron Dynamics, elle a été fondé à la base
+              par un hacker etique de renom : Anya Sharma surnommé
+              "L'impératrice du code". Talos a su rester neutre dans le conflit,
+              en vendant ses services à la fois à la CEL et à la FEU. Talos
+              fabrique desormais les implants neurologiques et les prothèses
+              cybernétiques de la plus haute qualité disponibles sur le marché.
+              Leurs puces 'Synapse Guard' sont essentielles pour prévenir les
+              attaques de feedback neurologique ( souvent cause de l'usage
+              prolongé de la connexion Syncron ) et pour garantir la stabilité
+              de la connexion ECA-Pilote. Ironiquement, même Aetheria doit
+              acheter ces puces à Talos.
             </p>
+            <h5 className="text-green-400 font-bold mb-3">Groupe Assault</h5>
             <p className="text-gray-300 leading-relaxed mb-3">
-              Groupe Assault Le groupe Assault est la plus ancienne des
-              corporations. Fondée par un groupe d'anciens militaires de la CEL,
-              son créneau était au depart l'armement mais au fur et à mesure de
-              son evolution, et dans un besoin d'indépendance, Groupe Assault
-              s'est diversifié dans de nombreux domaines, y compris
-              l'electronique, l'aeronautique et la recherche spatiale, et la
-              conception d'ECA. Leurs ECA font partie du haut du panier mais
-              c'est surtout dans leurs equipements qu'ils excellent, leurs
-              pieces de modifications, leur fusils, leurs drones et leurs kits
-              de réparation sont les plus recherché tant leurs qualité n'est
-              plus à prouver. Son organisation est presque militaire, un
-              héritage de ses fondateurs.. On ne connait d'ailleurs pas
-              l'identité du dirigeant actuel, mais on sait qu'il est passé par
-              le haut commandant de la CEL.
+              Le groupe Assault est la plus ancienne des corporations. Fondée
+              par un groupe d'anciens militaires de la CEL, son créneau était au
+              depart l'armement mais au fur et à mesure de son evolution, et
+              dans un besoin d'indépendance, Groupe Assault s'est diversifié
+              dans de nombreux domaines, y compris l'electronique,
+              l'aeronautique et la recherche spatiale, et la conception d'ECA.
+              Leurs ECA font partie du haut du panier mais c'est surtout dans
+              leurs equipements qu'ils excellent, leurs pieces de modifications,
+              leur fusils, leurs drones et leurs kits de réparation sont les
+              plus recherché tant leurs qualité n'est plus à prouver. Son
+              organisation est presque militaire, un héritage de ses
+              fondateurs.. On ne connait d'ailleurs pas l'identité du dirigeant
+              actuel, mais on sait qu'il est passé par le haut commandant de la
+              CEL.
             </p>
+            <h5 className="text-green-400 font-bold mb-3">Devotus</h5>
             <p className="text-gray-300 leading-relaxed mb-3">
-              Devotus Devotus est une société spécialisé dans la biotechnologie.
-              Le tabou que peut representer l'utilisation la cybernetique
+              Devotus est une société spécialisé dans la biotechnologie. Le
+              tabou que peut representer l'utilisation la cybernetique
               s'effacant peu à peu grace aux implants Syncron, Devotus cherche à
               faire evoluer l'humain vers le transhumanisme en créant des
               solutions bio-technologiques. Dans un premier temps pour aider les
@@ -313,13 +334,14 @@ const LoreScreen = () => {
         </div>
       </article>
 
-      {/* Bouton d'action */}
-      <div className="flex justify-center pt-4">
-        <button
-          onClick={() => handleChoice("LORE_INTRO", 0)}
-          className="btn-primary px-8 py-4 rounded-lg font-bold text-lg hover:ring-2 ring-green-500 transition-all hover:scale-105 shadow-lg">
-          ▶ Commencer la Création de Personnage
-        </button>
+        {/* Bouton d'action */}
+        <div className="flex justify-center pt-4">
+          <button
+            onClick={() => handleChoice("LORE_INTRO", 0)}
+            className="btn-primary px-8 py-4 rounded-lg font-bold text-lg hover:ring-2 ring-green-500 transition-all hover:scale-105 shadow-lg">
+            ▶ Commencer la Création de Personnage
+          </button>
+        </div>
       </div>
     </div>
   );
