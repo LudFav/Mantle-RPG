@@ -37,16 +37,17 @@ const LoreScreen = () => {
               d'experts auto-proclamé plus fumeuses les une que les autres,
               opaque tant il est ouvert, il en devient difficile d'authentifier
               une information.. Le hacking de Syncron est arrivé rapidement
-              après la technologie, de l'archaïque et sans consequence "Popup
-              Bomber", a des strategies plus moderne : l'"Idolon Glitchs", un
-              virus alterant la perception, comme son nom l'indique il creer des
-              glitchs, des dédoublements ou bien encore "Siphon Mnésique" un
-              vers permettant de fouiller dans la memoire de la victime.. le
-              besoin d'une sécurité revue au gout du jour a vu naitre de
-              nouveaux mastodontes comme Talos. Aujourdhui le web ne ressemble
-              plus au farwest qu'il a jadis été, et vous risquez beaucoup moins
-              à vous connectez à votre terminale, mais attention, vous trouverez
-              toujours de petits malins pour trouver LA faille..
+              après la technologie, de l'archaïque et sans consequence{" "}
+              <em>Popup Bomber</em>, a des strategies plus moderne : l'
+              <em>Idolon Glitchs</em>, un virus alterant la perception, comme
+              son nom l'indique il creer des glitchs, des dédoublements ou bien
+              encore <em>Siphon Mnésique</em> un vers permettant de fouiller
+              dans la memoire de la victime.. le besoin d'une sécurité revue au
+              gout du jour a vu naitre de nouveaux mastodontes comme Talos.
+              Aujourdhui le web ne ressemble plus au farwest qu'il a jadis été,
+              et vous risquez beaucoup moins à vous connectez à votre terminale,
+              mais attention, vous trouverez toujours de petits malins pour
+              trouver LA faille..
             </p>
 
             <p className="text-gray-300 leading-relaxed mb-4">
@@ -88,10 +89,10 @@ const LoreScreen = () => {
             </h3>
             <p className="text-gray-300 leading-relaxed">
               Après la surprenante émergence d'un archipel au large du Pacifique
-              nord, renfermant des ressources premières rares dans des dimensions
-              interstellaires, la guerre froide opposant la Confédération des
-              États Libres (CEL) et la Fédération Eurasiatique Unifiée (FEU) se
-              rechauffe considérablement.. :
+              nord, renfermant des ressources premières rares dans des
+              dimensions interstellaires, la guerre froide opposant la
+              Confédération des États Libres (CEL) et la Fédération Eurasiatique
+              Unifiée (FEU) se rechauffe considérablement.. :
             </p>
           </section>
           {/* Section Factions */}
