@@ -4,7 +4,7 @@ const LoreScreen = () => {
   const handleChoice = useGameStore((state) => state.handleChoice);
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6 relative bg-[url(/assets/img/fond_lore.png)] h-screen bg-fixed bg-cover bg-center w-full top-50 left-50">
+    <div className="max-w-5xl mx-auto space-y-6 fixed bg-[url(/assets/img/fond_lore.png)] h-screen bg-fixed bg-cover bg-center w-full top-50 left-50">
       <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
 
     <div className="max-w-5xl mx-auto space-y-6">
