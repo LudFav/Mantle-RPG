@@ -334,7 +334,6 @@ L'accès à ce "savoir total" a révélé une vulnérabilité fatale : la consci
       </div>
     </div>
     </div>
-    </div>
   );
 };
 
