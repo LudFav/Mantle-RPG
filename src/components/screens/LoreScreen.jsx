@@ -213,9 +213,7 @@ L'accès à ce "savoir total" a révélé une vulnérabilité fatale : la consci
             <p className="text-gray-300 leading-relaxed">
               Le conflit s'est cristallisé autour de l'
               <strong>Archipel des Cendres</strong>, un chapelet d'îles
-              volcaniques riches en minerais rares (notamment l'isotope
-              Xénon-140) et en bases de lancement orbitales. La possession de
-              l'Archipel garantit la domination des routes spatiales basses.
+              volcaniques riches en minerais rares.
             </p>
           </section>
 
