@@ -4,6 +4,7 @@ const LoreScreen = () => {
   const handleChoice = useGameStore((state) => state.handleChoice);
 
   return (
+    <>
     <div className="max-w-5xl mx-auto space-y-6 fixed bg-[url(/assets/img/fond_lore.png)] bg-cover bg-center w-full fixed top-0 right-0 left-0"></div>
     <div className="max-w-5xl mx-auto space-y-6">
 
@@ -312,6 +313,7 @@ L'accès à ce "savoir total" a révélé une vulnérabilité fatale : la consci
         </div>
       </article>
         </div>
+      </>
       {/* Bouton d'action */}
       <div className="flex justify-center pt-4">
         <button
