@@ -87,7 +87,7 @@ const LoreScreen = () => {
               La géopolitique actuelle :
             </h3>
             <p className="text-gray-300 leading-relaxed">
-              Apres la surprenante emergence d'un archipel au large du Pacifique
+              Après la surprenante émergence d'un archipel au large du Pacifique
               nord, refermant des ressources premieres rares dans des dimensions
               interstellaires, la guerre froide opposant la Confédération des
               États Libres (CEL) et la Fédération Eurasiatique Unifiée (FEU) se
