@@ -162,7 +162,7 @@ L'accès à ce "savoir total" a révélé une vulnérabilité fatale : la consci
               Talos fabrique desormais les implants neurologiques et les
               prothèses cybernétiques de la plus haute qualité disponibles sur
               le marché. Leurs puces 'Synapse Guard' sont essentielles pour
-              prévenir les attaques de feedback neurologique ( souvent cause de
+              prévenir les attaques de feedback neurologique ( souvent causé par
               l'usage prolongé de la connexion Syncron ) et pour garantir la
               stabilité de la connexion ECA-Pilote. Ironiquement, même Aetheria
               doit acheter ces puces à Talos.
