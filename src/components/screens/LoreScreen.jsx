@@ -36,13 +36,13 @@ const LoreScreen = () => {
               savoir est souvent pollué de publicités intrusives et de théories
               d'experts auto-proclamé plus fumeuses les une que les autres,
               opaque tant il est ouvert, il en devient difficile d'authentifier
-              une information.. Le hacking de Syncron est arrivé rapidement
-              après la technologie, de l'archaïque et sans consequence "Popup
-              Bomber", a des strategies plus moderne : l'"Idolon Glitchs", un
-              virus alterant la perception, comme son nom l'indique il creer des
-              glitchs, des dédoublements ou bien encore "Siphon Mnésique" un
-              vers permettant de fouiller dans la memoire de la victime.. le
-              besoin d'une sécurité revue au gout du jour a vu naitre de
+              une information..Le hacking de Syncron est arrivé rapidement
+              après la technologie, de l'archaïque et sans consequence{" "}
+              <em>Popup Bomber</em>, a des strategies plus moderne : l'
+              <em>Idolon Glitchs</em>, un virus alterant la perception, comme
+              son nom l'indique il creer des glitchs, des dédoublements ou bien
+              encore <em>Siphon Mnésique</em> un vers permettant de fouiller
+              dans la memoire de la victime.. le besoin d'une sécurité revue au gout du jour a vu naitre de
               nouveaux mastodontes comme Talos. Aujourdhui le web ne ressemble
               plus au farwest qu'il a jadis été, et vous risquez beaucoup moins
               à vous connectez à votre terminale, mais attention, vous trouverez
