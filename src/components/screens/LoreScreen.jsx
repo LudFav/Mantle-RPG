@@ -102,13 +102,12 @@ L'accès à ce "savoir total" a révélé une vulnérabilité fatale : la consci
                   Regroupant les anciennes puissances occidentales et
                   nord-américaines. La CEL est une structure républicaine et
                   démocratique en apparence, mais elle est minée par la dette
-                  systémique et une bureaucratie paralysante. Ses États membres
-                  sont de plus en plus sous l'influence financière des
+                  systémique et une bureaucratie paralysante. la confédération de plus en plus sous l'influence financière des
                   méga-corporations qui financent son armée et ses
                   infrastructures. On parle de <em>Ministères Fantômes</em> :
                   des départements entiers du gouvernement de la CEL sont gérés
-                  de fait par des cadres d'Aetheria Dynamics, qui en dictent les
-                  politiques de défense et d'approvisionnement.
+                  de fait par des cadres de différentes megacorporation, et ceux d'une manière à peine cachée.
+                  La CEL défend un idéal qu'elle a déjà vendu.
                 </p>
               </div>
 
