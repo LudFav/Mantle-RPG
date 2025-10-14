@@ -43,7 +43,7 @@ const LoreScreen = () => {
               son nom l'indique il creer des glitchs, des dédoublements ou bien
               encore <em>Siphon Mnésique</em> un vers permettant de fouiller
               dans la memoire de la victime.. le besoin d'une sécurité revue au gout du jour a vu naitre de
-              nouveaux mastodontes comme Talos. Aujourdhui le web ne ressemble
+              nouveaux mastodontes comme <strong>Talos</strong>. Aujourdhui le web ne ressemble
               plus au farwest qu'il a jadis été, et vous risquez beaucoup moins
               à vous connectez à votre terminale, mais attention, vous trouverez
               toujours de petits malins pour trouver LA faille..
