@@ -4,17 +4,19 @@ const LoreScreen = () => {
   const handleChoice = useGameStore((state) => state.handleChoice);
 
   return (
-    <div className="relative min-h-screen">
-      {/* Image de fond fixe */}
+    <div className="relative min-h-screen w-full">
+      {/* Image de fond fixe qui couvre tout l'écran */}
       <div
-        className="fixed inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+        className="fixed inset-0 w-screen h-screen bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: "url(/assets/img/fond lore.png)",
           backgroundAttachment: "fixed",
+          backgroundSize: "cover",
+          backgroundPosition: "center center"
         }}></div>
 
       {/* Overlay semi-transparent pour améliorer la lisibilité */}
-      <div className="fixed inset-0 bg-black/40"></div>
+      <div className="fixed inset-0 w-screen h-screen bg-black/40"></div>
 
       {/* Contenu principal */}
       <div className="relative z-10 max-w-5xl mx-auto space-y-6 p-6">
@@ -28,7 +30,6 @@ const LoreScreen = () => {
           </p>
         </header>
 
-        {/* Contenu principal */}
         <article className="bg-gray-800/80 backdrop-blur-sm rounded-lg border border-gray-700 overflow-hidden">
           <div className="p-6 md:p-8 space-y-6">
             {/* Section 1: Le contexte technologique */}
