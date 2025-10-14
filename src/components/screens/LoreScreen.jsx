@@ -24,25 +24,17 @@ const LoreScreen = () => {
               Introduction
             </h3>
             <p className="text-gray-300 leading-relaxed mb-4">
-              Le XXIIᵉ siècle a vu l'humanité atteindre de nouveaux sommets
-              technologiques : Syncron, une nouvelle technologie neurologique
-              permettant de connecter l'esprit au net, et permettant ainsi le
-              partage total du savoir humain... On aimerait que cela s'arrete la
-              mais c'est surtout un savoir dependant d'ou l'on se trouve dans le
-              monde : chez la fédération eurasiatique le savoir est filtré de
-              toutes informations allant à l'encontre de la propagande et du
-              dogme nationale, il est d'ailleurs assez fermé, mais plutot fiable
-              concernant les recherches scientifiques. Chez la confédération, le
-              savoir est souvent pollué de publicités intrusives et de théories
-              d'experts auto-proclamé plus fumeuses les une que les autres,
-              opaque tant il est ouvert, il en devient difficile d'authentifier
-              une information..Le hacking de Syncron est arrivé rapidement
-              après la technologie, de l'archaïque et sans consequence{" "}
-              <em>Popup Bomber</em>, à des strategies plus modernes : l'
-              <em>Idolon Glitchs</em>, un virus alterant la perception, comme
-              son nom l'indique il créé des glitchs, des dédoublements.. ou bien
-              encore <em>Siphon Mnésique</em> un virus permettant de fouiller la memoire d'une victime..
-              Des virus qui ont donner la par belle aux attaques armées et autres espionnages industriels.
+Le XXIIe siècle a inauguré l'ère de la Neuro-Technologie. La percée fut la création du Neuro-Cortique <em>Syncron</em>, un implant neurologique permettant la connexion directe de l'esprit au réseau mondial. Cette technologie promettait le partage instantané du savoir humain.
+Cependant, le <em>Syncron</em> devint rapidement un outil de division :
+              <ul>
+<li>Chez la Fédération Eurasiatique Unifiée (FEU) : Le savoir est filtré. Le réseau est centralisé et hermétique, le rendant fiable pour les données scientifiques pures, mais purgé de toute information allant à l'encontre de la propagande et du dogme nationaliste.</li>
+<li>Chez la Confédération des États Libres (CEL) : Le savoir est pollué. Le réseau est ouvert, mais saturé de publicités intrusives, de théories d'experts auto-proclamés et de désinformation, le rendant opaque et rendant l'authentification des informations incroyablement difficile.</li>
+                </ul>
+L'accès à ce "savoir total" a révélé une vulnérabilité fatale : la conscience elle-même. Le piratage du Neuro-Cortique a évolué rapidement, depuis l'archaïque <em>Pop-up Bomber</em> jusqu'aux armes neurologiques sophistiquées :
+              <ul>
+<li><em>Eïdolon-Glitch</em> : Un virus altérant la perception du pilote. Il injecte des dédoublements, des latences et des fantômes (Eïdolons), rendant l'interface de réalité augmentée illisible en combat.</li>
+<li><em>Siphon Mnésique</em> : Un malware invasif conçu pour fouiller et extraire la mémoire de la victime, laissant derrière lui des séquelles neurologiques et des secrets volés.</li>
+              </ul>
               Le besoin d'une sécurité revue au gout du jour a ainsi vu naitre de
               nouveaux mastodontes comme <strong>Talos</strong>. Aujourdhui le web ne ressemble
               plus au farwest qu'il a jadis pu être, et vous risquez beaucoup moins
