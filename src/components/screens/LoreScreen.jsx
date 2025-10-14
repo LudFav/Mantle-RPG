@@ -40,11 +40,12 @@ const LoreScreen = () => {
               après la technologie, de l'archaïque et sans consequence{" "}
               <em>Popup Bomber</em>, à des strategies plus modernes : l'
               <em>Idolon Glitchs</em>, un virus alterant la perception, comme
-              son nom l'indique il creer des glitchs, des dédoublements.. ou bien
-              encore <em>Siphon Mnésique</em> un virus permettant de fouiller la memoire d'une la victime..
-              le besoin d'une sécurité revue au gout du jour a vu naitre de
+              son nom l'indique il créé des glitchs, des dédoublements.. ou bien
+              encore <em>Siphon Mnésique</em> un virus permettant de fouiller la memoire d'une victime..
+              Des virus qui ont donner la par belle aux attaques armées et autres espionnages industriels.
+              Le besoin d'une sécurité revue au gout du jour a ainsi vu naitre de
               nouveaux mastodontes comme <strong>Talos</strong>. Aujourdhui le web ne ressemble
-              plus au farwest qu'il a jadis été, et vous risquez beaucoup moins
+              plus au farwest qu'il a jadis pu être, et vous risquez beaucoup moins
               à vous connectez à votre terminale, mais attention, vous trouverez
               toujours de petits malins pour trouver LA faille..
             </p>
