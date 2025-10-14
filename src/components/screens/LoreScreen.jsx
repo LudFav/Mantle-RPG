@@ -5,8 +5,6 @@ const LoreScreen = () => {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6 fixed bg-[url(/assets/img/fond_lore.png)] bg-cover bg-center w-full fixed top-0 right-0 left-0"></div>
-    
-
     <div className="max-w-5xl mx-auto space-y-6">
       {/* En-tête */}
       <header className="text-center border-b-2 border-green-500/30 pb-6">
