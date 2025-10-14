@@ -208,8 +208,8 @@ const LoreScreen = () => {
               obsolète. Les ratés des premiers essais (à l'origine ou non d'un
               tiers) fait que Devotus n'a pas encore le succés recherché vis a
               vis du grand publique, mais chez les militaires le sujet Devotus
-              porte à la blague : "Fonce dans tas! Au pire tu meurs et mieu
-              l'armée remplacera ta jambe ou ton bras par un implant Devotus !"
+              porte à la blague : "Fonce dans l'tas! Au pire tu meurs et au mieu
+              Devotus te remplacera ta jambe ou ton bras par un implant !"
             </p>
           </section>
 
