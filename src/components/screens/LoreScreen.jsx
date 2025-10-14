@@ -142,8 +142,11 @@ const LoreScreen = () => {
             <h3 className="text-2xl font-bold text-green-400 mb-3 border-b border-gray-700 pb-2">
               Les Mégacorporations
             </h3>
+            <h5 className="text-green-400 font-bold mb-3">
+              Aetheria Syncron Dynamics
+            </h5>
             <p className="text-gray-300 leading-relaxed mb-3">
-              Aetheria Syncron Dynamics Aetheria Syncron Dynamics est née dans
+              Aetheria Syncron Dynamics est née dans
               la confédération, de la fusion entre Aertheria, une société
               spécialisé dans l'aeronautique, et Syncron, la société spécialisé
               dans la technologie de synchronisation humain/net. Aetheria
@@ -154,8 +157,11 @@ const LoreScreen = () => {
               modele et ses variantes, le Mante, censé donner un avantage
               notable dans le conflit..
             </p>
+            <h5 className="text-green-400 font-bold mb-3">
+              Talos
+            </h5>
             <p className="text-gray-300 leading-relaxed mb-3">
-              Talos Talos, une société spécialisé dans la web-sécurité à la
+              Talos, une société spécialisé dans la web-sécurité à la
               base, a su evoluer et s'imposer dans le domaine de la
               cybernétique. Plus discrète qu'Aetheria Syncron Dynamics, elle a
               été fondé à la base par un hacker etique de renom : Anya Sharma
@@ -169,8 +175,11 @@ const LoreScreen = () => {
               stabilité de la connexion ECA-Pilote. Ironiquement, même Aetheria
               doit acheter ces puces à Talos.
             </p>
+            <h5 className="text-green-400 font-bold mb-3">
+            Groupe Assault
+            </h5>
             <p className="text-gray-300 leading-relaxed mb-3">
-              Groupe Assault Le groupe Assault est la plus ancienne des
+              Le groupe Assault est la plus ancienne des
               corporations. Fondée par un groupe d'anciens militaires de la CEL,
               son créneau était au depart l'armement mais au fur et à mesure de
               son evolution, et dans un besoin d'indépendance, Groupe Assault
@@ -185,8 +194,11 @@ const LoreScreen = () => {
               l'identité du dirigeant actuel, mais on sait qu'il est passé par
               le haut commandant de la CEL.
             </p>
+            <h5 className="text-green-400 font-bold mb-3">
+            Devotus 
+            </h5>
             <p className="text-gray-300 leading-relaxed mb-3">
-              Devotus Devotus est une société spécialisé dans la biotechnologie.
+              Devotus est une société spécialisé dans la biotechnologie.
               Le tabou que peut representer l'utilisation la cybernetique
               s'effacant peu à peu grace aux implants Syncron, Devotus cherche à
               faire evoluer l'humain vers le transhumanisme en créant des
