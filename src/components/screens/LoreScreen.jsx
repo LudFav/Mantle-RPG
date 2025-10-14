@@ -194,12 +194,9 @@ L'accès à ce "savoir total" a révélé une vulnérabilité fatale : la consci
               Le tabou que peut representer l'utilisation la cybernetique
               s'effacant peu à peu grace aux implants Syncron, Devotus cherche à
               faire evoluer l'humain vers le transhumanisme en créant des
-              solutions bio-technologiques. Dans un premier temps pour aider les
-              personnes handicapées, on s'est rapidement rendu compte que cela
-              pouvait être une voie vers le superhumain, et rendre l'ECA
-              obsolète. Les ratés des premiers essais (à l'origine ou non d'un
-              tiers) fait que Devotus n'a pas encore le succés recherché vis a
-              vis du grand publique, mais chez les militaires le sujet Devotus
+              solutions bio-technologiques. À l'origine centré sur les protheses visant a remplacer des membres perdus, 
+              Devotus c'est vite rendu compte que leur savoir faire leur permettait esperer rendre leurs protheses plus aptes que les membres qu'elles devaient remplacer, 
+              ouvrant la porte à la création d'un humain augmenté. Malgrès tout, les effets secondaires se sont montré plus systematiques que ceux à quoi s'attendait l'entreprise s'en est suivit un bad buzz qui a lourdement touché les ventes, mais chez les militaires le sujet Devotus
               porte à la blague : "Fonce dans l'tas! Au pire tu meurs et au mieu
               Devotus te remplacera ta jambe ou ton bras par un implant !"
             </p>
