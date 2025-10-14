@@ -5,6 +5,8 @@ const LoreScreen = () => {
 
   return (
     <div className="max-w-5xl mx-auto space-y-6 fixed bg-[url(/assets/img/fond_lore.png)] bg-cover bg-center w-full fixed top-0 right-0 left-0"></div>
+    <div className="max-w-5xl mx-auto space-y-6">
+
       <header className="text-center border-b-2 border-green-500/30 pb-6">
         <h2 className="text-2xl md:text-3xl font-semibold text-white mb-3">
           Le Cycle de Prométhée
@@ -309,7 +311,7 @@ L'accès à ce "savoir total" a révélé une vulnérabilité fatale : la consci
           </section>
         </div>
       </article>
-
+        </div>
       {/* Bouton d'action */}
       <div className="flex justify-center pt-4">
         <button
