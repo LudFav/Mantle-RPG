@@ -4,19 +4,9 @@ const LoreScreen = () => {
   const handleChoice = useGameStore((state) => state.handleChoice);
 
   return (
-        <div 
-      className="max-w-5xl mx-auto space-y-6 relative"
-      style={{
-        backgroundImage: 'url(/assets/img/fond lore.png)',
-        backgroundAttachment: 'fixed',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        minHeight: '100vh'
-      }}
-    >
-      {/* Overlay semi-transparent pour améliorer la lisibilité */}
+    <div className="max-w-5xl mx-auto space-y-6 relative bg-[url(/assets/img/fond lore.png)] h-screen bg-fixed bg-cover bg-center">
       <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
+
     <div className="max-w-5xl mx-auto space-y-6">
       {/* En-tête */}
       <header className="text-center border-b-2 border-green-500/30 pb-6">
