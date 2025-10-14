@@ -88,7 +88,7 @@ const LoreScreen = () => {
             </h3>
             <p className="text-gray-300 leading-relaxed">
               Après la surprenante émergence d'un archipel au large du Pacifique
-              nord, refermant des ressources premieres rares dans des dimensions
+              nord, renfermant des ressources premières rares dans des dimensions
               interstellaires, la guerre froide opposant la Confédération des
               États Libres (CEL) et la Fédération Eurasiatique Unifiée (FEU) se
               rechauffe considérablement.. :
