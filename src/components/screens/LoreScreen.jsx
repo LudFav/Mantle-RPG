@@ -313,8 +313,8 @@ L'accès à ce "savoir total" a révélé une vulnérabilité fatale : la consci
         </div>
       </article>
         </div>
-      </>
-      {/* Bouton d'action */}
+ 
+
       <div className="flex justify-center pt-4">
         <button
           onClick={() => handleChoice("LORE_INTRO", 0)}
@@ -324,6 +324,7 @@ L'accès à ce "savoir total" a révélé une vulnérabilité fatale : la consci
       </div>
     </div>
     </div>
+         </>
   );
 };
 
