@@ -15,32 +15,68 @@ export const DISTRIBUTION_POOL = POOL_TOTAL - (Object.keys(PILOT_BASE_STATS).len
 
 export const MANTES = {
     Phalange: {
-        baseStats: { Force: 10, Agilité: 3, Vitesse: 3, Intelligence: 5, Lucidité: 5, QI_de_Combat: 5, Synchronisation: 4 },
+        baseStats: { Force: 7, Agilité: 4, Vitesse: 5, Intelligence: 6, Lucidité: 6, QI_de_Combat: 4, Synchronisation: 3 },
         description: "Assaut Lourd. Capacité de résistance et de destruction maximale.",
         maxHP: 300,
         maxEnergy: 80, // Moins d'énergie, plus de PV
-        defenseStat: 'Force'
+        defenseStat: 'Force',
+        statRestrictions: {
+            Force: { min: 7, max: 18 },
+            Agilité: { min: 1, max: 4 },
+            Vitesse: { min: 1, max: 5 },
+            Intelligence: { min: 1, max: 18 },
+            Lucidité: { min: 1, max: 18 },
+            QI_de_Combat: { min: 1, max: 18 },
+            Synchronisation: { min: 1, max: 18 }
+        }
     },
     Aiguille: {
-        baseStats: { Force: 4, Agilité: 10, Vitesse: 5, Intelligence: 4, Lucidité: 6, QI_de_Combat: 3, Synchronisation: 3 },
+        baseStats: { Force: 3, Agilité: 7, Vitesse: 6, Intelligence: 5, Lucidité: 5, QI_de_Combat: 4, Synchronisation: 5 },
         description: "Reconnaissance et CQC. Maîtrise du mouvement et frappes chirurgicales.",
         maxHP: 200,
         maxEnergy: 120, // Plus d'énergie, moins de PV
-        defenseStat: 'Agilité'
+        defenseStat: 'Agilité',
+        statRestrictions: {
+            Force: { min: 1, max: 3 },
+            Agilité: { min: 7, max: 18 },
+            Vitesse: { min: 1, max: 6 },
+            Intelligence: { min: 1, max: 18 },
+            Lucidité: { min: 1, max: 18 },
+            QI_de_Combat: { min: 1, max: 18 },
+            Synchronisation: { min: 1, max: 18 }
+        }
     },
     Éclair: {
-        baseStats: { Force: 3, Agilité: 5, Vitesse: 10, Intelligence: 3, Lucidité: 6, QI_de_Combat: 5, Synchronisation: 3 },
+        baseStats: { Force: 6, Agilité: 4, Vitesse: 7, Intelligence: 4, Lucidité: 5, QI_de_Combat: 4, Synchronisation: 5 },
         description: "Interception Rapide. Idéal pour le flanc et les manœuvres d'évitement extrêmes.",
         maxHP: 200,
         maxEnergy: 110,
-        defenseStat: 'Vitesse'
+        defenseStat: 'Vitesse',
+        statRestrictions: {
+            Force: { min: 1, max: 6 },
+            Agilité: { min: 1, max: 4 },
+            Vitesse: { min: 7, max: 18 },
+            Intelligence: { min: 1, max: 18 },
+            Lucidité: { min: 1, max: 18 },
+            QI_de_Combat: { min: 1, max: 18 },
+            Synchronisation: { min: 1, max: 18 }
+        }
     },
     Omni: {
         baseStats: { Force: 5, Agilité: 5, Vitesse: 5, Intelligence: 6, Lucidité: 5, QI_de_Combat: 5, Synchronisation: 4 },
         description: "Soutien et Commandement. Un équilibre parfait entre toutes les capacités.",
         maxHP: 250,
         maxEnergy: 100,
-        defenseStat: 'Adaptive'
+        defenseStat: 'Adaptive',
+        statRestrictions: {
+            Force: { min: 1, max: 18 },
+            Agilité: { min: 1, max: 18 },
+            Vitesse: { min: 1, max: 18 },
+            Intelligence: { min: 1, max: 18 },
+            Lucidité: { min: 1, max: 18 },
+            QI_de_Combat: { min: 1, max: 18 },
+            Synchronisation: { min: 1, max: 18 }
+        }
     }
 };
 
