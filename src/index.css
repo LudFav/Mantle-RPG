@@ -127,7 +127,7 @@
     line-height: 1.2;
   }
 
-  .scanner-bar-line {
+.scanner-bar{
     position: absolute;
     display: block;
     width: 100%;
@@ -146,9 +146,8 @@
     0 0 40px #8b00ff,
     0 0 80px #8b00ff;
     border-radius: 5px;
-   animation: scanner-bar-move 1.7s linear infinite;
   }
-  .scanner-bar-line.is-animated {
+  .scanner-bar.is-animated {
     animation: scanner-bar-move 1.7s linear infinite;
     opacity: 1 !important;
   }
