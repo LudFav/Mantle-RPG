@@ -106,8 +106,11 @@
     0% {
       top:0;
     }
-    100% {
+    50% {
       top:100%;
+    }
+    100% {
+      top:0;
     }
   }
 
@@ -129,7 +132,7 @@
     z-index: 7;
     top: 0;
     left: 0;
-    animation: scanner-bar-move 8s linear infinite;
+    animation: scanner-bar-move 2s linear infinite;
     opacity: 0;
     transition: opacity 0.05s;
   }
