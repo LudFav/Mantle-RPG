@@ -135,6 +135,13 @@
     animation: scanner-bar-move 1.7s linear infinite;
     opacity: 0;
     transition: opacity 0.05s;
+    box-shadow: 
+    0 0 5px rgba(255, 255, 255, 0.8),
+    0 0 10px #8b00ff,
+    0 0 20px #8b00ff,
+    0 0 40px #8b00ff,
+    0 0 80px #8b00ff;
+    border-radius: 5px
   }
 
   .is-active-scan {
