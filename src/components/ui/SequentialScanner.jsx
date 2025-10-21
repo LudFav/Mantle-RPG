@@ -45,7 +45,7 @@ const SequentialScanner = () => {
     );
   };
   const currentTextRef = useRef(TEXT_BASE);
-/useEffect(() => {
+useEffect(() => {
     const tl = gsap.timeline({ repeat: -1, defaults: { ease: "none" } });
     const targetBar = barRef.current;
     gsap.set(targetBar, { opacity: 1 });
