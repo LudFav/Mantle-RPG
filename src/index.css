@@ -102,17 +102,23 @@
     }
   }
 
-  @keyframes scanner-bar-move {
-    0% {
-      top: 0;
-    }
-    50% {
-      top: 100%;
-    }
-    100% {
-      top: 0;
-    }
+@keyframes scanner-bar-move {
+  0% {
+    top: 0;
   }
+
+  29.41% {
+    top: 100%;
+  }
+
+  58.82% {
+    top: 0;
+  }
+
+  100% {
+    top: 0; 
+  }
+}
 
   /* Sequential Scanner Component */
   .sequential-scanner {
