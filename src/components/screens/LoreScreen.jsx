@@ -51,8 +51,8 @@ const LoreScreen = () => {
                 Le XXIIe siècle a inauguré l'ère de la Neuro-Technologie. La
                 percée fut la création du Neuro-Cortique <em>Syncron</em>, un
                 implant neurologique permettant la connexion directe de l'esprit
-                au réseau mondial. Cette technologie promettait le partage
-                instantané du savoir humain. Cependant, le <em>Syncron</em>{" "}
+                au réseau mondial, ainsi qu'une interface en realité augmenté permettant son controle. 
+                Cette technologie promettait le partage instantané du savoir humain, cependant, le <em>Syncron</em>{" "}
                 devint rapidement un outil de division :
                 <ul className="mt-3 space-y-2 ml-6">
                   <li className="text-gray-300">
@@ -61,7 +61,7 @@ const LoreScreen = () => {
                     est filtré. Le réseau est centralisé et hermétique, le
                     rendant fiable pour les données scientifiques pures, mais
                     purgé de toute information allant à l'encontre de la
-                    propagande et du dogme nationaliste.
+                    propagande et des dogmes des etat composants.
                   </li>
                   <li className="text-gray-300">
                     • Chez la Confédération des États Libres (
@@ -75,7 +75,7 @@ const LoreScreen = () => {
                 </ul>
                 <br />
                 Ce nouveau type de connexion, et cette nouvelle façon de surfer
-                et consommer le web a rapidement vu emmerger un nouveau type de
+                le web et consommer la donné a rapidement vu emmerger un nouveau type de
                 hacker, le piratage neuro-cortique, évoluant rapidement, de
                 l'archaïque <em>Pop-up Bomber</em> jusqu'aux armes neurologiques
                 sophistiquées :
