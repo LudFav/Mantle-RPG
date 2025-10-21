@@ -159,6 +159,7 @@
 
   .glitch-text-output.base {
     color: #fff;
+    text-shadow: 2px 2px #00e571;
   }
 
   .glitch-text-output.alt-one {
