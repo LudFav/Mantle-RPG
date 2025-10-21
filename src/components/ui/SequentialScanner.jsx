@@ -87,7 +87,7 @@ const SequentialScanner = () => {
   return (
     <div ref={containerRef} className="sequential-scanner">
       <div ref={barRef} className="scanner-bar"></div>
-      <div ref={textRef} className={`scanner-text ${colorClass}`}>
+      <div ref={textRef} className={`glitch-text-output ${colorClass}`}>
         {displayText}
       </div>
     </div>
