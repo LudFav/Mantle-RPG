@@ -145,7 +145,8 @@
     0 0 20px #8b00ff,
     0 0 40px #8b00ff,
     0 0 80px #8b00ff;
-    border-radius: 5px
+    border-radius: 5px;
+   animation: scanner-bar-move 1.7s linear infinite;
   }
   .scanner-bar-line.is-animated {
     animation: scanner-bar-move 1.7s linear infinite;
