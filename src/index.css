@@ -120,7 +120,6 @@
   }
 }
 
-  /* Sequential Scanner Component */
   .sequential-scanner {
     @apply relative inline-block font-semibold italic max-w-max;
     width: 110px;
