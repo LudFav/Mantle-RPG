@@ -132,7 +132,7 @@
     display: block;
     width: 100%;
     height: 4px;
-    background-color: #8b00ff;
+    background-color:#ddc0ff
     filter: blur(2px);
     z-index: 7;
     top: 0;
