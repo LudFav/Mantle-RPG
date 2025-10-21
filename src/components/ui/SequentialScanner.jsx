@@ -49,20 +49,27 @@ useEffect(() => {
     const tl = gsap.timeline({ repeat: -1, defaults: { ease: "none" } });
     const targetBar = barRef.current;
     gsap.set(targetBar, { opacity: 1 });
-    tl.add(scramble(TEXT_ALT_ONE, "alt-one", 0.3), 0.7)
-    tl.add(scramble(TEXT_ALT_TWO, "alt-two", 0.3), 2.7)
-    tl.add(scramble(TEXT_ALT_ONE, "alt-one", 0.3), 4.7)
-    tl.add(scramble(TEXT_BASE, "base", 0.3), 6.7)
+    const toggleBar = (startTime, duration) => {
+        tl.call(() => {
+            targetBar.classList.add('is-animated');
+        }, null, startTime);
+        tl.call(() => {
+            targetBar.classList.remove('is-animated');
+        }, null, startTime + duration);
+        tl.to(targetBar, { opacity: 0.1, duration: 0.05, yoyo: true, repeat: 1 }, startTime);
+    };
+
+    toggleBar(0.7, 0.3);
+    tl.add(scramble(TEXT_ALT_ONE, "alt-one", 0.3), 0.7);
+    toggleBar(2.7, 0.3);
+    tl.add(scramble(TEXT_ALT_TWO, "alt-two", 0.3), 2.7);
+    toggleBar(4.7, 0.3);
+    tl.add(scramble(TEXT_ALT_ONE, "alt-one", 0.3), 4.7);
+    toggleBar(6.7, 0.3);
+    tl.add(scramble(TEXT_BASE, "base", 0.3), 6.7);    
     return () => {
       tl.kill();
     };
-  }, []);
-  return (
-    <em className="sequential-scanner" ref={containerRef}>
-      <span ref={barRef} className="scanner-bar-line" aria-hidden="true"></span>
-      <span className={`glitch-text-output ${colorClass}`}>{displayText}</span>
-    </em>
-  );
-};
+}, []);
 
 export default SequentialScanner;
