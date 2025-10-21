@@ -45,36 +45,14 @@ const SequentialScanner = () => {
     );
   };
   const currentTextRef = useRef(TEXT_BASE);
-  useEffect(() => {
+/useEffect(() => {
     const tl = gsap.timeline({ repeat: -1, defaults: { ease: "none" } });
     const targetBar = barRef.current;
-    gsap.set(targetBar, { yPercent: -100, opacity: 0 });
-    tl.to(targetBar, { opacity: 1, duration: 0.1 }, 0) // Barre apparaît
-      .to(targetBar, { yPercent: 100, duration: 1.7, ease: "linear" }, 0.1) // Barre descend (1.7s)
-      .add(scramble(TEXT_ALT_ONE, "alt-one", 0.3), 0.7) // Scramble commence
-      .to(targetBar, { opacity: 0, duration: 0.1 }, 1.8); // Barre disparaît
-
-    /* PHASE 2 : TEXTE N-MeciS (Scan Up) (2s - 4s) */
-    tl.to(targetBar, { yPercent: -100, duration: 0 }, 2) // Reset rapide en haut
-      .to(targetBar, { opacity: 1, duration: 0.1 }, 2.05) // Barre apparaît
-      .to(targetBar, { yPercent: 0, duration: 1.7, ease: "linear" }, 2.15) // Barre remonte
-      .add(scramble(TEXT_ALT_TWO, "alt-two", 0.3), 2.7) // Scramble commence
-      .to(targetBar, { opacity: 0, duration: 0.1 }, 3.8); // Barre disparaît
-
-    /* PHASE 3 : TEXTE C-nesiM (Scan Down Répété) (4s - 6s) */
-    tl.to(targetBar, { yPercent: -100, duration: 0 }, 4) // Reset en haut
-      .to(targetBar, { opacity: 1, duration: 0.1 }, 4.05)
-      .to(targetBar, { yPercent: 100, duration: 1.7, ease: "linear" }, 4.15)
-      .add(scramble(TEXT_ALT_ONE, "alt-one", 0.3), 4.7)
-      .to(targetBar, { opacity: 0, duration: 0.1 }, 5.8);
-
-    /* PHASE 4 : TEXTE M-nesiC (Retour au texte stable) (6s - 8s) */
-    tl.to(targetBar, { yPercent: -100, duration: 0 }, 6) // Reset en haut
-      .to(targetBar, { opacity: 1, duration: 0.1 }, 6.05)
-      .to(targetBar, { yPercent: 0, duration: 1.7, ease: "linear" }, 6.15)
-      .add(scramble(TEXT_BASE, "base", 0.3), 6.7)
-      .to(targetBar, { opacity: 0, duration: 0.1 }, 7.8);
-
+    gsap.set(targetBar, { opacity: 1 });
+    tl.add(scramble(TEXT_ALT_ONE, "alt-one", 0.3), 0.7)
+    tl.add(scramble(TEXT_ALT_TWO, "alt-two", 0.3), 2.7)
+    tl.add(scramble(TEXT_ALT_ONE, "alt-one", 0.3), 4.7)
+    tl.add(scramble(TEXT_BASE, "base", 0.3), 6.7)
     return () => {
       tl.kill();
     };
