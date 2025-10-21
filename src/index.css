@@ -116,7 +116,7 @@
 
   /* Sequential Scanner Component */
   .sequential-scanner {
-    @apply relative inline-block font-semibold italic max-w-max overflow-hidden;
+    @apply relative inline-block font-semibold italic max-w-max;
     width: 110px;
     color: #fff;
     line-height: 1.2;
