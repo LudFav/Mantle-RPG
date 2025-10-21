@@ -149,6 +149,7 @@
   }
   .scanner-bar-line.is-animated {
     animation: scanner-bar-move 1.7s linear infinite;
+    opacity: 1 !important;
   }
   .is-active-scan {
     opacity: 1 !important;
