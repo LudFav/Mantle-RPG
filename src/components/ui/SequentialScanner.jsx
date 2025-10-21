@@ -71,13 +71,13 @@ const SequentialScanner = () => {
       );
     };
 
-    toggleBar(0.7, 0.3);
+    toggleBar(0.7, 1);
     tl.add(scramble(TEXT_ALT_ONE, "alt-one", 0.3), 0.7);
-    toggleBar(2.7, 0.3);
+    toggleBar(2.7, 1);
     tl.add(scramble(TEXT_ALT_TWO, "alt-two", 0.3), 2.7);
-    toggleBar(4.7, 0.3);
+    toggleBar(4.7, 1);
     tl.add(scramble(TEXT_ALT_ONE, "alt-one", 0.3), 4.7);
-    toggleBar(6.7, 0.3);
+    toggleBar(6.7, 1);
     tl.add(scramble(TEXT_BASE, "base", 0.3), 6.7);
     return () => {
       tl.kill();
