@@ -125,7 +125,7 @@ const CreationScreen = () => {
         <h3 className="font-semibold text-lg text-white mt-4 border-b border-green-500/30 pb-2">
           2. Distribution des Points
         </h3>
-        <div className="bg-gray-800 p-4 rounded-lg border border-gray-700 grid grid-cols-2 gap-4">
+        <div className="bg-gray-800 p-4 rounded-lg border border-gray-700 grid grid-cols-2 gap-4 opacity-75">
           {Object.keys(PILOT_BASE_STATS).map((stat) => {
             const restrictions = MANTES[manteType].statRestrictions[stat];
             const minValue = restrictions ? restrictions.min : PILOT_BASE_MIN;
