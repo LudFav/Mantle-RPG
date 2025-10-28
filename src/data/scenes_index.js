@@ -276,13 +276,13 @@ Composition des Escouades ECA (Mantes)
             "reputation": { "CEL": -1 },
             "items": ["Kit de Réparation (Usagé)"]
         }
-    }
+    },
 
 
 
-// --- ACTE II : PREMIER CONTACT (LE MONOLITHE) ---
+    // --- ACTE II : PREMIER CONTACT (LE MONOLITHE) ---
 
-ACT_2_MONOLITHE_INTRO: {
+    ACT_2_MONOLITHE_INTRO: {
         text: "ACTE II : LE MIROIR. Vous êtes à bord de la station 'Léviathan', une vieille carcasse de la Guerre Froide réactivée. La tension est palpable. Le contact est un objet massif, noir, parfaitement lisse, surnommé le 'Monolithe'. Il émet une onde répétitive, sans aucune structure connue. Votre escouade Mante est jugée essentielle pour l'analyser de près. Le Dr. Volkov, linguiste et scientifique de la CEL, mène l'opération. Il vous demande d'effectuer une analyse de résonance. Vous êtes maintenant dans l'espace, la Terre est une bille bleue loin derrière vous.",
         choices: [
             { text: "Manœuvre : Lancer une série d'échos haute fréquence pour cartographier sa structure interne. (Jet d'Intelligence - Diff 8)", next: "ACT_2_MONOLITHE_ECHO_INTEL" },
