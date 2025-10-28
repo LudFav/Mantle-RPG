@@ -52,7 +52,7 @@ Composition des Escouades ECA (Mantes)
     },
 
     CREATION: {
-        text: "Bienvenue, Opérateur. Vous êtes sur le point de vous synchroniser avec votre Mante. Vos choix définiront non seulement les capacités de votre armure, mais aussi vos limites en tant que pilote. Distribuez les 35 points de base entre vos 7 statistiques humaines (min 1, max 18). Ce sont vos aptitudes réelles : l'armure Mante ne fait que décupler les physiques (Force, Agilité, Vitesse). Choisissez sagement votre profil : l'Archipel ne pardonne pas les erreurs.",
+        text: "Bienvenue, Opérateur. Vous êtes sur le point de vous synchroniser avec votre Mante. Vos choix définiront non seulement les capacités de votre armure, mais aussi vos limites en tant que pilote. Distribuez les 35 points de base entre vos 8 statistiques humaines (min 1, max 18). Ce sont vos aptitudes réelles : l'armure Mante ne fait que décupler les physiques (Force, Agilité, Vitesse). Choisissez sagement votre profil.",
     },
 
     // --- ACTE I : GUERRE DES ARCHIPELS (KAIROK) ---
