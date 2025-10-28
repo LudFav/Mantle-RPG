@@ -5,6 +5,7 @@ export const PILOT_BASE_STATS = {
     Agilité: PILOT_BASE_MIN,
     Vitesse: PILOT_BASE_MIN,
     Intelligence: PILOT_BASE_MIN,
+    Charisme: PILOT_BASE_MIN,
     Lucidité: PILOT_BASE_MIN,
     QI_de_Combat: PILOT_BASE_MIN,
     Synchronisation: PILOT_BASE_MIN
