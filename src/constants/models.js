@@ -16,7 +16,7 @@ export const DISTRIBUTION_POOL = POOL_TOTAL - (Object.keys(PILOT_BASE_STATS).len
 
 export const MANTES = {
     Phalange: {
-        baseStats: { Force: 7, Agilité: 4, Vitesse: 3, Intelligence: 4, Charisme: 3, Lucidité: 4, QI_de_Combat: 4, Synchronisation: 5 },
+        baseStats: { Force: 7, Agilité: 4, Vitesse: 4, Intelligence: 4, Charisme: 3, Lucidité: 4, QI_de_Combat: 4, Synchronisation: 5 },
         description: "Assaut Lourd. Capacité de résistance et de destruction maximale.",
         maxHP: 300,
         maxEnergy: 80, // Moins d'énergie, plus de PV
