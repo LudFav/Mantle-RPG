@@ -15,7 +15,7 @@ export const DISTRIBUTION_POOL = POOL_TOTAL - (Object.keys(PILOT_BASE_STATS).len
 
 export const MANTES = {
     Phalange: {
-        baseStats: { Force: 7, Agilité: 4, Vitesse: 5, Intelligence: 6, Lucidité: 6, QI_de_Combat: 4, Synchronisation: 3 },
+        baseStats: { Force: 7, Agilité: 4, Vitesse: 3, Intelligence: 4, Charisme: 3, Lucidité: 4, QI_de_Combat: 4, Synchronisation: 3 },
         description: "Assaut Lourd. Capacité de résistance et de destruction maximale.",
         maxHP: 300,
         maxEnergy: 80, // Moins d'énergie, plus de PV
@@ -25,13 +25,14 @@ export const MANTES = {
             Agilité: { min: 1, max: 4 },
             Vitesse: { min: 1, max: 5 },
             Intelligence: { min: 1, max: 18 },
+            Charisme: { min: 1, max: 18 },
             Lucidité: { min: 1, max: 18 },
             QI_de_Combat: { min: 1, max: 18 },
             Synchronisation: { min: 1, max: 18 }
         }
     },
     Aiguille: {
-        baseStats: { Force: 3, Agilité: 7, Vitesse: 6, Intelligence: 5, Lucidité: 5, QI_de_Combat: 4, Synchronisation: 5 },
+        baseStats: { Force: 3, Agilité: 7, Vitesse: 4, Intelligence: 4, Charisme: 4, Lucidité: 4, QI_de_Combat: 4, Synchronisation: 5 },
         description: "Reconnaissance et CQC. Maîtrise du mouvement et frappes chirurgicales.",
         maxHP: 200,
         maxEnergy: 120, // Plus d'énergie, moins de PV
@@ -41,13 +42,14 @@ export const MANTES = {
             Agilité: { min: 7, max: 18 },
             Vitesse: { min: 1, max: 6 },
             Intelligence: { min: 1, max: 18 },
+            Charisme: { min: 1, max: 18 },
             Lucidité: { min: 1, max: 18 },
             QI_de_Combat: { min: 1, max: 18 },
             Synchronisation: { min: 1, max: 18 }
         }
     },
     Éclair: {
-        baseStats: { Force: 6, Agilité: 4, Vitesse: 7, Intelligence: 4, Lucidité: 5, QI_de_Combat: 4, Synchronisation: 5 },
+        baseStats: { Force: 4, Agilité: 4, Vitesse: 7, Intelligence: 4, Charisme: 3, Lucidité: 4, QI_de_Combat: 4, Synchronisation: 5 },
         description: "Interception Rapide. Idéal pour le flanc et les manœuvres d'évitement extrêmes.",
         maxHP: 200,
         maxEnergy: 110,
@@ -57,13 +59,14 @@ export const MANTES = {
             Agilité: { min: 1, max: 4 },
             Vitesse: { min: 7, max: 18 },
             Intelligence: { min: 1, max: 18 },
+            Charisme: { min: 1, max: 18 },
             Lucidité: { min: 1, max: 18 },
             QI_de_Combat: { min: 1, max: 18 },
             Synchronisation: { min: 1, max: 18 }
         }
     },
     Omni: {
-        baseStats: { Force: 5, Agilité: 5, Vitesse: 5, Intelligence: 6, Lucidité: 5, QI_de_Combat: 5, Synchronisation: 4 },
+        baseStats: { Force: 5, Agilité: 5, Vitesse: 5, Intelligence: 5, Charisme: 5, Lucidité: 3, QI_de_Combat: 3, Synchronisation: 4 },
         description: "Soutien et Commandement. Un équilibre parfait entre toutes les capacités.",
         maxHP: 250,
         maxEnergy: 100,
@@ -73,6 +76,7 @@ export const MANTES = {
             Agilité: { min: 1, max: 18 },
             Vitesse: { min: 1, max: 18 },
             Intelligence: { min: 1, max: 18 },
+            Charisme: { min: 1, max: 18 },
             Lucidité: { min: 1, max: 18 },
             QI_de_Combat: { min: 1, max: 18 },
             Synchronisation: { min: 1, max: 18 }
