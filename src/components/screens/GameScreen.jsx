@@ -1,5 +1,6 @@
 import useGameStore, { SCENES } from "../../store/gameStore.js";
 import StatPanel from "../ui/StatPanel.jsx";
+import { filterChoicesByRequirements } from "../../utils/gameLogic.js";
 
 const GameScreen = () => {
   const gameState = useGameStore((state) => state.gameState);
@@ -11,16 +12,37 @@ const GameScreen = () => {
     return <p>Erreur: Scène non trouvée.</p>;
   }
 
-  let choices =
-    currentScene[`choices_${gameState.manteType}`] ||
-    currentScene.choices ||
-    [];
+  // Normalize choices: can be array, per-manteType array, or an object with keys
+  let choices = [];
+  if (Array.isArray(currentScene[`choices_${gameState.manteType}`])) {
+    choices = currentScene[`choices_${gameState.manteType}`];
+  } else if (Array.isArray(currentScene.choices)) {
+    choices = currentScene.choices;
+  } else if (currentScene.choices && typeof currentScene.choices === "object") {
+    if (Array.isArray(currentScene.choices[gameState.manteType])) {
+      choices = currentScene.choices[gameState.manteType];
+    } else if (Array.isArray(currentScene.choices.all)) {
+      choices = currentScene.choices.all;
+    } else {
+      // Fallback: merge any arrays found in the object
+      choices = Object.values(currentScene.choices).reduce((acc, v) => {
+        if (Array.isArray(v)) acc.push(...v);
+        return acc;
+      }, []);
+    }
+  }
+
+  // Filter choices based on requirements (status flags, stats, etc.)
+  choices = filterChoicesByRequirements(
+    choices,
+    gameState.statusFlags,
+    gameState.pilotStats
+  );
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <StatPanel />
       <main className="lg:col-span-2">
-        {/* Notification de points de stat disponibles */}
         {gameState.statPoints > 0 && (
           <div className="bg-green-900/40 border-2 border-green-500 rounded-lg p-3 mb-4 animate-pulse">
             <p className="text-center font-bold text-green-300">
