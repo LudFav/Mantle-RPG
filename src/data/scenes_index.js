@@ -59,23 +59,23 @@ Composition des Escouades ECA (Mantes)
 
 
     ACT_1_OMEGA7_INTRO: {
-        "text": [
+        text: [
             "ACTE I : ARRIVÉE À LA BASE OMÉGA-7.",
             "Votre transport *Vautour-9* atterrit en tremblant sur la piste d’atterrissage de la base Oméga-7, construite à la hâte sur les flancs d’un volcan endormi de l’Archipel des Cendres. Une épaisse fumée volcanique obscurcit le ciel, et l’air sent l’ozone et le métal brûlé.",
-            "Des techniciens en combinaison *Devotus Bio-Seal* s’affairent autour des *ECA* en maintenance, tandis que des soldats en armure légère patrouillent, fusils d’assaut à l’épaule.",
+            "Des techniciens en combinaison s’affairent autour des *ECA* en maintenance, tandis que des soldats en armure légère patrouillent, fusils d’assaut à l’épaule.",
             "Un officier en armure *Mante Mk-II* s’approche, son casque rétracté révélant un visage marqué par les cicatrices des implants neuro-corticaux.",
             "« Bienvenue à Oméga-7, soldat. Je suis le Lieutenant-Colonel **Rael Morane**, commandant en second. Suivez-moi, le Capitaine Voss vous attend pour le briefing. »"
         ],
-        "choices": {
-            "all": [
-                { "text": "Suivre le Lieutenant-Colonel Morane vers le briefing.", "next": "ACT_1_OMEGA7_BRIEFING" }
+        choices: {
+            all: [
+                { text: "Suivre le Lieutenant-Colonel Morane vers le briefing.", next: "ACT_1_OMEGA7_BRIEFING" }
             ]
         }
     },
 
     // --- BRIEFING INITIAL ---
     ACT_1_OMEGA7_BRIEFING: {
-        "text": [
+        text: [
             "Vous entrez dans la **Salle de Commandement**, où une carte holographique de l’Archipel des Cendres s’affiche. Le **Capitaine Elara Mendez** (Aiguille, Agilité 5, Intelligence 4) y discute avec des officiers.",
             "« Ah, le renfort. Bien. Vous êtes affecté à l’escouade Delta. Votre première mission est dans 30 minutes : patrouille dans le secteur minier *Cratère-9*. »",
             "Elle désigne une zone rouge sur l’hologramme.",
@@ -83,153 +83,153 @@ Composition des Escouades ECA (Mantes)
             "Le Sergent **Kael Voss** (Phalange, Force 5, Charisme 2) croise les bras : « Et si on tombe sur des Phalanges FEU ? »",
             "Mendez sourit. « Dans ce cas, tuez-les. »"
         ],
-        "choices": {
+        choices: {
             "all": [
-                { "text": "Demander des détails sur le secteur *Cratère-9* (Jet d’Intelligence difficulté 10).", "next": "ACT_1_OMEGA7_QC_CHECK", "check": { "stat": "Intelligence", "difficulty": 10 } },
-                { "text": "Inspecter l’équipement avant de partir (Jet de QI_de_Combat difficulté 8).", "next": "ACT_1_OMEGA7_EQUIP_CHECK", "check": { "stat": "QI_de_Combat", "difficulty": 8 } },
-                { "text": "Discuter avec les autres membres de l’escouade pour glaner des infos (Jet de Charisme difficulté 10).", "next": "ACT_1_OMEGA7_SOCIAL_CHECK", "check": { "stat": "Charisme", "difficulty": 10 } }
+                { text: "Demander des détails sur le secteur *Cratère-9* (Jet d’Intelligence difficulté 10).", next: "ACT_1_OMEGA7_QC_CHECK", check: { stat: "Intelligence", difficulty: 10 } },
+                { text: "Inspecter l’équipement avant de partir (Jet de QI_de_Combat difficulté 8).", next: "ACT_1_OMEGA7_EQUIP_CHECK", check: { stat: "QI_de_Combat", difficulty: 8 } },
+                { text: "Discuter avec les autres membres de l’escouade pour glaner des infos (Jet de Charisme difficulté 10).", next: "ACT_1_OMEGA7_SOCIAL_CHECK", check: { stat: "Charisme", difficulty: 10 } }
             ]
         }
     },
 
     // --- VÉRIFICATIONS PRÉ-MISSION ---
     ACT_1_OMEGA7_QC_CHECK: {
-        "text": [
+        text: [
             "Votre **QI de Combat** vous permet d’analyser les données tactiques du secteur *Cratère-9*.",
             "Le Capitaine Mendez hoche la tête : « Bien vu. Les dernières patrouilles ont repéré des traces de *Mantes Lourdes* FEU près des geysers. »",
             "« Si vous tombez dessus, visez les articulations des jambes. Leur blindage y est plus faible. »"
         ],
-        "consequence": {
-            "status": { "tactical_advantage": true },
-            "inventory": ["Données Tactiques : Faiblesse des Jambes"]
+        consequence: {
+            status: { "tactical_advantage": true },
+            inventory: ["Données Tactiques : Faiblesse des Jambes"]
         },
-        "choices": [
-            { "text": "Retourner au briefing.", "next": "ACT_1_OMEGA7_BRIEFING" }
+        choices: [
+            { text: "Retourner au briefing.", next: "ACT_1_OMEGA7_BRIEFING" }
         ]
     },
 
     ACT_1_OMEGA7_EQUIP_CHECK: {
-        "text": [
+        text: [
             "Vous inspectez votre équipement avec minutie. Votre **QI de Combat** révèle un problème mineur dans le système de refroidissement de votre *Lance-Raquettes*.",
             "Un technicien s’approche : « Je peux régler ça en 2 minutes, mais il me faut une autorisation. » (Jet de Charisme difficulté 8 pour convaincre le technicien.)"
         ],
-        "choices": [
-            { "text": "Tenter de convaincre le technicien (Jet de Charisme difficulté 8).", "next": "ACT_1_OMEGA7_REPAIR_CHARISME", "check": { "stat": "Charisme", "difficulty": 8 } },
-            { "text": "Ignorer le problème et partir en mission.", "next": "ACT_1_OMEGA7_MISSION_START" }
+        choices: [
+            { text: "Tenter de convaincre le technicien (Jet de Charisme difficulté 8).", next: "ACT_1_OMEGA7_REPAIR_CHARISME", check: { stat: "Charisme", difficulty: 8 } },
+            { text: "Ignorer le problème et partir en mission.", next: "ACT_1_OMEGA7_MISSION_START" }
         ]
     },
 
     ACT_1_OMEGA7_REPAIR_CHARISME: {
-        "text": [
+        text: [
             "Le technicien hésite, puis hoche la tête. « Bon, d’accord. Mais c’est entre nous. »",
             "Votre *Lance-Raquettes* est maintenant parfaitement calibré. +1 aux jets d’attaque avec cette arme pour la mission."
         ],
-        "consequence": {
-            "status": { "weapon_calibrated": true }
+        consequence: {
+            status: { "weapon_calibrated": true }
         },
-        "choices": [
-            { "text": "Partir en mission.", "next": "ACT_1_OMEGA7_MISSION_START" }
+        choices: [
+            { text: "Partir en mission.", next: "ACT_1_OMEGA7_MISSION_START" }
         ]
     },
 
     ACT_1_OMEGA7_SOCIAL_CHECK: {
-        "text": [
+        text: [
             "Vous engagez la conversation avec les membres de l’escouade Delta :",
             "- **Darius « Éclair »** (Vitesse 5, Charisme 1) : « Les FEU ont des *Phalanges Lourdes* dans le secteur. Méfiez-vous. »",
             "- **Lena Voss** (Intelligence 4, Charisme 3) : « Si vous trouvez des *échantillons de Prométhium-7*, rapportez-les. La CEL paie bien. »",
             "Votre **Charisme** vous permet de gagner leur confiance. Lena vous glisse un *stimulant Nexal-9* « au cas où »."
         ],
-        "consequence": {
-            "inventory": ["Stimulant Nexal-9 (+2 Force/Vitesse pour 3 tours)"]
+        consequence: {
+            inventory: ["Stimulant Nexal-9 (+2 Force/Vitesse pour 3 tours)"]
         },
-        "choices": [
-            { "text": "Partir en mission.", "next": "ACT_1_OMEGA7_MISSION_START" }
+        choices: [
+            { text: "Partir en mission.", next: "ACT_1_OMEGA7_MISSION_START" }
         ]
     },
 
     // --- DÉBUT DE LA MISSION ---
     ACT_1_OMEGA7_MISSION_START: {
-        "text": [
+        text: [
             "Votre escouade se déploie dans les **tunnels de lave** menant au secteur *Cratère-9*. L’air est chaud et humide, et le sol tremble sous les pas de votre Mante.",
             "Soudain, des **signaux thermiques** apparaissent sur votre scanner : une patrouille ennemie approche."
         ],
-        "choices": {
+        choices: {
             "Phalange": [
-                { "text": "[Charge Frontale] Foncez droit sur l’ennemi pour briser leur formation (Jet de Force difficulté 8).", "next": "ACT_1_OMEGA7_CHARGE_FORCE", "check": { "stat": "Force", "difficulty": 8 } },
-                { "text": "[Défense Stratégique] Ordonner à l’escouade de se mettre en formation défensive (Jet de QI_de_Combat difficulté 9).", "next": "ACT_1_OMEGA7_DEFENSE_QC", "check": { "stat": "QI_de_Combat", "difficulty": 9 } }
+                { text: "[Charge Frontale] Foncez droit sur l’ennemi pour briser leur formation (Jet de Force difficulté 8).", next: "ACT_1_OMEGA7_CHARGE_FORCE", check: { stat: "Force", difficulty: 8 } },
+                { text: "[Défense Stratégique] Ordonner à l’escouade de se mettre en formation défensive (Jet de QI_de_Combat difficulté 9).", next: "ACT_1_OMEGA7_DEFENSE_QC", check: { stat: "QI_de_Combat", difficulty: 9 } }
             ],
             "Aiguille": [
-                { "text": "[Embuscade] Utiliser le terrain pour tendre une embuscade (Jet d’Agilité difficulté 10).", "next": "ACT_1_OMEGA7_AMBUSH_AGI", "check": { "stat": "Agilité", "difficulty": 10 } },
-                { "text": "[Analyse] Scanner les signatures énergétiques ennemies pour identifier leurs faiblesses (Jet d’Intelligence difficulté 8).", "next": "ACT_1_OMEGA7_SCAN_INTEL", "check": { "stat": "Intelligence", "difficulty": 8 } }
+                { text: "[Embuscade] Utiliser le terrain pour tendre une embuscade (Jet d’Agilité difficulté 10).", next: "ACT_1_OMEGA7_AMBUSH_AGI", check: { stat: "Agilité", difficulty: 10 } },
+                { text: "[Analyse] Scanner les signatures énergétiques ennemies pour identifier leurs faiblesses (Jet d’Intelligence difficulté 8).", next: "ACT_1_OMEGA7_SCAN_INTEL", check: { stat: "Intelligence", difficulty: 8 } }
             ],
             "Éclair": [
-                { "text": "[Mouvement Éclair] Utiliser votre vitesse pour contourner l’ennemi et les prendre à revers (Jet de Vitesse difficulté 9).", "next": "ACT_1_OMEGA7_FLANK_VITESSE", "check": { "stat": "Vitesse", "difficulty": 9 } },
-                { "text": "[Piège] Poser un piège à fragmentation dans un goulot d’étranglement (Jet de Lucidité difficulté 7).", "next": "ACT_1_OMEGA7_TRAP_LUCIDITE", "check": { "stat": "Lucidité", "difficulty": 7 } }
+                { text: "[Mouvement Éclair] Utiliser votre vitesse pour contourner l’ennemi et les prendre à revers (Jet de Vitesse difficulté 9).", next: "ACT_1_OMEGA7_FLANK_VITESSE", check: { stat: "Vitesse", difficulty: 9 } },
+                { text: "[Piège] Poser un piège à fragmentation dans un goulot d’étranglement (Jet de Lucidité difficulté 7).", next: "ACT_1_OMEGA7_TRAP_LUCIDITE", check: { stat: "Lucidité", difficulty: 7 } }
             ],
             "Omni": [
-                { "text": "[Coordination] Utiliser vos drones pour coordonner une attaque synchronisée (Jet de QI_de_Combat difficulté 9).", "next": "ACT_1_OMEGA7_COORD_QC", "check": { "stat": "QI_de_Combat", "difficulty": 9 } },
-                { "text": "[Sabotage] Pirater les communications ennemies pour semer la confusion (Jet de Synchronisation difficulté 9).", "next": "ACT_1_OMEGA7_HACK_SYNC", "check": { "stat": "Synchronisation", "difficulty": 9 } }
+                { text: "[Coordination] Utiliser vos drones pour coordonner une attaque synchronisée (Jet de QI_de_Combat difficulté 9).", next: "ACT_1_OMEGA7_COORD_QC", check: { stat: "QI_de_Combat", difficulty: 9 } },
+                { text: "[Sabotage] Pirater les communications ennemies pour semer la confusion (Jet de Synchronisation difficulté 9).", next: "ACT_1_OMEGA7_HACK_SYNC", check: { stat: "Synchronisation", difficulty: 9 } }
             ]
         }
     },
 
     // --- RÉSULTATS DES CHOIX (EXEMPLES) ---
     ACT_1_OMEGA7_CHARGE_FORCE: {
-        "text": [
+        text: [
             "Votre Mante charge comme un bélier, écrasant tout sur son passage. Les ennemis sont désorientés, mais un tir de plasma vous frappe en plein torse."
         ],
-        "check": {
-            "stat": "Force",
-            "difficulty": 8,
-            "success": "ACT_1_OMEGA7_CHARGE_SUCCESS",
-            "failure": "ACT_1_OMEGA7_CHARGE_FAILURE"
+        check: {
+            stat: "Force",
+            difficulty: 8,
+            success: "ACT_1_OMEGA7_CHARGE_SUCCESS",
+            failure: "ACT_1_OMEGA7_CHARGE_FAILURE"
         }
     },
     ACT_1_OMEGA7_CHARGE_SUCCESS: {
-        "text": [
+        text: [
             "SUCCÈS. Deux *Phalanges Lourdes* sont projetées au sol. Votre escouade en profite pour avancer.",
             "(Dégâts Mante : -15, statut AVANTAGE acquis)"
         ],
-        "consequence": {
-            "ManteHP": -15,
-            "status": { "advantage": true }
+        consequence: {
+            ManteHP: -15,
+            status: { "advantage": true }
         },
-        "choices": [
-            { "text": "Poursuivre l’assaut.", "next": "ACT_1_OMEGA7_WAVE2_PREP" }
+        choices: [
+            { text: "Poursuivre l’assaut.", next: "ACT_1_OMEGA7_WAVE2_PREP" }
         ]
     },
     ACT_1_OMEGA7_CHARGE_FAILURE: {
-        "text": [
+        text: [
             "ÉCHEC. Votre charge est stoppée net par un tir de plasma. Votre jambe gauche est endommagée, et vous subissez un feedback neurologique.",
             "(Dégâts Mante : -30, Dégâts Pilote : -5, statut CRITIQUE acquis)"
         ],
-        "consequence": {
-            "ManteHP": -30,
-            "PilotHP": -5,
-            "status": { "critical": true }
+        consequence: {
+            ManteHP: -30,
+            PilotHP: -5,
+            status: { "critical": true }
         },
-        "choices": [
-            { "text": "Se replier et préparer une contre-attaque.", "next": "ACT_1_OMEGA7_WAVE2_PREP" }
+        choices: [
+            { text: "Se replier et préparer une contre-attaque.", next: "ACT_1_OMEGA7_WAVE2_PREP" }
         ]
     },
 
     // --- PRÉPARATION VAGUE 2 (COMMUNE) ---
     ACT_1_OMEGA7_WAVE2_PREP: {
-        "text": [
+        text: [
             "La première vague est repoussée, mais vos scanners détectent une **seconde vague** en approche.",
             "Votre Mante est endommagée. Vous avez 5 minutes pour :"
         ],
-        "choices": [
-            { "text": "Réparer rapidement votre Mante (Jet de QI_de_Combat difficulté 8).", "next": "ACT_1_OMEGA7_REPAIR_QC", "check": { "stat": "QI_de_Combat", "difficulty": 8 } },
-            { "text": "Scanner l’environnement pour repérer une position avantageuse (Jet de Lucidité difficulté 7).", "next": "ACT_1_OMEGA7_SCAN_LUCIDITE", "check": { "stat": "Lucidité", "difficulty": 7 } },
+        choices: [
+            { text: "Réparer rapidement votre Mante (Jet de QI_de_Combat difficulté 8).", next: "ACT_1_OMEGA7_REPAIR_QC", check: { stat: "QI_de_Combat", difficulty: 8 } },
+            { text: "Scanner l’environnement pour repérer une position avantageuse (Jet de Lucidité difficulté 7).", next: "ACT_1_OMEGA7_SCAN_LUCIDITE", check: { stat: "Lucidité", difficulty: 7 } },
             {
-                "text": "[AVANTAGE] Utiliser votre élan pour prendre une position dominante (Réputation CEL +1).",
-                "next": "ACT_1_OMEGA7_ADVANTAGE_CHOICE",
+                text: "[AVANTAGE] Utiliser votre élan pour prendre une position dominante (Réputation CEL +1).",
+                next: "ACT_1_OMEGA7_ADVANTAGE_CHOICE",
                 "requirements": { "advantage": true }
             },
             {
-                "text": "[CRITIQUE] Sacrifier une partie de votre blindage pour surcharger vos armes (Risque de feedback).",
-                "next": "ACT_1_OMEGA7_CRITICAL_CHOICE",
+                text: "[CRITIQUE] Sacrifier une partie de votre blindage pour surcharger vos armes (Risque de feedback).",
+                next: "ACT_1_OMEGA7_CRITICAL_CHOICE",
                 "requirements": { "critical": true }
             }
         ]
@@ -237,18 +237,18 @@ Composition des Escouades ECA (Mantes)
 
     // --- SCÈNES DE FIN D'ACTE ---
     ACT_1_OMEGA7_OUTRO_SUCCESS: {
-        "text": [
+        text: [
             "VICTOIRE. La seconde vague est repoussée. Les renforts CEL arrivent pour sécuriser la zone.",
             "Votre Mante est gravement endommagée, mais la mission est un succès. Le Capitaine Mendez vous félicite : « Bien joué. »",
             "Un message crypté arrive : une anomalie a été détectée dans l’espace lointain..."
         ],
-        "consequence": {
-            "progress": 50,
-            "reputation": { "CEL": 2 },
-            "inventory": ["Module Anti-Virus", "Données Tactiques : Secteur Cratère-9"]
+        consequence: {
+            progress: 50,
+            reputation: { "CEL": 2 },
+            inventory: ["Module Anti-Virus", "Données Tactiques : Secteur Cratère-9"]
         },
-        "choices": [
-            { "text": "Poursuivre vers l’Acte 2.", "next": "ACT_2_MONOLITHE_INTRO" }
+        choices: [
+            { text: "Poursuivre vers l’Acte 2.", next: "ACT_2_MONOLITHE_INTRO" }
         ]
     },
 
@@ -265,15 +265,15 @@ Composition des Escouades ECA (Mantes)
         }
     },
 
-    "rewards": {
+    rewards: {
         "mission_success": {
-            "ManteHP": 50,
-            "reputation": { "CEL": 2 },
+            ManteHP: 50,
+            reputation: { "CEL": 2 },
             "items": ["Stimulant Nexal-9", "Module Anti-Virus"]
         },
         "mission_failure": {
-            "ManteHP": 20,
-            "reputation": { "CEL": -1 },
+            ManteHP: 20,
+            reputation: { "CEL": -1 },
             "items": ["Kit de Réparation (Usagé)"]
         }
     },
