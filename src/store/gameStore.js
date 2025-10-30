@@ -94,6 +94,10 @@ const useGameStore = create(
 
                 newState.currentScene = nextSceneKey;
                 const nextScene = SCENES[nextSceneKey];
+                if (!nextScene) {
+                    updateLog(`[ERREUR] La scène "${nextSceneKey}" n'existe pas.`);
+                    return;
+                }
 
                 // Clear status flags if scene requires it
                 if (nextScene.clearStatusFlags) {
