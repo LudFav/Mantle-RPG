@@ -8,7 +8,8 @@ import {
     checkSkill,
     restoreForNewAct,
     calculateLevelUp,
-    initializeGame
+    initializeGame,
+    filterChoicesByRequirements
 } from '../utils/gameLogic.js';
 import { initCombat, executeCombatAction } from '../utils/combat.js';
 
@@ -17,10 +18,7 @@ const SCENES = { ...SCENES_DATA };
 const useGameStore = create(
     persist(
         (set, get) => ({
-            // State
             gameState: getInitialGameState(),
-
-            // Utility function to add log messages
             updateLog: (message) => {
                 set((state) => {
                     const newLog = [...state.gameState.log, message];
@@ -35,8 +33,6 @@ const useGameStore = create(
                     };
                 });
             },
-
-            // Start a new game
             startGame: (manteType, name, stats) => {
                 const newState = initializeGame(manteType, name, stats);
                 if (!newState) {
@@ -46,33 +42,47 @@ const useGameStore = create(
                 set({ gameState: newState });
             },
 
-            // Reset to character creation
             resetToCreation: () => {
                 set({ gameState: getInitialGameState() });
             },
 
-            // Handle scene choices
             handleChoice: (sceneKey, choiceIndex) => {
                 const { gameState, updateLog } = get();
                 const currentScene = SCENES[sceneKey];
-                let choices = currentScene[`choices_${gameState.manteType}`] || currentScene.choices;
+                // Normalize choices to an array (align with UI logic)
+                let choices = [];
+                if (Array.isArray(currentScene[`choices_${gameState.manteType}`])) {
+                    choices = currentScene[`choices_${gameState.manteType}`];
+                } else if (Array.isArray(currentScene.choices)) {
+                    choices = currentScene.choices;
+                } else if (currentScene.choices && typeof currentScene.choices === 'object') {
+                    if (Array.isArray(currentScene.choices[gameState.manteType])) {
+                        choices = currentScene.choices[gameState.manteType];
+                    } else if (Array.isArray(currentScene.choices.all)) {
+                        choices = currentScene.choices.all;
+                    } else {
+                        choices = Object.values(currentScene.choices).reduce((acc, v) => {
+                            if (Array.isArray(v)) acc.push(...v);
+                            return acc;
+                        }, []);
+                    }
+                }
+
+                // Apply same requirements filtering as UI to keep indices aligned
+                choices = filterChoicesByRequirements(choices, gameState.statusFlags, gameState.pilotStats);
+
                 const choice = choices[choiceIndex];
 
                 if (!choice) return;
 
                 let newState = { ...gameState };
 
-                // Apply choice consequence
                 if (choice.consequence) {
                     newState = applyConsequence(newState, choice.consequence, (xp) => {
                         get().gainXP(xp);
                     });
                 }
-
-                // Navigate to next scene
                 const nextSceneKey = choice.next;
-
-                // Restore resources between acts
                 if (nextSceneKey.startsWith('ACT_2_') && newState.currentScene.startsWith('ACT_1_')) {
                     newState = restoreForNewAct(newState, "II");
                     updateLog(`[SYSTÈME] Début de l'Acte II. Systèmes restaurés.`);
