@@ -21,7 +21,12 @@ export function getInitialGameState() {
         gameStatus: "PLAYING",
         combatState: null,
         sceneHistory: [],
-        statusFlags: {}
+        statusFlags: {},
+        reputation: {
+            CEL: 0,
+            FEU: 0,
+            Aetheria: 0
+        }
     };
 }
 
@@ -64,6 +69,17 @@ export function applyConsequence(gameState, consequence, gainXPFn) {
         newState.pilotStats = newStats;
         newState.effectiveStats = calculateEffectiveStats(newStats);
     }
+    if (consequence.progress !== undefined) {
+        newState.progress = Math.max(0, Math.min(100, consequence.progress));
+    }
+    if (consequence.reputation) {
+        newState.reputation = { ...newState.reputation };
+        Object.keys(consequence.reputation).forEach(faction => {
+            if (newState.reputation[faction] !== undefined) {
+                newState.reputation[faction] += consequence.reputation[faction];
+            }
+        });
+    }
     if (consequence.xp) {
         gainXPFn(consequence.xp);
     }
@@ -71,13 +87,26 @@ export function applyConsequence(gameState, consequence, gainXPFn) {
     return newState;
 }
 
-export function filterChoicesByRequirements(sceneChoices, statusFlags) {
+export function filterChoicesByRequirements(sceneChoices, statusFlags, pilotStats = {}) {
     if (!sceneChoices) return [];
     return sceneChoices.filter(choice => {
         if (!choice.requirements) return true;
         for (const req in choice.requirements) {
             const requiredValue = choice.requirements[req];
-            if (statusFlags[req] !== requiredValue) {
+            // Check if requirement is a status flag (boolean)
+            if (statusFlags[req] !== undefined) {
+                if (statusFlags[req] !== requiredValue) {
+                    return false;
+                }
+            }
+            // Check if requirement is a stat (number)
+            else if (pilotStats[req] !== undefined) {
+                if (pilotStats[req] < requiredValue) {
+                    return false;
+                }
+            }
+            // If requirement doesn't match any known flag or stat, exclude the choice
+            else {
                 return false;
             }
         }
@@ -92,7 +121,9 @@ export function checkSkill(stat, difficulty, pilotStats, updateLog) {
     return total >= difficulty;
 }
 
+// eslint-disable-next-line no-unused-vars
 export function restoreForNewAct(gameState, act) {
+    // act parameter reserved for future use (tracking act transitions)
     return {
         ...gameState,
         pilotHP: 100,
