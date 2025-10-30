@@ -135,7 +135,7 @@ export function initializeGame(manteType, name, stats) {
         manteMaxHP: manteModel.maxHP,
         manteEnergy: manteModel.maxEnergy,
         manteMaxEnergy: manteModel.maxEnergy,
-        currentScene: 'ACT_1_KAIROK_INTRO',
+        currentScene: 'ACT_1_OMEGA7_INTRO',
         log: [`[Départ] ${name} a choisi l'ECA Mante ${manteType}.`]
     };
 }
