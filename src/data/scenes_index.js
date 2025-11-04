@@ -235,6 +235,47 @@ Composition des Escouades ECA (Mantes)
         ]
     },
 
+    // --- RÉPARATION RAPIDE ---
+    ACT_1_OMEGA7_REPAIR_QC: {
+        text: [
+            "Vous utilisez votre **QI de Combat** pour identifier rapidement les zones critiques endommagées et effectuer des réparations d'urgence sur votre Mante."
+        ],
+        check: {
+            stat: "QI_de_Combat",
+            difficulty: 8,
+            success: "ACT_1_OMEGA7_REPAIR_QC_SUCCESS",
+            failure: "ACT_1_OMEGA7_REPAIR_QC_FAILURE"
+        }
+    },
+
+    ACT_1_OMEGA7_REPAIR_QC_SUCCESS: {
+        text: [
+            "SUCCÈS. Vos réparations rapides sont efficaces. Vous avez réparé plusieurs systèmes critiques : blindage renforcé, circuits de refroidissement rétablis, et stabilisateurs recalibrés.",
+            "(Réparation Mante : +25 HP, statut RÉPARÉ acquis)"
+        ],
+        consequence: {
+            ManteHP: 25,
+            status: { "repaired": true }
+        },
+        choices: [
+            { text: "Affronter la seconde vague avec confiance.", next: "ACT_1_OMEGA7_OUTRO_SUCCESS" }
+        ]
+    },
+
+    ACT_1_OMEGA7_REPAIR_QC_FAILURE: {
+        text: [
+            "ÉCHEC. Vous n'avez pas eu le temps de réparer correctement votre Mante. En essayant de forcer une réparation rapide, vous avez même aggravé certains dégâts.",
+            "(Dégâts Mante : -10, statut DÉGRADÉ acquis)"
+        ],
+        consequence: {
+            ManteHP: -10,
+            status: { "degraded": true }
+        },
+        choices: [
+            { text: "Affronter la seconde vague malgré tout.", next: "ACT_1_OMEGA7_OUTRO_SUCCESS" }
+        ]
+    },
+
     // --- SCÈNES DE FIN D'ACTE ---
     ACT_1_OMEGA7_OUTRO_SUCCESS: {
         text: [
