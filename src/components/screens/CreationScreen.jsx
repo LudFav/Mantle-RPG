@@ -6,6 +6,7 @@ import {
   PILOT_BASE_STATS,
   PILOT_BASE_MIN,
 } from "../../constants/models.js";
+import competencesData from "../../data/competence.json";
 
 const CreationScreen = () => {
   const startGame = useGameStore((state) => state.startGame);
@@ -15,6 +16,7 @@ const CreationScreen = () => {
   const [manteType, setManteType] = useState("Phalange");
   const [stats, setStats] = useState(MANTES.Phalange.baseStats);
   const [pool, setPool] = useState(POOL_TOTAL);
+  const [selectedCompetence, setSelectedCompetence] = useState(null);
 
   const updateStats = useCallback((newStats) => {
     const sum = Object.values(newStats).reduce((acc, val) => acc + val, 0);
@@ -37,11 +39,9 @@ const CreationScreen = () => {
   const applyPreset = useCallback(
     (type) => {
       setManteType(type);
-      // Appliquer les stats par défaut et s'assurer qu'elles respectent les restrictions
+      setSelectedCompetence(null);
       const newStats = { ...MANTES[type].baseStats };
       const restrictions = MANTES[type].statRestrictions;
-
-      // Ajuster chaque stat selon les restrictions
       Object.keys(newStats).forEach((stat) => {
         if (restrictions[stat]) {
           newStats[stat] = Math.max(
@@ -60,9 +60,21 @@ const CreationScreen = () => {
     applyPreset("Phalange");
   }, [applyPreset]);
 
+  const getAvailableCompetences = () => {
+    const classeCompetences = competencesData.competences[manteType] || [];
+    return classeCompetences.filter((comp) => comp.niveau === 1);
+  };
+
+  const availableCompetences = getAvailableCompetences();
+
   const handleStart = () => {
     if (pool === POOL_TOTAL && name.trim() !== "") {
-      startGame(manteType, name, stats);
+      if (!selectedCompetence) {
+        alert("Veuillez sélectionner une compétence de niveau 1.");
+        return;
+      }
+      const competences = selectedCompetence ? [selectedCompetence] : [];
+      startGame(manteType, name, stats, competences);
     } else {
       let message = "";
       if (name.trim() === "") {
@@ -163,6 +175,64 @@ const CreationScreen = () => {
             </span>{" "}
             / {POOL_TOTAL}
           </h3>
+        </div>
+
+        <h3 className="font-semibold text-lg text-white mt-4 border-b border-green-500/30 pb-2">
+          3. Choix de la Compétence (Niveau 1)
+        </h3>
+        <div className="bg-gray-800 p-4 rounded-lg border border-gray-700 space-y-3">
+          {availableCompetences.length > 0 ? (
+            availableCompetences.map((competence, index) => (
+              <div
+                key={index}
+                className={`p-4 rounded-lg border cursor-pointer transition-all ${
+                  selectedCompetence?.nom === competence.nom
+                    ? "border-green-500 bg-green-500/10"
+                    : "border-gray-700 hover:border-green-500/50 hover:bg-gray-700/50"
+                }`}
+                onClick={() => setSelectedCompetence(competence)}>
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h4 className="font-bold text-lg text-green-400 mb-1">
+                      {competence.nom}
+                    </h4>
+                    <p className="text-sm text-gray-300 mb-2">
+                      {competence.description}
+                    </p>
+                    <div className="text-xs text-gray-400 space-y-1">
+                      <div>
+                        <span className="text-gray-500">Type:</span>{" "}
+                        <span className="text-yellow-400 capitalize">
+                          {competence.type}
+                        </span>
+                      </div>
+                      {competence.cout_energie && (
+                        <div>
+                          <span className="text-gray-500">Coût Énergie:</span>{" "}
+                          <span className="text-blue-400">
+                            {competence.cout_energie}
+                          </span>
+                        </div>
+                      )}
+                      <div>
+                        <span className="text-gray-500">Effet:</span>{" "}
+                        <span className="text-gray-300">
+                          {competence.effet}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  {selectedCompetence?.nom === competence.nom && (
+                    <div className="ml-4 text-green-400 text-2xl">✓</div>
+                  )}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-400 text-center py-4">
+              Aucune compétence de niveau 1 disponible pour cette classe.
+            </p>
+          )}
         </div>
 
         <div className="flex gap-4">
