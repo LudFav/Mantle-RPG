@@ -6,7 +6,7 @@ import {
   PILOT_BASE_STATS,
   PILOT_BASE_MIN,
 } from "../../constants/models.js";
-import competencesData from "../../data/competence.json";
+import { competencesData } from "../../data/competences.js";
 
 const CreationScreen = () => {
   const startGame = useGameStore((state) => state.startGame);
