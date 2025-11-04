@@ -2,27 +2,27 @@ export const competencesData = {
   "competences": {
     "Phalange": [
       {
-        "nom": "Frappe Ciblée",
+        "nom": "Frappe SMASH !",
         "niveau": 1,
         "type": "active",
         "carac_requise": { "Force": 4 },
         "cout_energie": 2,
+        "degats": "2d8",
         "porte": "mélée",
         "cible": [
           "Torse",
           "Bras Gauche",
-          "Bras Droit",
-          "Jambe Gauche",
-          "Jambe Droite"
+          "Bras Droit"
         ],
-        "effet": "Inflige 2D8 dégâts à une partie de l'armure ennemie. Si la partie est un **bras**, l'ennemi ne peut pas utiliser d'arme à une main pendant 1 tour. Si la partie est une **jambe**, réduit la Vitesse de 2 pendant 1 tour.",
-        "description": "La Phalange frappe avec une précision brutale, ciblant les faiblesses structurelles de l'ECA ennemi."
+        "effet": "Inflige 2D8 dégâts à une partie de l'armure ennemie. Si la partie est un **bras**, l'ennemi ne peut pas utiliser d'arme à une main pendant 1 tour.",
+        "description": "La Phalange frappe violemment son adversaire."
       },
       {
         "nom": "Bouclier Balistique",
         "niveau": 1,
         "type": "passive",
         "carac_requise": { "Force": 3 },
+        "bouclier": 4,
         "effet": "+4 à la défense contre les attaques frontales ciblant le **Torse**. Réduit la Vitesse de 1.",
         "description": "Le bouclier de la Phalange protège son torse, mais limite sa mobilité."
       },
@@ -32,6 +32,7 @@ export const competencesData = {
         "type": "active",
         "carac_requise": { "Force": 5 },
         "cout_energie": 3,
+        "degats": "3d6",
         "porte": "distance (courte)",
         "cible": ["Torse", "Bras Gauche", "Bras Droit"],
         "effet": "Tire une rafale de roquettes (3D6 dégâts, ignore 2 points de blindage) sur une partie de l'armure ennemie. Si la partie est le **Torse**, l'ennemi subit un **étourdissement** (jet de Force difficulté 4 pour éviter).",
@@ -41,6 +42,7 @@ export const competencesData = {
         "nom": "Résistance Surhumaine",
         "niveau": 3,
         "type": "passive",
+        "bouclier": 4,
         "carac_requise": { "Endurance": 4 },
         "effet": "Réduit tous les dégâts subis par l'**opérateur** de 1D4. Immunisé aux effets d'étourdissement.",
         "description": "L'opérateur encaisse les chocs comme si de rien n'était, même sous les attaques les plus violentes."
@@ -55,6 +57,8 @@ export const competencesData = {
         "carac_requise": { "Vitesse": 4 },
         "cout_energie": 1,
         "porte": "distance (longue)",
+        "degats": "3d6",
+        "attaque_bonus": 2,
         "cible": ["Tête", "Torse", "Bras Gauche", "Bras Droit"],
         "effet": "+2 au jet d'attaque. Si la cible est immobile, inflige 3D6 dégâts à une partie de l'armure (ignore 1 point de blindage). Si la partie est la **Tête**, l'ennemi subit un malus de -2 à son prochain jet d'attaque.",
         "description": "L'Aiguille vise une faille critique avec une précision mortelle."
@@ -95,6 +99,7 @@ export const competencesData = {
         "type": "active",
         "carac_requise": { "Vitesse": 4 },
         "cout_energie": 1,
+        "degats": "2d6",
         "porte": "mélée",
         "cible": ["Bras Gauche", "Bras Droit", "Jambe Gauche", "Jambe Droite"],
         "effet": "Inflige 2D6 dégâts à une partie de l'armure. Si la partie est une **jambe**, réduit la Vitesse de l'ennemi de 2 pendant 1 tour. Peut enchaîner avec une attaque sur une autre partie (coût +1 énergie).",
@@ -107,6 +112,7 @@ export const competencesData = {
         "carac_requise": { "Intelligence": 3 },
         "cout_energie": 2,
         "porte": "zone (2 cases)",
+        "degats": "2d6",
         "cible": ["Torse", "Jambe Gauche", "Jambe Droite"],
         "effet": "Pose une mine qui explose au passage d'un ennemi (2D6 dégâts, ignore 1 point de blindage). Si la partie est le **Torse**, l'ennemi est **étourdi** pour 1 tour.",
         "description": "Parfait pour contrôler les déplacements ennemis et semer le chaos."
@@ -197,7 +203,6 @@ export const competencesData = {
         "description": "L'Omni s'adapte à toutes les situations, empruntant les techniques des autres classes pour combler les faiblesses de son escouade."
       }
     ],
-
     "generiques": [
       {
         "nom": "Coup de Grâce",
