@@ -22,6 +22,7 @@ export function getInitialGameState() {
         combatState: null,
         sceneHistory: [],
         statusFlags: {},
+        competences: [],
         reputation: {
             CEL: 0,
             FEU: 0,
@@ -148,7 +149,7 @@ export function calculateLevelUp(xp, xpToNextLevel, level) {
     return { newXP, newLevel, newXPToNext, statPointsGained };
 }
 
-export function initializeGame(manteType, name, stats) {
+export function initializeGame(manteType, name, stats, competences = []) {
     if (Object.values(stats).reduce((s, v) => s + v, 0) !== POOL_TOTAL) {
         return null; // Invalid stats
     }
@@ -166,6 +167,7 @@ export function initializeGame(manteType, name, stats) {
         manteMaxHP: manteModel.maxHP,
         manteEnergy: manteModel.maxEnergy,
         manteMaxEnergy: manteModel.maxEnergy,
+        competences: competences || [],
         currentScene: 'ACT_1_OMEGA7_INTRO',
         log: [`[Départ] ${name} a choisi l'ECA Mante ${manteType}.`]
     };
