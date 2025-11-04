@@ -33,8 +33,8 @@ const useGameStore = create(
                     };
                 });
             },
-            startGame: (manteType, name, stats) => {
-                const newState = initializeGame(manteType, name, stats);
+            startGame: (manteType, name, stats, competences = []) => {
+                const newState = initializeGame(manteType, name, stats, competences);
                 if (!newState) {
                     alert('La distribution des points est incorrecte.');
                     return;
